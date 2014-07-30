@@ -6,10 +6,10 @@
 #' 
 #' @details coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
 #'
-#' @param LonMin Minimum longitude of bounding box
-#' @param LonMax Maximum longitude of bounding box
-#' @param LatMin Minimum latitude of bounding box
-#' @param LatMax Maximum latitude of bounding box
+#' @param BBlonMin Minimum latitude of bounding box
+#' @param BBlonMax Maximum latitude of bounding box
+#' @param BBlatMin Minimum longitude of bounding box
+#' @param BBlatMax Maximum longitude of bounding box
 #' 
 #' @param mdCol name of column to filter
 #' @param mdVal string to search in mdCol
@@ -20,10 +20,10 @@
 #'
 #' @examples
 #' x <- getStationSummary() # this returns all the stations in the network
-#' x <- getStationSummary(LonMin=-1, LonMax=1, LatMin=49, LatMax=51) # this returns 31 stations
+#' x <- getStationSummary(BBlonMin=-1, BBlonMax=1, BBlatMin=49, BBlatMax=51) # this returns 31 stations
 #' 
 
-getStationSummary <- function(LonMin=-10, LonMax=10, LatMin=48, LatMax=62,
+getStationSummary <- function(BBlonMin=-10, BBlonMax=10, BBlatMin=48, BBlatMax=62,
                               mdCol = NULL, mdVal = NULL, minRec=NULL) {
   
   #require(rjson)
@@ -33,7 +33,7 @@ getStationSummary <- function(LonMin=-10, LonMax=10, LatMin=48, LatMax=62,
   ### FILTER BASED ON BOUNDING BOX ###
   
   url <- paste("http://www.ceh.ac.uk/nrfa/json/stationSummary?db=nrfa_public&stn=llbb%3A",
-               LatMax,"%2C",LonMin,"%2C",LatMin,"%2C",LonMax, sep="")
+               BBlatMax,"%2C",BBlonMin,"%2C",BBlatMin,"%2C",BBlonMax, sep="")
   
   StationSummary <- fromJSON(file=url)
   if (length(as.list(StationSummary))==0){
