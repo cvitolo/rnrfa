@@ -39,30 +39,30 @@ The same function getStationSummary() can be used to filter stations based on a 
 
 ```R
 # Filter stations based on bounding box
-someStations <- getStationSummary(LonMin=-3.82, 
-                                  LonMax=-3.63, 
-                                  LatMin=52.43, 
-                                  LatMax=52.52)
+someStations <- getStationSummary(BBlonMin=-3.82, 
+                                  BBlonMax=-3.63, 
+                                  BBlatMin=52.43, 
+                                  BBlatMax=52.52)
                                   
 # Filter stations belonging to a certain hydrometric area
 someStations <- getStationSummary(metadataColumn="haName",
                                   entryValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
-someStations <- getStationSummary(LonMin=-3.82, LonMax=-3.63, 
-                                  LatMin=52.43, LatMax=52.52,
+someStations <- getStationSummary(BBlonMin=-3.82, BBlonMax=-3.63, 
+                                  BBlatMin=52.43, BBlatMax=52.52,
                                   metadataColumn="haName",
                                   entryValue="Wye (Hereford)")
 
 # Filter stations based on threshold
-someStations <- getStationSummary(LonMin=-3.82, LonMax=-3.63, 
-                                  LatMin=52.43, LatMax=52.52,
+someStations <- getStationSummary(BBlonMin=-3.82, BBlonMax=-3.63, 
+                                  BBlatMin=52.43, BBlatMax=52.52,
                                   metadataColumn="catchmentArea",
                                   entryValue=">1")
 
 # Filter based on minimum reconding years
-someStations <- getStationSummary(LonMin=-3.82, LonMax=-3.63, 
-                                  LatMin=52.43, LatMax=52.52,
+someStations <- getStationSummary(BBlonMin=-3.82, BBlonMax=-3.63, 
+                                  BBlatMin=52.43, BBlatMax=52.52,
                                   metadataColumn="catchmentArea",
                                   entryValue=">1",
                                   minRec=30)
@@ -94,10 +94,10 @@ An interactive map of selected stations can be generated with the following comm
 
 ```R
 # Generate a map to show the location of selected stations
-myStations <- getStationSummary(LonMin = 0.5,
-                                LonMax = 1.0, 
-                                LatMin = 50, 
-                                LatMax = 51)
+myStations <- getStationSummary(BBlonMin = 0.5,
+                                BBlonMax = 1.0, 
+                                BBlatMin = 50, 
+                                BBlatMax = 51)
 
 generateMap( myStations )
 ```
