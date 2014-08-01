@@ -8,17 +8,43 @@
 #'
 #' @return vector made of two elements: the easting and northing coordinates. 
 #' 
+#' @export
+#' 
 #' @references This function is based on the following post: http://stackoverflow.com/questions/23017053/how-to-convert-uk-grid-reference-to-latitude-and-longitude-in-r/23023744?noredirect=1#23023744
 #'
 #' @examples
 #' # single entry
-#' osgparse("TQ722213")
+#' OSGParse("TQ722213")
 #' 
 #' # multiple entries
-#' osgparse(c("SN831869","SN829838","SN824853","SN824842","SN826854"))
+#' OSGParse(c("SN831869","SN829838","SN824853","SN824842","SN826854"))
 #' 
 
-osgparse1 <- function(gridRef) {
+OSGParse <- function(gridRef) {
+  
+  if ( length(gridRef) > 1 ) {
+    
+    x <- unlist(gridRef)
+    df <- data.frame(matrix(NA,ncol=2,nrow=length(x))) 
+    names(df) <- c("Easting","Northing")
+    
+    for (i in 1:length(x)){
+      df[i,"Easting"] <- OSGParse1(x[i])[1]
+      df[i,"Northing"] <- OSGParse1(x[i])[2]
+    }    
+    
+  }else{
+    df <- data.frame(matrix(NA,ncol=2,nrow=1))
+    names(df) <- c("Easting","Northing")
+    df[1,"Easting"] <- OSGParse1(gridRef)[1]
+    df[1,"Northing"] <- OSGParse1(gridRef)[2]
+  }
+  
+  return(df)
+  
+}
+
+OSGParse1 <- function(gridRef) {
   
   gridRef <- toupper(gridRef)
   
@@ -57,29 +83,5 @@ osgparse1 <- function(gridRef) {
   n <- as.numeric(paste(n, "0", rep("0", nrep), sep="", collapse=""))
   
   return(c(e,n))
-  
-}
-
-osgparse <- function(gridRef) {
-  
-  if ( length(gridRef) > 1 ) {
-    
-    x <- unlist(gridRef)
-    df <- data.frame(matrix(NA,ncol=2,nrow=length(x))) 
-    names(df) <- c("Easting","Northing")
-    
-    for (i in 1:length(x)){
-      df[i,"Easting"] <- osgparse1(x[i])[1]
-      df[i,"Northing"] <- osgparse1(x[i])[2]
-    }    
-    
-  }else{
-    df <- data.frame(matrix(NA,ncol=2,nrow=1))
-    names(df) <- c("Easting","Northing")
-    df[1,"Easting"] <- osgparse1(gridRef)[1]
-    df[1,"Northing"] <- osgparse1(gridRef)[2]
-  }
-  
-  return(df)
   
 }

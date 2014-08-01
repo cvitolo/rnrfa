@@ -1,13 +1,13 @@
-\name{StationSummary}
-\alias{StationSummary}
+\name{stationSummary}
+\alias{stationSummary}
 \docType{data}
 \title{
-StationSummary
+stationSummary
 }
 \description{
 table containing details for 1537 stations.
 }
-\usage{data(StationSummary)}
+\usage{data(stationSummary)}
 \format{
   A data frame with 1537 observations on the following 20 variables.
   \describe{
@@ -40,6 +40,6 @@ This is the full set of river station that can be retrieved using UK NRFA APIs.
 http://www.ceh.ac.uk/data/nrfa/
 }
 \examples{
-data(StationSummary)
+data(stationSummary)
 }
 \keyword{datasets}

@@ -7,12 +7,14 @@
 #' @param stnID Station ID number, it should be in the range [3002,236051]. See table containing the most uptodate list (load(GDFtable))
 #'
 #' @return time series of class zoo
+#' 
+#' @export
 #'
 #' @examples
-#' searchNRFA(3002)
+#' SearchNRFA(3002)
 #'
 
-searchNRFA <- function(stnID){
+SearchNRFA <- function(stnID){
   
   #require(RCurl)
   #require(XML2R)
@@ -35,9 +37,9 @@ searchNRFA <- function(stnID){
     nodes <- docsToNodes(doc,xpath="/")
     myList <- nodesToList(nodes)
     
-    myMetadata <- findInfo(myList)
+    myMetadata <- FindInfo(myList)
 
-    myTS <- findTS(myList)
+    myTS <- FindTS(myList)
     
   }else{
     

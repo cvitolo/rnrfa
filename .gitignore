@@ -10,4 +10,6 @@
 
 # Others
 .Rbuildignore
-rnrfa.Rproj
+rnrfa/rnrfa.Rproj
+*.pdf
+*~

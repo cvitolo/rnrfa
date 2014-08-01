@@ -10,12 +10,14 @@
 #' @param dtf this is a data.frame
 #'
 #' @return JSON array in a format compatible with D3.js and Protovis
+#' 
+#' @export
 #'
 #' @examples
-#' # toJSONarray(dtf)
+#' # ToJSONarray(dtf)
 #'
 
-toJSONarray <- function(dtf){
+ToJSONarray <- function(dtf){
   
   clnms <- colnames(dtf)
   

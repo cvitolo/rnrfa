@@ -9,7 +9,7 @@
 #' @return time series of class zoo
 #'
 
-findTS <- function(myList){
+FindTS <- function(myList){
   
   #require(zoo)
   #require(stringr)

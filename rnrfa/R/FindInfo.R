@@ -9,7 +9,7 @@
 #' @return named vector containing the following information: stationName, Latitude, Longitude, typeOfMeasurement
 #'
 
-findInfo <- function(myList){
+FindInfo <- function(myList){
   
   #require(stringr)
   
