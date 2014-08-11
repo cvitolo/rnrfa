@@ -20,8 +20,9 @@ Imports:
     rjson,
     rgdal,
     sp,
-    rCharts,
     stringr
+Suggests:
+    rCharts
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes

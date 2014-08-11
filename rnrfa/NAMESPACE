@@ -5,7 +5,6 @@ import(zoo)
 import(rjson)
 import(sp)
 import(rgdal)
-import(rCharts)
 
 importFrom("utils", "packageDescription")
 

@@ -17,7 +17,7 @@
 
 GenerateMap <- function(selectedStationSummary){
   
-  #require(rCharts)
+  library(rCharts)
   #require(zoo)
   
   if (dim(selectedStationSummary)[1] > 1481) {

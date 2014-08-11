@@ -128,7 +128,7 @@ Once stations information is fetched, metadata is returned as follows:
 
 ```R
 # extract only important info 
-s$Metadata
+s$wmlInfo
 ```
 
 The time series can be plotted as shown below.
@@ -137,7 +137,7 @@ The time series can be plotted as shown below.
 # Extract last year of recordings from timeseries data
 library(zoo)
 library(ggplot2)
-ts <- s$TS[16490:16855] 
+ts <- s$wmlTS[16490:16855] 
 myTS <- data.frame("Date"=index(ts),
                    "Value"=coredata(ts) )
  
@@ -145,7 +145,7 @@ myTS <- data.frame("Date"=index(ts),
 ggplot(myTS, aes(Date, Value)) + 
        geom_line(size=0.2) + 
        xlab("") + ylab("Daily discharge [m3/s]") +
-       ggtitle(paste(s$Metadata$stationName,
+       ggtitle(paste(s$wmlInfo$stationName,
                      " (Station ID: ",stationID,")\n",
                      sep=""))
 ```
