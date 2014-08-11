@@ -3,8 +3,8 @@ Type: Package
 Title: UK National River Flow Archive data from R
 Version: 0.1.0
 Date: 2014-04-26
-Author: Claudia Vitolo <claudia.vitolo@gmail.com>, Matthew Fry <mfry@ceh.ac.uk>
-Maintainer: Claudia Vitolo <claudia.vitolo@gmail.com>
+Author: Claudia Vitolo <cvitolodev@gmail.com>, Matthew Fry <mfry@ceh.ac.uk>
+Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 Description: Utility functions to retrieve data from the UK National River Flow
     Archive. The package contains R wrappers to the UK NRFA data APIs
     (http://www.ceh.ac.uk/data/nrfa/). There are functions to retrieve stations
