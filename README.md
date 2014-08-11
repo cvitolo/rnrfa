@@ -150,5 +150,10 @@ ggplot(myTS, aes(Date, Value)) +
                      sep=""))
 ```
 
+### Terms and Conditions
+Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: http://www.ceh.ac.uk/data/nrfa/data/data_terms.html 
+
+This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
+
 # Leave your feedback
 I would greatly appreciate if you could leave your feedbacks either via email (cvitolodev@gmail.com) or taking a short survey (https://www.surveymonkey.com/s/GTGH8RX).

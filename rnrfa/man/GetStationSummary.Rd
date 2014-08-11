@@ -4,7 +4,7 @@
 \title{List of stations from UK NRFA}
 \usage{
 GetStationSummary(lonMin = -10, lonMax = 10, latMin = 48, latMax = 62,
-  mdCol = NULL, mdVal = NULL, minRec = NULL)
+  metadataColumn = NULL, entryValue = NULL, minRec = NULL)
 }
 \arguments{
 \item{lonMin}{Minimum latitude of bounding box}
@@ -15,9 +15,9 @@ GetStationSummary(lonMin = -10, lonMax = 10, latMin = 48, latMax = 62,
 
 \item{latMax}{Maximum longitude of bounding box}
 
-\item{mdCol}{name of column to filter}
+\item{metadataColumn}{name of column to filter}
 
-\item{mdVal}{string to search in mdCol}
+\item{entryValue}{string to search in metadataColumn#'}
 
 \item{minRec}{minimum number of recording years}
 }

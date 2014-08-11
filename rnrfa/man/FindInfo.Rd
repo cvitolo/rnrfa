@@ -9,7 +9,7 @@ FindInfo(myList)
 \item{myList}{this is a nested list which comes from the conversion of waterml2 data}
 }
 \value{
-named vector containing the following information: stationName, Latitude, Longitude, typeOfMeasurement
+named vector containing the following information: stationName, Latitude, Longitude, typeOfMeasurement, timeZone, remarks
 }
 \description{
 This function retrieves the most important info from the waterml2 file given as a list.

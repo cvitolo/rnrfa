@@ -3,10 +3,10 @@
 \alias{SearchNRFA}
 \title{This function retrieves time series of gauged daily flow from the NRFA database.}
 \usage{
-SearchNRFA(stnID)
+SearchNRFA(stationID)
 }
 \arguments{
-\item{stnID}{Station ID number, it should be in the range [3002,236051]. See table containing the most uptodate list (load(GDFtable))}
+\item{stationID}{Station ID number, it should be in the range [3002,236051].}
 }
 \value{
 time series of class zoo

@@ -4,7 +4,7 @@
 #'
 #' @description Given the station ID number, this function retrieves the time series in zoo format. 
 #'
-#' @param stnID Station ID number, it should be in the range [3002,236051]. See table containing the most uptodate list (load(GDFtable))
+#' @param stationID Station ID number, it should be in the range [3002,236051]. 
 #'
 #' @return time series of class zoo
 #' 
@@ -14,7 +14,7 @@
 #' SearchNRFA(3002)
 #'
 
-SearchNRFA <- function(stnID){
+SearchNRFA <- function(stationID){
   
   #require(RCurl)
   #require(XML2R)
@@ -29,7 +29,7 @@ SearchNRFA <- function(stnID){
   # get an example waterml file from ceda website:
   # url <- "http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=92001&dt=gdf"
   
-  url <- paste("http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=",stnID,"&dt=gdf",sep="")
+  url <- paste("http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=",stationID,"&dt=gdf",sep="")
   
   if ( url.exists(url)==TRUE ){
     
@@ -47,8 +47,7 @@ SearchNRFA <- function(stnID){
     
   }
     
-  return( list("Metadata"=myMetadata,
-               "TS"=myTS,
-               "fullList"=myList) )
+  return( list("wmlInfo"=myMetadata,
+               "wmlTS"=myTS) )
   
 }

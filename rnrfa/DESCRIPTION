@@ -11,16 +11,17 @@ Description: Utility functions to retrieve data from the UK National River Flow
     falling in a bounding box, to generate a map and extracting time series and
     general information. It also contain the dataset \code{StationSummary}.
 Depends:
-    R (>= 3.0.2)
+    R (>= 3.0.2),
+    utils
 Imports:
     XML2R,
     RCurl,
-    stringr,
     zoo,
     rjson,
     rgdal,
     sp,
-    rCharts
+    rCharts,
+    stringr
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes

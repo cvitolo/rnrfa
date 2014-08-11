@@ -6,7 +6,7 @@
 #'
 #' @param myList this is a nested list which comes from the conversion of waterml2 data
 #'
-#' @return named vector containing the following information: stationName, Latitude, Longitude, typeOfMeasurement
+#' @return named vector containing the following information: stationName, Latitude, Longitude, typeOfMeasurement, timeZone, remarks
 #'
 
 FindInfo <- function(myList){
@@ -22,7 +22,13 @@ FindInfo <- function(myList){
   Latitude <- as.numeric(str_split(temp, " ")[[1]][1])  
   Longitude <- as.numeric(str_split(temp, " ")[[1]][2])  
   
-  info <- data.frame(cbind(stationName,Latitude,Longitude,typeOfMeasurement))    
+  timeZone <- myList[[1]][[1]]$Collection$samplingFeatureMember$MonitoringPoint$timeZone
+  
+  remarks <- myList[[1]][[1]]$Collection$localDictionary$Dictionary[3]$dictionaryEntry$Definition$remarks
+  
+  myList[[1]][[1]]$Collection$observationMember$OM_Observation
+  
+  info <- data.frame(cbind(stationName,Latitude,Longitude,typeOfMeasurement, timeZone, remarks))    
     
   return(info)
   
