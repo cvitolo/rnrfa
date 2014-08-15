@@ -107,7 +107,7 @@ OSG2LatLon(OSGParse("SN853872"))
 OSG2LatLon(OSGParse(c("SN831869","SN829838","SN824853","SN824842","SN826854")))
 ```
 
-## Interactive map and station details
+## Interactive map and station details (only available for github version)
 An interactive map of selected stations can be generated with the following commands:
 
 ```R
