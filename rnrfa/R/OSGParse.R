@@ -76,9 +76,6 @@ OSGParse1 <- function(gridRef) {
   
   nrep <- 5 - match(ref.len, c(0,2,4,6,8))
   
-  #e <- as.numeric(paste(e, "5", rep("0", nrep), sep="", collapse=""))
-  #n <- as.numeric(paste(n, "5", rep("0", nrep), sep="", collapse=""))
-  
   e <- as.numeric(paste(e, "0", rep("0", nrep), sep="", collapse=""))
   n <- as.numeric(paste(n, "0", rep("0", nrep), sep="", collapse=""))
   

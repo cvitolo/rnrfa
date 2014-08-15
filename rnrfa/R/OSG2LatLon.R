@@ -25,8 +25,6 @@
 
 OSG2LatLon <- function(en) {
   
-  # en <- c(572200,121300)
-  # en <- OSGParse(c("SN831869","SN829838","SN824853","SN824842","SN826854"))
   enTemp <- as.numeric(unlist(en))
   
   if ( length(enTemp) > 2 ) {

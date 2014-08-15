@@ -13,7 +13,6 @@ FindInfo <- function(myList){
   
   #require(stringr)
   
-  #temp <- myList[[1]][[1]]$Collection$samplingFeatureMember$MonitoringPoint$name$text
   stationName <- myList[[1]][[1]]$Collection$observationMember$OM_Observation$featureOfInterest[[2]]
   
   typeOfMeasurement <- myList[[1]][[1]]$Collection$localDictionary$Dictionary$dictionaryEntry$Definition$remarks
@@ -25,9 +24,7 @@ FindInfo <- function(myList){
   timeZone <- myList[[1]][[1]]$Collection$samplingFeatureMember$MonitoringPoint$timeZone
   
   remarks <- myList[[1]][[1]]$Collection$localDictionary$Dictionary[3]$dictionaryEntry$Definition$remarks
-  
-  # myList[[1]][[1]]$Collection$observationMember$OM_Observation
-  
+    
   info <- data.frame(cbind(stationName,Latitude,Longitude,typeOfMeasurement, timeZone, remarks))    
     
   return(info)

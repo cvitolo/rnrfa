@@ -15,7 +15,7 @@ time series of class zoo
 Given the station ID number, this function retrieves the time series in zoo format.
 }
 \examples{
-SearchNRFA(3002)
+SearchNRFA(3001)
 }
 \author{
 Claudia Vitolo
