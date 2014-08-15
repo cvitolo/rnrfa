@@ -10,7 +10,13 @@ The information returned by the first three services is in JSON format, while th
 The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 ### Basics
-The package rnrfa can be installed via devtools:
+The stable version (preferred option) of rnrfa is available from CRAN (http://www.cran.r-project.org/web/packages/rnrfa/index.html):
+
+```R
+install.packages("rnrfa")
+```
+
+The development version is, instead, on github and can be installed via devtools:
 
 ```R
 library(devtools)
