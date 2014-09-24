@@ -2,42 +2,59 @@
 #'
 #' @author Claudia Vitolo
 #'
-#' @description Given the station ID number, this function retrieves the time series in zoo format. 
+#' @description Given the station ID number(s), this function retrieves data (time series in zoo format) and metadata. 
 #'
-#' @param stationID Station ID number, it should be in the range [3002,236051]. 
+#' @param ID station ID number(s), each number should be in the range [3002,236051]. 
 #'
-#' @return time series of class zoo
+#' @return list composed of as many objects as in the list of station ID numbers. Each object can be accessed as x[[1]], x[[2]], and so forth. Each object contains a list of other two objects: data and metadata. 
 #' 
 #' @export
 #'
 #' @examples
+#' # One station
 #' SearchNRFA(3001)
+#' # Multiple stations
+#' # SearchNRFA(c(3001,3002,3003)); plot(x[[1]]$data)
 #'
 
-SearchNRFA <- function(stationID){
+SearchNRFA <- function(ID){
   
   #require(RCurl)
   #require(XML2R)
   
-  url <- paste("http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=",stationID,"&dt=gdf",sep="")
+  options(warn=-1) # do not print warnings
   
-  if ( url.exists(url)==TRUE ){
+  wml <- list()
+  
+  counter <- 0
+  
+  for (stationID in ID){
     
-    doc <- urlsToDocs(url)
-    nodes <- docsToNodes(doc,xpath="/")
-    myList <- nodesToList(nodes)
+    counter <- counter + 1
     
-    myMetadata <- FindInfo(myList)
-
-    myTS <- FindTS(myList)
+    url <- paste("http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=",stationID,"&dt=gdf",sep="")
     
-  }else{
-    
-    message("For this station there is not available online dataset in waterml format")
+    if ( url.exists(url)==TRUE ){
+      
+      doc <- urlsToDocs(url)
+      nodes <- docsToNodes(doc,xpath="/")
+      myList <- nodesToList(nodes)
+      
+      metadata <- FindInfo(myList)      
+      data <- FindTS(myList)
+      
+      stationInfo <- list("metadata"=metadata, "data"=data)
+      
+      wml[[counter]] <- stationInfo
+      
+    }else{
+      
+      message(paste("For station", stationID,"there is no available online dataset in waterml format"))
+      
+    } 
     
   }
     
-  return( list("wmlInfo"=myMetadata,
-               "wmlTS"=myTS) )
+  return( wml )
   
 }

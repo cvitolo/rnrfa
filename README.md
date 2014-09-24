@@ -130,11 +130,18 @@ stationID <- 54022
 s <- SearchNRFA(stationID)
 ```
 
-Once stations information is fetched, metadata is returned as follows:
+The same function accepts multiple id numbers
+
+```R 
+# Search data/metadata in the waterml2 service
+s <- SearchNRFA(c(3001,3002,3003))
+```
+
+Once stations information are fetched, metadata is returned as follows:
 
 ```R
-# extract only important info 
-s$wmlInfo
+# extract only important info for the first station
+s[[1]]$metadata
 ```
 
 The time series can be plotted as shown below.
@@ -142,18 +149,8 @@ The time series can be plotted as shown below.
 ```R
 # Extract last year of recordings from timeseries data
 library(zoo)
-library(ggplot2)
-ts <- s$wmlTS[16490:16855] 
-myTS <- data.frame("Date"=index(ts),
-                   "Value"=coredata(ts) )
- 
-# plot the time series
-ggplot(myTS, aes(Date, Value)) + 
-       geom_line(size=0.2) + 
-       xlab("") + ylab("Daily discharge [m3/s]") +
-       ggtitle(paste(s$wmlInfo$stationName,
-                     " (Station ID: ",stationID,")\n",
-                     sep=""))
+ts <- s[[1]]$data
+plot(ts,main=as.character(s[[1]]$metadata$stationName))
 ```
 
 ### Terms and Conditions
