@@ -25,5 +25,4 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes
 URL: http://cvitolo.github.io/r_rnrfa/
-Additional_repositories: https://github.com/ramnathv/rCharts
 NeedsCompilation: no
