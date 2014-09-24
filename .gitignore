@@ -8,8 +8,11 @@
 .Rdata
 .Rproj.user
 
+# tar files
+*.tar.gz
+
 # Others
 .Rbuildignore
-rnrfa/rnrfa.Rproj
+*.Rproj
 *.pdf
 *~

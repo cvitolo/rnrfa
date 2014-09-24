@@ -24,6 +24,11 @@ install_github("r_rnrfa", username = "cvitolo", subdir = "rnrfa")
 library(rnrfa)
 ```
 
+Source additional function GenerateMap:
+```R
+source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
+```
+
 # Functions
 
 ## List of monitoring stations

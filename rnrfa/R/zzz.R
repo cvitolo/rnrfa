@@ -19,8 +19,8 @@
   # RNRFA info - do not exceed 80char/line
   packageStartupMessage("
 +----------------------------------------------------------------+
-|  Please refer to the following Terms and Conditions for use    |
-|  of NRFA Data and disclaimer:                                  |
+|  If you wish to use NRFA Data, please refer to the following   |
+|  Terms & Conditions and disclaimer:                            |
 |  http://www.ceh.ac.uk/data/nrfa/data/data_terms.html           |
 +----------------------------------------------------------------+
 

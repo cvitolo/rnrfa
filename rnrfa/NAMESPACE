@@ -8,7 +8,6 @@ import(rgdal)
 
 importFrom("utils", "packageDescription")
 
-export(GenerateMap)
 export(GetStationSummary)
 export(OSG2LatLon)
 export(OSGParse)
