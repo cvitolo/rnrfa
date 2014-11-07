@@ -24,7 +24,7 @@ install_github("r_rnrfa", username = "cvitolo", subdir = "rnrfa")
 library(rnrfa)
 ```
 
-Source additional function GenerateMap:
+Source the additional function GenerateMap():
 ```R
 source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
 ```
@@ -86,30 +86,37 @@ someStations <- GetStationSummary(lonMin=-3.82, lonMax=-3.63,
                                   metadataColumn="catchmentArea",
                                   entryValue=">1",
                                   minRec=30)
+                                  
+# Filter stations based on identification number
+someStations <- GetStationSummary(metadataColumn="id",
+                                  entryValue=c(3001,3002,3003))
 ```
 
 ## Conversions
 The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
 
 ```R
+# Where is the first catchment located?
+someStations$gridReference[[1]]
+
 # Convert OS Grid reference to BNG
-OSGParse("SN853872")
+OSGParse("NC581062")
 ```
 
 The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.
 
 ```R
 # Convert BNG to WSGS84
-OSG2LatLon(c(285300,287200))
+OSG2LatLon(c(258100,906200))
 ```
 
 Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. 
 ```R
 # Convert OS Grid reference to WGS84 
-OSG2LatLon(OSGParse("SN853872"))
+OSG2LatLon(OSGParse("NC581062"))
 
 # multiple entries 
-OSG2LatLon(OSGParse(c("SN831869","SN829838","SN824853","SN824842","SN826854")))
+OSG2LatLon(OSGParse(someStations$gridReference))
 ```
 
 ## Interactive map and station details (only available for github version)
@@ -117,45 +124,47 @@ An interactive map of selected stations can be generated with the following comm
 
 ```R
 # Generate a map to show the location of selected stations
-myStations <- GetStationSummary(lonMin = 0.5,
-                                lonMax = 1.0, 
-                                latMin = 50, 
-                                latMax = 51)
-
-GenerateMap( myStations )
+GenerateMap( someStations )
 ```
 
 The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.
 
 ```R
 # Choose a station by its id number
-stationID <- 54022
+stationID <- someStations$id[[1]] # 3001
  
 # Search data/metadata in the waterml2 service
 s <- SearchNRFA(stationID)
+
+# Once station information is fetched, metadata is returned as follows:
+s$metadata
+# while data is returned as zoo object
+ts <- s$data
 ```
 
-The same function accepts multiple id numbers
+The time series can be plotted as shown below.
+
+```R
+# Plot streamflow timeseries data
+library(zoo)
+plot(ts,main=as.character(s$metadata$stationName))
+```
+
+## Multiple sites
+Retrieving informtion for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
 s <- SearchNRFA(c(3001,3002,3003))
 ```
 
-Once stations information are fetched, metadata is returned as follows:
-
 ```R
 # extract only important info for the first station
-s[[1]]$metadata
-```
+secondSite <- s[[2]]
+thirdSite <- s[[3]]
 
-The time series can be plotted as shown below.
-
-```R
-# Extract last year of recordings from timeseries data
-library(zoo)
-ts <- s[[1]]$data
-plot(ts,main=as.character(s[[1]]$metadata$stationName))
+plot(secondSite$data,col="red")
+lines(thirdSite$data,col="green")
 ```
 
 ### Terms and Conditions
