@@ -20,7 +20,7 @@ The development version is, instead, on github and can be installed via devtools
 
 ```R
 library(devtools)
-install_github("r_rnrfa", username = "cvitolo", subdir = "rnrfa")
+install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
 library(rnrfa)
 ```
 
