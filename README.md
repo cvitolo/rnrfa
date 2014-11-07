@@ -119,7 +119,8 @@ OSG2LatLon(OSGParse("NC581062"))
 OSG2LatLon(OSGParse(someStations$gridReference))
 ```
 
-## Interactive map and station details (only available for github version)
+## Interactive map and station details 
+### (only available for github version)
 An interactive map of selected stations can be generated with the following commands:
 
 ```R
