@@ -151,7 +151,7 @@ plot(ts,main=as.character(s$metadata$stationName))
 ```
 
 ## Multiple sites
-Retrieving informtion for multiple sites becomes trivial:
+Retrieving information for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
