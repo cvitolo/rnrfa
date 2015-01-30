@@ -1,6 +1,8 @@
 RNRFA: an R package to interact with the UK National River Flow Archive
 =======
 
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14722.svg)](http://dx.doi.org/10.5281/zenodo.14722)
+
 The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.
 
 There is currently an API under development that in future should provide access to the following services: metadata catalogue, catalogue filters based on a geographical bounding-box, catalogue filters based on metadata entries, gauged daily data for about 400 stations available in WaterML2 format, the OGC standard used to describe hydrological time series.  
@@ -8,6 +10,9 @@ There is currently an API under development that in future should provide access
 The information returned by the first three services is in JSON format, while the last one is an XML variant.
 
 The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
+
+**To cite this software:**  
+C. Vitolo and M. Fry, R for the National River Flow Archive (rnrfa, R package), (2015), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
 ### Basics
 The stable version (preferred option) of rnrfa is available from CRAN (http://www.cran.r-project.org/web/packages/rnrfa/index.html):
