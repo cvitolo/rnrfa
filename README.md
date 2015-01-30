@@ -37,7 +37,7 @@ source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
 # Functions
 
 ## List of monitoring stations
-The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called GetStationSummary(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
+The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFACatalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
 
 Those entries are briefly described as follows:
 * "id" = Station identification number
@@ -60,40 +60,40 @@ Those entries are briefly described as follows:
 * "sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.
 
 ## Station filtering
-The same function GetStationSummary() can be used to filter stations based on a bounding box or any of the metadata entries. 
+The same function NRFACatalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
 ```R
 # Filter stations based on bounding box
-someStations <- GetStationSummary(lonMin=-3.82, 
+someStations <- NRFACatalogue(lonMin=-3.82, 
                                   lonMax=-3.63, 
                                   latMin=52.43, 
                                   latMax=52.52)
                                   
 # Filter stations belonging to a certain hydrometric area
-someStations <- GetStationSummary(metadataColumn="haName",
+someStations <- NRFACatalogue(metadataColumn="haName",
                                   entryValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
-someStations <- GetStationSummary(lonMin=-3.82, lonMax=-3.63, 
+someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
                                   latMin=52.43, latMax=52.52,
                                   metadataColumn="haName",
                                   entryValue="Wye (Hereford)")
 
 # Filter stations based on threshold
-someStations <- GetStationSummary(lonMin=-3.82, lonMax=-3.63, 
+someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
                                   latMin=52.43, latMax=52.52,
                                   metadataColumn="catchmentArea",
                                   entryValue=">1")
 
 # Filter based on minimum reconding years
-someStations <- GetStationSummary(lonMin=-3.82, lonMax=-3.63, 
+someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
                                   latMin=52.43, latMax=52.52,
                                   metadataColumn="catchmentArea",
                                   entryValue=">1",
                                   minRec=30)
                                   
 # Filter stations based on identification number
-someStations <- GetStationSummary(metadataColumn="id",
+someStations <- NRFACatalogue(metadataColumn="id",
                                   entryValue=c(3001,3002,3003))
 ```
 
