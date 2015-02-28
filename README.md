@@ -12,7 +12,7 @@ The information returned by the first three services is in JSON format, while th
 The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 **To cite this software:**  
-C. Vitolo and M. Fry, R for the National River Flow Archive (rnrfa, R package), (2015), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
+Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2015), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
 ### Basics
 The stable version (preferred option) of rnrfa is available from CRAN (http://www.cran.r-project.org/web/packages/rnrfa/index.html):
@@ -37,7 +37,7 @@ source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
 # Functions
 
 ## List of monitoring stations
-The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFACatalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
+The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
 
 Those entries are briefly described as follows:
 * "id" = Station identification number
@@ -46,8 +46,8 @@ Those entries are briefly described as follows:
 * "river" = River catchment
 * "stationDescription" = General station description, containing information on weirs, ratings, etc.
 * "catchmentDescription" = Information on topography, geology, land cover, etc.
-* "hydrometricArea" = UK hydrometric area identification number, see figure \ref{fig:hydrometricAreas}
-* "operator" = UK measuring authorities, see figure \ref{fig:operators}
+* "hydrometricArea" = UK hydrometric area identification number
+* "operator" = UK measuring authorities
 * "haName" = Hydrometric Area name
 * "gridReference" = OS Grid Reference number
 * "stationType" = Type of station (e.g. flume, weir, etc.)
@@ -60,41 +60,41 @@ Those entries are briefly described as follows:
 * "sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.
 
 ## Station filtering
-The same function NRFACatalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
+The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
 ```R
 # Filter stations based on bounding box
-someStations <- NRFACatalogue(lonMin=-3.82, 
-                                  lonMax=-3.63, 
-                                  latMin=52.43, 
-                                  latMax=52.52)
+someStations <- NRFA_Catalogue(lonMin=-3.82, 
+                               lonMax=-3.63, 
+                               latMin=52.43, 
+                               latMax=52.52)
                                   
 # Filter stations belonging to a certain hydrometric area
-someStations <- NRFACatalogue(metadataColumn="haName",
-                                  entryValue="Wye (Hereford)")
+someStations <- NRFA_Catalogue(metadataColumn="haName",
+                              entryValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
-someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
-                                  latMin=52.43, latMax=52.52,
-                                  metadataColumn="haName",
-                                  entryValue="Wye (Hereford)")
+someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
+                               latMin=52.43, latMax=52.52,
+                               metadataColumn="haName",
+                               entryValue="Wye (Hereford)")
 
 # Filter stations based on threshold
-someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
-                                  latMin=52.43, latMax=52.52,
-                                  metadataColumn="catchmentArea",
-                                  entryValue=">1")
+someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
+                               latMin=52.43, latMax=52.52,
+                               metadataColumn="catchmentArea",
+                               entryValue=">1")
 
 # Filter based on minimum reconding years
-someStations <- NRFACatalogue(lonMin=-3.82, lonMax=-3.63, 
-                                  latMin=52.43, latMax=52.52,
-                                  metadataColumn="catchmentArea",
-                                  entryValue=">1",
-                                  minRec=30)
+someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
+                               latMin=52.43, latMax=52.52,
+                               metadataColumn="catchmentArea",
+                               entryValue=">1",
+                               minRec=30)
                                   
 # Filter stations based on identification number
-someStations <- NRFACatalogue(metadataColumn="id",
-                                  entryValue=c(3001,3002,3003))
+someStations <- NRFA_Catalogue(metadataColumn="id",
+                               entryValue=c(3001,3002,3003))
 ```
 
 ## Conversions
@@ -140,7 +140,7 @@ The generated map contains interactive markers. When users click on one of them,
 stationID <- someStations$id[[1]] # 3001
  
 # Search data/metadata in the waterml2 service
-s <- SearchNRFA(stationID)
+s <- NRFA_TS(stationID)
 
 # Once station information is fetched, metadata is returned as follows:
 s$metadata
@@ -161,7 +161,7 @@ Retrieving information for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
-s <- SearchNRFA(c(3001,3002,3003))
+s <- NRFA_TS(c(3001,3002,3003))
 ```
 
 ```R
