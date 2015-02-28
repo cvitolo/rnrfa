@@ -12,7 +12,7 @@ The information returned by the first three services is in JSON format, while th
 The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 **To cite this software:**  
-Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2015), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
+Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
 ### Basics
 The stable version (preferred option) of rnrfa is available from CRAN (http://www.cran.r-project.org/web/packages/rnrfa/index.html):
