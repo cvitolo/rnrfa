@@ -12,12 +12,12 @@
 #'
 #' @examples
 #' # One station
-#' SearchNRFA(3001)
+#' NRFA_TS(3001)
 #' # Multiple stations
-#' # SearchNRFA(c(3001,3002,3003)); plot(x[[1]]$data)
+#' # NRFA_TS(c(3001,3002,3003)); plot(x[[1]]$data)
 #'
 
-SearchNRFA <- function(ID){
+NRFA_TS <- function(ID){
 
   #require(RCurl)
   #require(XML2R)

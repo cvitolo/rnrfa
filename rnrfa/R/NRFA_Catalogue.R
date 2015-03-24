@@ -20,12 +20,12 @@
 #' @export
 #'
 #' @examples
-#' x <- NRFACatalogue() # this returns all the stations in the network
-#' x <- NRFACatalogue(lonMin=-1, lonMax=1, latMin=49, latMax=51) # this returns 31 stations
+#' x <- NRFA_Catalogue() # this returns all the stations in the network
+#' x <- NRFA_Catalogue(lonMin=-1, lonMax=1, latMin=49, latMax=51) # this returns 31 stations
 #'
 
-NRFACatalogue <- function(lonMin=-10, lonMax=10, latMin=48, latMax=62,
-                              metadataColumn = NULL, entryValue = NULL, minRec=NULL) {
+NRFA_Catalogue <- function(lonMin=-10, lonMax=10, latMin=48, latMax=62,
+                           metadataColumn = NULL, entryValue = NULL, minRec=NULL) {
 
   #require(rjson)
 

@@ -8,8 +8,8 @@ import(rgdal)
 
 importFrom("utils", "packageDescription")
 
-export(NRFACatalogue)
+export(NRFA_Catalogue)
 export(OSG2LatLon)
 export(OSGParse)
-export(SearchNRFA)
+export(NRFA_TS)
 export(ToJSONarray)

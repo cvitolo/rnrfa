@@ -9,7 +9,7 @@ There is currently an API under development that in future should provide access
 
 The information returned by the first three services is in JSON format, while the last one is an XML variant.
 
-The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
+The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 **To cite this software:**  
 Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
