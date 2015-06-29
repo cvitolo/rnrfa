@@ -39,6 +39,11 @@ source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
 ## List of monitoring stations
 The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
 
+```R
+# Retrieve information for all the stations in the catalogue:
+allStations <- NRFA_Catalogue()
+```
+
 Those entries are briefly described as follows:
 * "id" = Station identification number
 * "name" = Name of the station
@@ -63,31 +68,28 @@ Those entries are briefly described as follows:
 The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
 ```R
+# Define a bounding box:
+# bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+
 # Filter stations based on bounding box
-someStations <- NRFA_Catalogue(lonMin=-3.82, 
-                               lonMax=-3.63, 
-                               latMin=52.43, 
-                               latMax=52.52)
+someStations <- NRFA_Catalogue(bbox)
                                   
 # Filter stations belonging to a certain hydrometric area
 someStations <- NRFA_Catalogue(metadataColumn="haName",
                               entryValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
-someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
-                               latMin=52.43, latMax=52.52,
+someStations <- NRFA_Catalogue(bbox,
                                metadataColumn="haName",
                                entryValue="Wye (Hereford)")
 
 # Filter stations based on threshold
-someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
-                               latMin=52.43, latMax=52.52,
+someStations <- NRFA_Catalogue(bbox,
                                metadataColumn="catchmentArea",
                                entryValue=">1")
 
-# Filter based on minimum reconding years
-someStations <- NRFA_Catalogue(lonMin=-3.82, lonMax=-3.63, 
-                               latMin=52.43, latMax=52.52,
+# Filter based on minimum recording years
+someStations <- NRFA_Catalogue(bbox,
                                metadataColumn="catchmentArea",
                                entryValue=">1",
                                minRec=30)
@@ -143,9 +145,9 @@ stationID <- someStations$id[[1]] # 3001
 s <- NRFA_TS(stationID)
 
 # Once station information is fetched, metadata is returned as follows:
-s$metadata
+metadata <- s$metadata
 # while data is returned as zoo object
-ts <- s$data
+data <- s$data
 ```
 
 The time series can be plotted as shown below.
@@ -153,7 +155,7 @@ The time series can be plotted as shown below.
 ```R
 # Plot streamflow timeseries data
 library(zoo)
-plot(ts,main=as.character(s$metadata$stationName))
+plot(data,main=as.character(s$metadata$stationName))
 ```
 
 ## Multiple sites

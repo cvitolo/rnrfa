@@ -32,7 +32,10 @@ NRFA_TS <- function(ID){
 
     counter <- counter + 1
 
-    url <- paste("http://www.ceh.ac.uk/nrfa/xml/waterml2?db=nrfa_public&stn=",stationID,"&dt=gdf",sep="")
+    website <- "http://nrfaapps.ceh.ac.uk/nrfa"
+
+    url <- paste(website,"/xml/waterml2?db=nrfa_public&stn=",
+                 stationID,"&dt=gdf",sep="")
 
     if ( url.exists(url)==TRUE ){
 
