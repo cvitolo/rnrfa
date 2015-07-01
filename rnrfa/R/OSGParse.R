@@ -46,6 +46,9 @@ OSGParse <- function(gridRef) {
 
 OSGParse1 <- function(gridRef) {
   
+  # perform a basic validation on the given gridRef. 
+  if(grep("^[A-Za-z]{2}[0-9]{0,10}$",gridRef, ignore.case = TRUE) == 0) { return(c(NA,NA)) }
+  
   gridRef <- toupper(gridRef)
   
   # get numeric values of letter references, mapping A->0, B->1, C->2, etc:
@@ -56,28 +59,27 @@ OSGParse1 <- function(gridRef) {
   if (l1 > 7) l1 <- l1 - 1
   if (l2 > 7) l2 <- l2 - 1
   
-  # convert grid letters into 100km-square indexes from false origin - grid square SV
-  
+  # convert grid letters into square indexes from false origin - grid square SV
   e <- ((l1-2) %% 5) * 5 + (l2 %% 5)
   n <- (19 - floor(l1/5) *5 ) - floor(l2/5)
   
   if (e<0 || e>6 || n<0 || n>12) { return(c(NA,NA)) }
   
   # skip grid letters to get numeric part of ref, stripping any spaces:
-  
   ref.num <- gsub(" ", "", substr(gridRef, 3, nchar(gridRef)))
   ref.mid <- floor(nchar(ref.num) / 2)
   ref.len <- nchar(ref.num)
   
-  if (ref.len >= 10) { return(c(NA,NA)) }
+  # check that the Easting/Northing coordinates have a valid length
+  if (!(ref.len %in% c(0,2,4,6,8,10))) { return(c(NA,NA)) }
   
+  # add extra zeros
   e <- paste(e, substr(ref.num, 0, ref.mid), sep="", collapse="")
   n <- paste(n, substr(ref.num, ref.mid+1, ref.len), sep="", collapse="")
   
-  nrep <- 5 - match(ref.len, c(0,2,4,6,8))
-  
-  e <- as.numeric(paste(e, "0", rep("0", nrep), sep="", collapse=""))
-  n <- as.numeric(paste(n, "0", rep("0", nrep), sep="", collapse=""))
+  # convert to number
+  e <- as.numeric(paste(e,paste(rep(0,6-nchar(e)),collapse=""),sep=""))
+  n <- as.numeric(paste(n,paste(rep(0,6-nchar(n)),collapse=""),sep=""))
   
   return(c(e,n))
   
