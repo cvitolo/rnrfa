@@ -20,10 +20,9 @@
 #' x <- NRFA_Catalogue()
 #'
 #' # Define a bounding box:
-#' bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-#' x <- NRFA_Catalogue(bbox) # this returns 8 stations
-#'
-#' x <- NRFA_Catalogue(minRec=30) # this returns 1039 stations
+#' # bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+#' # x <- NRFA_Catalogue(bbox) # this returns 8 stations
+#' # x <- NRFA_Catalogue(minRec=30) # this returns 1039 stations
 #'
 
 NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
@@ -56,61 +55,73 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
   url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb%3A",
                latMax,"%2C",lonMin,"%2C",latMin,"%2C",lonMax, sep="")
 
-  stationSummary <- fromJSON(file=url)
-  if (length(as.list(stationSummary))==0){
-    message("No GDF stations found within the bounding box.")
-  }else{
-    colNames <- names(stationSummary[[1]])
+  if( url.exists(url) ) {
 
-    class(stationSummary) <- "data.frame"
-    attr(stationSummary, "row.names") <- c(NA_integer_, -length(stationSummary[[1]]))
-    stationSummary <- data.frame(t(stationSummary))
-    names(stationSummary) <- colNames
-  }
+    message("Retrieving data from live web data source.")
 
-  ### END (FILTER BASED ON BOUNDING BOX) ###
-
-  ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
-
-  temp <- stationSummary
-
-  if (!is.null(metadataColumn) & !is.null(entryValue)) {
-    if (is.numeric(unlist(eval(parse(text=paste('temp$',metadataColumn)))))
-        & (substr(entryValue, 1, 1)==">" | substr(entryValue, 1, 1)=="<" | substr(entryValue, 1, 1)=="=") ){
-      if (substr(entryValue, 2, 2)=="="){
-        threshold <- as.numeric(substr(entryValue, 3, nchar(entryValue)))
-        newstationSummary <- subset(temp,
-                                    eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 2),
-                                                          substr(entryValue, 3, nchar(entryValue))))) )
-      }else{
-        threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
-        newstationSummary <- subset(temp,
-                                    eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 1),
-                                                                substr(entryValue, 2, nchar(entryValue))))) )
-      }
+    stationSummary <- fromJSON(file=url)
+    if (length(as.list(stationSummary))==0){
+      message("No GDF stations found within the bounding box.")
     }else{
-      newstationSummary <- subset(temp, eval(parse(text=metadataColumn))==entryValue)
+      colNames <- names(stationSummary[[1]])
+
+      class(stationSummary) <- "data.frame"
+      attr(stationSummary, "row.names") <- c(NA_integer_, -length(stationSummary[[1]]))
+      stationSummary <- data.frame(t(stationSummary))
+      names(stationSummary) <- colNames
     }
-    stationSummary <- newstationSummary
-  }
 
-  ### END (FILTER BASED ON METADATA STRINGS/THRESHOLD) ###
+    ### END (FILTER BASED ON BOUNDING BOX) ###
 
-  ### FILTER BASED ON MINIMUM RECONDING YEARS ###
+    ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
 
-  if (!is.null(minRec)) {
     temp <- stationSummary
-    endYear <- as.numeric(unlist(temp$gdfEnd))
-    endYear[is.na(endYear)] <- 0
-    startYear <- as.numeric(unlist(temp$gdfStart))
-    startYear[is.na(startYear)] <- 0
-    recordingYears <- endYear-startYear
-    goodRecordingYears <- which(recordingYears>=minRec)
-    stationSummary <- temp[goodRecordingYears,]
+
+    if (!is.null(metadataColumn) & !is.null(entryValue)) {
+      if (is.numeric(unlist(eval(parse(text=paste('temp$',metadataColumn)))))
+          & (substr(entryValue, 1, 1)==">" | substr(entryValue, 1, 1)=="<" | substr(entryValue, 1, 1)=="=") ){
+        if (substr(entryValue, 2, 2)=="="){
+          threshold <- as.numeric(substr(entryValue, 3, nchar(entryValue)))
+          newstationSummary <- subset(temp,
+                                      eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 2),
+                                                            substr(entryValue, 3, nchar(entryValue))))) )
+        }else{
+          threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
+          newstationSummary <- subset(temp,
+                                      eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 1),
+                                                            substr(entryValue, 2, nchar(entryValue))))) )
+        }
+      }else{
+        newstationSummary <- subset(temp, eval(parse(text=metadataColumn))==entryValue)
+      }
+      stationSummary <- newstationSummary
+    }
+
+    ### END (FILTER BASED ON METADATA STRINGS/THRESHOLD) ###
+
+    ### FILTER BASED ON MINIMUM RECONDING YEARS ###
+
+    if (!is.null(minRec)) {
+      temp <- stationSummary
+      endYear <- as.numeric(unlist(temp$gdfEnd))
+      endYear[is.na(endYear)] <- 0
+      startYear <- as.numeric(unlist(temp$gdfStart))
+      startYear[is.na(startYear)] <- 0
+      recordingYears <- endYear-startYear
+      goodRecordingYears <- which(recordingYears>=minRec)
+      stationSummary <- temp[goodRecordingYears,]
+    }
+
+    ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
+
+    return(stationSummary)
+
+  }else{
+
+    message("The connection with the live web data source failed.")
+
+    stop
+
   }
-
-  ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
-
-  return(stationSummary)
 
 }

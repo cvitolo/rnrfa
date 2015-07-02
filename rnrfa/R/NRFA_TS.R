@@ -50,6 +50,10 @@ NRFA_TS <- function(ID){
 
       wml[[counter]] <- stationInfo
 
+      if (length(ID) == 1) wml <- wml[[1]]
+
+      return( wml )
+
     }else{
 
       message(paste("For station", stationID,"there is no available online dataset in waterml format"))
@@ -57,9 +61,5 @@ NRFA_TS <- function(ID){
     }
 
   }
-
-  if (length(ID) == 1) wml <- wml[[1]]
-
-  return( wml )
 
 }

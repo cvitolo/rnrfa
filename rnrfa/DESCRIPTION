@@ -1,16 +1,14 @@
 Package: rnrfa
 Type: Package
 Version: 0.2.0
-Title: UK National River Flow Archive data from R
+Title: UK National River Flow Archive Data from R
 Description: Utility functions to retrieve data from the UK National River Flow
-    Archive. The package contains R wrappers to the UK NRFA data temporary-API
-    (http://www.ceh.ac.uk/data/nrfa/). There are functions to retrieve stations
-    falling in a bounding box, to generate a map and extracting time series and
-    general information. It also contain the dataset 'StationSummary'.
+    Archive. The package contains R wrappers to the UK NRFA data temporary-API.
+    There are functions to retrieve stations falling in a bounding box,
+    to generate a map and extracting time series and general information.
 Authors@R: as.person(c(
     "Claudia Vitolo <cvitolodev@gmail.com> [aut, cre]",
     "Matthew Fry [ctb]"))
-Author: Claudia Vitolo and Matthew Fry
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 URL: http://cvitolo.github.io/r_rnrfa/
 BugReports: https://github.com/cvitolo/r_rnrfa/issues
@@ -28,4 +26,3 @@ Imports:
 Encoding: UTF-8
 License: GPL-3
 Repository: GitHub
-Keywords: hydrology, hydrological modelling, hydrologic modeling, open data

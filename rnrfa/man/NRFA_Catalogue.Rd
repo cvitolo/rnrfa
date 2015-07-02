@@ -30,10 +30,9 @@ coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinate
 x <- NRFA_Catalogue()
 
 # Define a bounding box:
-bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-x <- NRFA_Catalogue(bbox) # this returns 8 stations
-
-x <- NRFA_Catalogue(minRec=30) # this returns 1039 stations
+# bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+# x <- NRFA_Catalogue(bbox) # this returns 8 stations
+# x <- NRFA_Catalogue(minRec=30) # this returns 1039 stations
 }
 \author{
 Claudia Vitolo
