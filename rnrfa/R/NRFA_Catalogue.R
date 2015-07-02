@@ -21,13 +21,14 @@
 #'
 #' # Define a bounding box:
 #' # bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-#' # x <- NRFA_Catalogue(bbox) # this returns 8 stations
-#' # x <- NRFA_Catalogue(minRec=30) # this returns 1039 stations
+#' # x <- NRFA_Catalogue(bbox) # this returns 9 stations
+#' # x <- NRFA_Catalogue(minRec=30) # this returns 1048 stations
 #'
 
 NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
                            entryValue = NULL, minRec=NULL) {
 
+  # require(RCurl)
   # require(rjson)
 
   options(warn=-1)
@@ -77,24 +78,52 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
     temp <- stationSummary
 
-    if (!is.null(metadataColumn) & !is.null(entryValue)) {
-      if (is.numeric(unlist(eval(parse(text=paste('temp$',metadataColumn)))))
-          & (substr(entryValue, 1, 1)==">" | substr(entryValue, 1, 1)=="<" | substr(entryValue, 1, 1)=="=") ){
-        if (substr(entryValue, 2, 2)=="="){
-          threshold <- as.numeric(substr(entryValue, 3, nchar(entryValue)))
-          newstationSummary <- subset(temp,
-                                      eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 2),
-                                                            substr(entryValue, 3, nchar(entryValue))))) )
-        }else{
-          threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
-          newstationSummary <- subset(temp,
-                                      eval(parse(text=paste(metadataColumn,substr(entryValue, 1, 1),
-                                                            substr(entryValue, 2, nchar(entryValue))))) )
-        }
+    if (!is.null(metadataColumn)){
+
+      if (metadataColumn == "id"){
+
+        myRows <- which(stationSummary$id %in% entryValue)
+        stationSummary <- stationSummary[myRows,]
+
       }else{
-        newstationSummary <- subset(temp, eval(parse(text=metadataColumn))==entryValue)
+
+        if (!is.null(metadataColumn) & !is.null(entryValue)) {
+
+          myColumn <- unlist(eval(parse(text=paste('temp$',metadataColumn))))
+
+          Condition1 <- is.numeric(myColumn)
+          Condition2 <- substr(entryValue, 1, 1) == ">"
+          Condition3 <- substr(entryValue, 1, 1) == "<"
+          Condition4 <- substr(entryValue, 1, 1) == "="
+
+          if (Condition1 & (Condition2 | Condition3 | Condition4)){
+
+            if (substr(entryValue, 2, 2)=="="){
+
+              threshold <- as.numeric(substr(entryValue, 3, nchar(entryValue)))
+              combinedString <- paste(metadataColumn,
+                                     substr(entryValue, 1, 2),
+                                     substr(entryValue, 3, nchar(entryValue)))
+              myExpression <- eval(parse(text=combinedString))
+              newstationSummary <- subset(temp, myExpression)
+
+            }else{
+              threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
+              combinedString <- paste(metadataColumn,
+                                      substr(entryValue, 1, 1),
+                                      substr(entryValue, 2, nchar(entryValue)))
+              myExpression <- eval(parse(text=combinedString))
+              newstationSummary <- subset(temp, myExpression)
+            }
+          }else{
+            myExpression <- eval(parse(text=metadataColumn))==entryValue
+            newstationSummary <- subset(temp, myExpression)
+          }
+          stationSummary <- newstationSummary
+        }
+
       }
-      stationSummary <- newstationSummary
+
     }
 
     ### END (FILTER BASED ON METADATA STRINGS/THRESHOLD) ###
