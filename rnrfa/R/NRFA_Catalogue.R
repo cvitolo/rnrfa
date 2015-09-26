@@ -109,14 +109,14 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
             }else{
               threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
-              combinedString <- paste(metadataColumn,
+              combinedString <- paste("myColumn",
                                       substr(entryValue, 1, 1),
                                       substr(entryValue, 2, nchar(entryValue)))
               myExpression <- eval(parse(text=combinedString))
               newstationSummary <- subset(temp, myExpression)
             }
           }else{
-            myExpression <- eval(parse(text=metadataColumn))==entryValue
+            myExpression <- myColumn==entryValue
             newstationSummary <- subset(temp, myExpression)
           }
           stationSummary <- newstationSummary
