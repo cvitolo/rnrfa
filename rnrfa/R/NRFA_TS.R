@@ -37,7 +37,7 @@ NRFA_TS <- function(ID){
     url <- paste(website,"/xml/waterml2?db=nrfa_public&stn=",
                  stationID,"&dt=gdf",sep="")
 
-    if ( url.exists(url)==TRUE ){
+    if ( url.exists(url) ){
 
       doc <- urlsToDocs(url)
       nodes <- docsToNodes(doc,xpath="/")

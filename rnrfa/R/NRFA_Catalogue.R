@@ -8,6 +8,7 @@
 #' @param metadataColumn name of column to filter
 #' @param entryValue string to search in metadataColumn#'
 #' @param minRec minimum number of recording years
+#' @param verbose if TRUE prints warning messages
 #'
 #' @details coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
 #'
@@ -26,7 +27,7 @@
 #'
 
 NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
-                           entryValue = NULL, minRec=NULL) {
+                           entryValue = NULL, minRec=NULL, verbose = FALSE) {
 
   # require(RCurl)
   # require(rjson)
@@ -58,7 +59,7 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
   if( url.exists(url) ) {
 
-    message("Retrieving data from live web data source.")
+    if (verbose) message("Retrieving data from live web data source.")
 
     stationSummary <- fromJSON(file=url)
     if (length(as.list(stationSummary))==0){

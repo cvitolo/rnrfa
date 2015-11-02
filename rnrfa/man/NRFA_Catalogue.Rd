@@ -5,7 +5,7 @@
 \title{List of stations from UK NRFA}
 \usage{
 NRFA_Catalogue(bbox = NULL, metadataColumn = NULL, entryValue = NULL,
-  minRec = NULL)
+  minRec = NULL, verbose = FALSE)
 }
 \arguments{
 \item{bbox}{this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))#'}
@@ -15,6 +15,8 @@ NRFA_Catalogue(bbox = NULL, metadataColumn = NULL, entryValue = NULL,
 \item{entryValue}{string to search in metadataColumn#'}
 
 \item{minRec}{minimum number of recording years}
+
+\item{verbose}{if TRUE prints warning messages}
 }
 \value{
 data.frame with list of stations and related metadata
