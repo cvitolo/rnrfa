@@ -20,7 +20,8 @@ Imports:
     rjson,
     rgdal,
     sp,
-    stringr
+    stringr,
+    rCharts
 Encoding: UTF-8
 License: GPL-3
 Repository: GitHub
