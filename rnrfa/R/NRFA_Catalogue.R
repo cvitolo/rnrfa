@@ -14,8 +14,6 @@
 #'
 #' @return data.frame with list of stations and related metadata
 #'
-#' @export
-#'
 #' @examples
 #' # Retrieve all the stations in the network (1537)
 #' x <- NRFA_Catalogue()
@@ -54,8 +52,11 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
   website <- "http://nrfaapps.ceh.ac.uk/nrfa"
 
-  url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb%3A",
-               latMax,"%2C",lonMin,"%2C",latMin,"%2C",lonMax, sep="")
+  url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb:",
+               latMax,",",lonMin,",",latMin,",",lonMax, sep="")
+
+  # url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb%3A",
+  #              latMax,"%2C",lonMin,"%2C",latMin,"%2C",lonMax, sep="")
 
   if( url.exists(url) ) {
 

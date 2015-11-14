@@ -20,8 +20,8 @@
   packageStartupMessage("
 +----------------------------------------------------------------+
 |  If you wish to use NRFA Data, please refer to the following   |
-|  Terms & Conditions:                            |
-|  http://www.ceh.ac.uk/data/nrfa/data/data_terms.html           |
+|  Terms & Conditions:                                           |
+|  http://nrfa.ceh.ac.uk/costs-terms-and-conditions              |
 +----------------------------------------------------------------+
 
 ")
