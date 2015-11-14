@@ -15,7 +15,7 @@ The RNRFA package aims to achieve a simpler and more efficient access to data by
 Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
 ### Basics
-The stable version (preferred option) of rnrfa is available from CRAN (http://www.cran.r-project.org/web/packages/rnrfa/index.html):
+The stable version (preferred option) of rnrfa is available from CRAN:
 
 ```R
 install.packages("rnrfa")
