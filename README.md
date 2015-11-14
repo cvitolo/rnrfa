@@ -145,7 +145,7 @@ The time series can be plotted as shown below.
 ```R
 # Plot streamflow timeseries data
 library(zoo)
-plot(data,main=as.character(metadata$stationName))
+plot(data, main = metadata$stationName)
 ```
 
 ## Multiple sites
@@ -172,18 +172,18 @@ lines(thirdSite,col="green")
 library(leaflet)
 
 leaflet(data = someStations) %>% addTiles() %>%
-  addMarkers(~lon, ~lat, popup = ~as.character(paste(id,name)))
+  addMarkers(~lon, ~lat, popup = ~paste(id,name))
 ```
 
 
-### Interactive plots using dygraphs:
+## Interactive plots using dygraphs:
 
 ```R 
 library(dygraphs)
 dygraph(data) %>% dyRangeSelector()
 ```
 
-### Terms and Conditions
+# Terms and Conditions
 Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: http://nrfa.ceh.ac.uk/costs-terms-and-conditions
 
 This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
