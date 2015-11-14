@@ -29,11 +29,6 @@ install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
 library(rnrfa)
 ```
 
-Source the additional function GenerateMap():
-```R
-source_gist("https://gist.github.com/cvitolo/f9d12402956b88935c38")
-```
-
 # Functions
 
 ## List of monitoring stations
@@ -69,7 +64,7 @@ The same function NRFA_Catalogue() can be used to filter stations based on a bou
 
 ```R
 # Define a bounding box:
-# bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 
 # Filter stations based on bounding box
 someStations <- NRFA_Catalogue(bbox)
@@ -124,30 +119,25 @@ OSG2LatLon(OSGParse("NC581062"))
 
 # multiple entries 
 OSG2LatLon(OSGParse(someStations$gridReference))
+
+# add lat and lon to the data.frame
+someStations$lat <- OSG2LatLon(OSGParse(someStations$gridReference))[[1]]
+someStations$lon <- OSG2LatLon(OSGParse(someStations$gridReference))[[2]]
+
 ```
 
-## Interactive map and station details 
-### (only available for github version)
-An interactive map of selected stations can be generated with the following commands:
-
-```R
-# Generate a map to show the location of selected stations
-GenerateMap( someStations )
-```
-
-The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.
+## Get station time series data and metadata 
+The station's id number can be used to retrieve the streamflow time series converting the waterml2 file to a time series object (zoo).
 
 ```R
 # Choose a station by its id number
 stationID <- someStations$id[[1]] # 3001
  
-# Search data/metadata in the waterml2 service
-s <- NRFA_TS(stationID)
+# Get time series data from the waterml2 service
+data <- NRFA_TSdata(stationID)
 
-# Once station information is fetched, metadata is returned as follows:
-metadata <- s$metadata
-# while data is returned as zoo object
-data <- s$data
+# Get time series metadata from the waterml2 service
+metadata <- NRFA_TSmetadata(stationID)
 ```
 
 The time series can be plotted as shown below.
@@ -155,7 +145,7 @@ The time series can be plotted as shown below.
 ```R
 # Plot streamflow timeseries data
 library(zoo)
-plot(data,main=as.character(s$metadata$stationName))
+plot(data,main=as.character(metadata$stationName))
 ```
 
 ## Multiple sites
@@ -163,20 +153,38 @@ Retrieving information for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
-s <- NRFA_TS(c(3001,3002,3003))
+s <- NRFA_TSdata(c(3001,3002,3003))
+
+# s is a list of 3 object (one object for each site)
+firstSite  <- s[[1]]  # s$ID3001
+secondSite <- s[[2]]  # s$ID3002
+thirdSite  <- s[[3]]  # s$ID3003
+
+plot(secondSite,col="blue")
+lines(thirdSite,col="green")
 ```
 
-```R
-# extract only important info for the first station
-secondSite <- s[[2]]
-thirdSite <- s[[3]]
+# INTEROPERABILITY
 
-plot(secondSite$data,col="red")
-lines(thirdSite$data,col="green")
+## Create interactive maps using leaflet:
+
+```R 
+library(leaflet)
+
+leaflet(data = someStations) %>% addTiles() %>%
+  addMarkers(~lon, ~lat, popup = ~as.character(paste(id,name)))
+```
+
+
+### Interactive plots using dygraphs:
+
+```R 
+library(dygraphs)
+dygraph(data) %>% dyRangeSelector()
 ```
 
 ### Terms and Conditions
-Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: http://www.ceh.ac.uk/data/nrfa/data/data_terms.html 
+Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: http://nrfa.ceh.ac.uk/costs-terms-and-conditions
 
 This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
 
