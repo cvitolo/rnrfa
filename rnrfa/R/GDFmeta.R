@@ -10,14 +10,14 @@
 #'
 #' @examples
 #' # One station
-#' NRFA_TSmetadata(3001)
+#' GDFmeta(3001)
 #' # Multiple stations
-#' # x <- NRFA_TSmetadata(c(3001,3002,3003))
+#' # x <- GDFmeta(c(3001,3002,3003))
 #' # View(x$ID3001)
 #' # View(x[[1]])
 #'
 
-NRFA_TSmetadata <- function(ID){
+GDFmeta <- function(ID){
 
   # require(RCurl)
   # require(XML2R)
