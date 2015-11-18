@@ -123,7 +123,6 @@ OSG2LatLon(OSGParse(someStations$gridReference))
 # add lat and lon to the data.frame
 someStations$lat <- OSG2LatLon(OSGParse(someStations$gridReference))[[1]]
 someStations$lon <- OSG2LatLon(OSGParse(someStations$gridReference))[[2]]
-
 ```
 
 ## Get station time series data and metadata 
@@ -133,11 +132,14 @@ The station's id number can be used to retrieve the streamflow time series conve
 # Choose a station by its id number
 stationID <- someStations$id[[1]] # 3001
  
-# Get time series data from the waterml2 service
-data <- NRFA_TSdata(stationID)
+# Get time series data from the waterml2 service (flow)
+data <- GDF(stationID)
+
+# Get time series data from the waterml2 service (rainfall)
+dataR <- CMR(stationID)
 
 # Get time series metadata from the waterml2 service
-metadata <- NRFA_TSmetadata(stationID)
+metadata <- GDFmeta(stationID)
 ```
 
 The time series can be plotted as shown below.
@@ -153,7 +155,7 @@ Retrieving information for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
-s <- NRFA_TSdata(c(3001,3002,3003))
+s <- GDF(c(3001,3002,3003))
 
 # s is a list of 3 object (one object for each site)
 firstSite  <- s[[1]]  # s$ID3001
@@ -175,12 +177,46 @@ leaflet(data = someStations) %>% addTiles() %>%
   addMarkers(~lon, ~lat, popup = ~paste(id,name))
 ```
 
-
 ## Interactive plots using dygraphs:
 
 ```R 
 library(dygraphs)
 dygraph(data) %>% dyRangeSelector()
+```
+
+## Parallel processing:
+
+A simple benchmark test
+```R 
+library(parallel)
+detectCores()   #             How many cores are available on the local machine?
+# 8
+
+system.time( s1 <- GDF(someStations$id) )
+#   user  system elapsed 
+# 46.368   0.080  48.240
+
+system.time( s1 <- mclapply(someStations$id, GDF) )
+#   user  system elapsed 
+# 24.976   0.192  26.272
+```
+
+Make time consuming tasks faster
+```R
+# Use all the stations operated by the Natural Resources Wales
+someStations <- NRFA_Catalogue(metadataColumn="operator", 
+                               entryValue="Natural Resources Wales")
+
+s <- mclapply(someStations$id, GDF)                  # from the parallel package
+someStations$meanGDF <- unlist( lapply(s, mean) )   
+
+# Linear model
+library(ggplot2)
+ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  xlab(expression(paste("Catchment area [Km^2]",sep=""))) + 
+  ylab(expression(paste("Mean flow [m^3/s]",sep="")))
 ```
 
 # Terms and Conditions
