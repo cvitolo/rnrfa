@@ -24,7 +24,9 @@ install.packages("rnrfa")
 The development version is, instead, on github and can be installed via devtools:
 
 ```R
+install.packages("devtools")
 library(devtools)
+
 install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
 library(rnrfa)
 ```
