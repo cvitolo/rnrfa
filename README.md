@@ -38,7 +38,7 @@ The R function that deals with the NRFA catalogue to retrieve the full list of m
 
 ```R
 # Retrieve information for all the stations in the catalogue:
-allStations <- NRFA_Catalogue()
+allStations <- catalogue()
 ```
 
 Those entries are briefly described as follows:
@@ -60,6 +60,8 @@ Those entries are briefly described as follows:
 * "categories" = various tags (e.g. FEH\_POOLING, FEH\_QMED, HIFLOWS\_INCLUDED)
 * "altitude" = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.
 * "sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.
+* "lat" = a numeric vector of latitude coordinates.
+* "lon" = a numeric vector of longitude coordinates.
 
 ## Station filtering
 The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
@@ -69,31 +71,36 @@ The same function NRFA_Catalogue() can be used to filter stations based on a bou
 bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 
 # Filter stations based on bounding box
-someStations <- NRFA_Catalogue(bbox)
+someStations <- catalogue(bbox)
                                   
 # Filter stations belonging to a certain hydrometric area
-someStations <- NRFA_Catalogue(metadataColumn="haName",
-                              entryValue="Wye (Hereford)")
+someStations <- catalogue(metadataColumn="haName", entryValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
-someStations <- NRFA_Catalogue(bbox,
-                               metadataColumn="haName",
-                               entryValue="Wye (Hereford)")
+someStations <- catalogue(bbox,
+                          metadataColumn="haName",
+                          entryValue="Wye (Hereford)")
 
 # Filter stations based on threshold
-someStations <- NRFA_Catalogue(bbox,
-                               metadataColumn="catchmentArea",
-                               entryValue=">1")
+someStations <- catalogue(bbox,
+                          metadataColumn="catchmentArea",
+                          entryValue=">1")
 
 # Filter based on minimum recording years
-someStations <- NRFA_Catalogue(bbox,
-                               metadataColumn="catchmentArea",
-                               entryValue=">1",
-                               minRec=30)
+someStations <- catalogue(bbox,
+                          metadataColumn="catchmentArea",
+                          entryValue=">1",
+                          minRec=30)
                                   
 # Filter stations based on identification number
-someStations <- NRFA_Catalogue(metadataColumn="id",
-                               entryValue=c(3001,3002,3003))
+someStations <- catalogue(metadataColumn="id",
+                          entryValue=c(3001,3002,3003))
+                               
+# Other combined filtering
+someStations <- catalogue(bbox,
+                          metadataColumn="id",
+                          entryValue=c(54022,54090,54091,54092,54097),
+                          minRec=35)
 ```
 
 ## Conversions
@@ -104,27 +111,14 @@ The only geospatial information contained in the list of station in the catalogu
 someStations$gridReference[[1]]
 
 # Convert OS Grid reference to BNG
-OSGParse("NC581062")
+OSGparse("SN853872")
 ```
 
-The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.
+The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.
 
 ```R
 # Convert BNG to WSGS84
-OSG2LatLon(c(258100,906200))
-```
-
-Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. 
-```R
-# Convert OS Grid reference to WGS84 
-OSG2LatLon(OSGParse("NC581062"))
-
-# multiple entries 
-OSG2LatLon(OSGParse(someStations$gridReference))
-
-# add lat and lon to the data.frame
-someStations$lat <- OSG2LatLon(OSGParse(someStations$gridReference))[[1]]
-someStations$lon <- OSG2LatLon(OSGParse(someStations$gridReference))[[2]]
+OSGparse("SN853872", CoordSystem = "WGS84")
 ```
 
 ## Get station time series data and metadata 
@@ -132,7 +126,7 @@ The station's id number can be used to retrieve the streamflow time series conve
 
 ```R
 # Choose a station by its id number
-stationID <- someStations$id[[1]] # 3001
+stationID <- 3001
  
 # Get time series data from the waterml2 service (flow)
 data <- GDF(stationID)
@@ -206,8 +200,8 @@ system.time( s1 <- mclapply(someStations$id, GDF) )
 Make time consuming tasks faster
 ```R
 # Use all the stations operated by the Natural Resources Wales
-someStations <- NRFA_Catalogue(metadataColumn="operator", 
-                               entryValue="Natural Resources Wales")
+someStations <- catalogue(metadataColumn="operator", 
+                          entryValue="Natural Resources Wales")
 
 s <- mclapply(someStations$id, GDF)                  # from the parallel package
 someStations$meanGDF <- unlist( lapply(s, mean) )   

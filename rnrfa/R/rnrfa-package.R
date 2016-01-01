@@ -42,8 +42,8 @@
 #' \item{\code{categories}}{a list vector}
 #' \item{\code{altitude}}{a list vector}
 #' \item{\code{sensitivity}}{a list vector}
-#' \item{\code{Latitude}}{a numeric vector}
-#' \item{\code{Longitude}}{a numeric vector}
+#' \item{\code{lat}}{a numeric vector of latitude coordinates}
+#' \item{\code{lon}}{a numeric vector of longitude coordinates}
 #' }
 #' }
 #' @details This is the full set of river station that can be retrieved using UK NRFA APIs.

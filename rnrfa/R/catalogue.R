@@ -16,15 +16,15 @@
 #'
 #' @examples
 #' # Retrieve all the stations in the network (1537)
-#' x <- NRFA_Catalogue()
+#' # x <- catalogue()
 #'
 #' # Define a bounding box:
 #' # bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-#' # x <- NRFA_Catalogue(bbox) # this returns 9 stations
-#' # x <- NRFA_Catalogue(minRec=30) # this returns 1048 stations
+#' # x <- catalogue(bbox) # this returns 9 stations
+#' # x <- catalogue(minRec=30) # this returns 1048 stations
 #'
 
-NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
+catalogue <- function(bbox = NULL, metadataColumn = NULL,
                            entryValue = NULL, minRec=NULL, verbose = FALSE) {
 
   # require(RCurl)
@@ -144,6 +144,12 @@ NRFA_Catalogue <- function(bbox = NULL, metadataColumn = NULL,
     }
 
     ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
+
+    # Add lat and lon
+    gridR <- OSGparse(gridRefs = stationSummary$gridReference,
+                      CoordSystem = "WGS84")
+    stationSummary$lat <- gridR$ylat
+    stationSummary$lon <- gridR$xlon
 
     return(stationSummary)
 
