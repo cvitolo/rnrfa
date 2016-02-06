@@ -10,11 +10,10 @@
 #'
 #' @examples
 #' # One station
-#' CMR(3001)
+#' CMR(18019)
+#'
 #' # Multiple stations
 #' # x <- CMR(c(3001,3002,3003))
-#' # plot(x$ID3001)
-#' # plot(x[[1]])
 #'
 
 CMR <- function(ID){

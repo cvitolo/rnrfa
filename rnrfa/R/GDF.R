@@ -10,11 +10,10 @@
 #'
 #' @examples
 #' # One station
-#' GDF(3001)
+#' GDF(18019)
+#'
 #' # Multiple stations
 #' # x <- GDF(c(3001,3002,3003))
-#' # plot(x$ID3001)
-#' # plot(x[[1]])
 #'
 
 GDF <- function(ID){

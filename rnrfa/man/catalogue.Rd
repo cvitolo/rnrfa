@@ -26,15 +26,20 @@ This function pulls the list of stations (and related metadata), falling within 
 }
 \details{
 coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
+
+Offline you can browse the cached version running the command \code{data(stationSummary)}
 }
 \examples{
-# Retrieve all the stations in the network (1537)
-# x <- catalogue()
+# Retrieve all the stations in the network
+x <- catalogue()
 
 # Define a bounding box:
 # bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-# x <- catalogue(bbox) # this returns 9 stations
-# x <- catalogue(minRec=30) # this returns 1048 stations
+# Get stations within the bounding box
+# x <- catalogue(bbox)
+
+# Get stations based on minimum number of recording years
+# x <- catalogue(minRec=30)
 
 }
 \author{

@@ -2,14 +2,14 @@
 \alias{stationSummary}
 \docType{data}
 \title{
-stationSummary
+  stationSummary
 }
 \description{
-table containing details for 1537 stations.
+  table containing details for 1537 stations.
 }
 \usage{data(stationSummary)}
 \format{
-  A data frame with 1537 observations on the following 20 variables.
+  A data frame with 1539 observations on the following 20 variables.
   \describe{
     \item{\code{id}}{a list vector}
     \item{\code{name}}{a list vector}
@@ -29,17 +29,17 @@ table containing details for 1537 stations.
     \item{\code{categories}}{a list vector}
     \item{\code{altitude}}{a list vector}
     \item{\code{sensitivity}}{a list vector}
-    \item{\code{Latitude}}{a numeric vector}
-    \item{\code{Longitude}}{a numeric vector}
+    \item{\code{lat}}{a numeric vector}
+    \item{\code{lon}}{a numeric vector}
   }
 }
 \details{
-This is the full set of river station that can be retrieved using UK NRFA APIs.
+  This is the full set of river station that can be retrieved using UK NRFA APIs.
 }
 \source{
-http://www.ceh.ac.uk/data/nrfa/
+  http://www.ceh.ac.uk/data/nrfa/
 }
 \examples{
-data(stationSummary)
+  data(stationSummary)
 }
 \keyword{datasets}

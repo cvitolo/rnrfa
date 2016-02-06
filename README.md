@@ -12,29 +12,42 @@ The information returned by the first three services is in JSON format, while th
 The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 **To cite this software:**  
-Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
+Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
-### Basics
-The stable version (preferred option) of rnrfa is available from CRAN:
+
+# Dependencies
+The rnrfa package is dependent on a number of CRAN packages. Install them first:
 
 ```R
-install.packages("rnrfa")
+install.packages(c("XML2R", "RCurl", "zoo", "rjson", "rgdal", "sp", "stringr"))
 ```
 
-The development version is, instead, on github and can be installed via devtools:
+This demo makes also use of external libraries. To install and load them run the following commands:
 
 ```R
-install.packages("devtools")
-library(devtools)
+packs <- c("devtools", "parallel", "ggplot2", "DT", "leaflet", "dygraphs")
+install.packages(packs)
+lapply(packs, require, character.only = TRUE)
+```
 
+
+# Installation
+The stable version (preferred option) of rnrfa is available from CRAN using `install.packages("rnrfa")`, while the development version is available on github via devtools:
+
+```R
 install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
+```
+
+Now, load the rnrfa package:
+
+```R
 library(rnrfa)
 ```
 
 # Functions
 
 ## List of monitoring stations
-The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
+The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
 
 ```R
 # Retrieve information for all the stations in the catalogue:
@@ -64,7 +77,7 @@ Those entries are briefly described as follows:
 * "lon" = a numeric vector of longitude coordinates.
 
 ## Station filtering
-The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
+The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
 ```R
 # Define a bounding box:
@@ -192,7 +205,7 @@ system.time( s1 <- GDF(someStations$id) )
 #   user  system elapsed 
 # 46.368   0.080  48.240
 
-system.time( s1 <- mclapply(someStations$id, GDF) )
+system.time( s2 <- mclapply(someStations$id, GDF, mc.cores = detectCores()) )
 #   user  system elapsed 
 # 24.976   0.192  26.272
 ```
@@ -200,15 +213,16 @@ system.time( s1 <- mclapply(someStations$id, GDF) )
 Make time consuming tasks faster
 ```R
 # Use all the stations operated by the Natural Resources Wales
-someStations <- catalogue(metadataColumn="operator", 
+stations <- catalogue(metadataColumn="operator", 
                           entryValue="Natural Resources Wales")
 
-s <- mclapply(someStations$id, GDF)                  # from the parallel package
-someStations$meanGDF <- unlist( lapply(s, mean) )   
+# Get the time series (TS)
+TS <- mclapply(stations$id, GDF, mc.cores = detectCores())    # parallel package
+stations$meanGDF <- unlist( lapply(TS, mean) )   
 
 # Linear model
 library(ggplot2)
-ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
+ggplot(stations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
   geom_point() +
   stat_smooth(method = "lm", col = "red") +
   xlab(expression(paste("Catchment area [Km^2]",sep=""))) + 

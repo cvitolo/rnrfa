@@ -10,11 +10,10 @@
 #'
 #' @examples
 #' # One station
-#' CMRmeta(3001)
+#' CMRmeta(18019)
+#'
 #' # Multiple stations
 #' # x <- CMRmeta(c(3001,3002,3003))
-#' # View(x$ID3001)
-#' # View(x[[1]])
 #'
 
 CMRmeta <- function(ID){
