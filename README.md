@@ -12,7 +12,7 @@ The information returned by the first three services is in JSON format, while th
 The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. 
 
 **To cite this software:**  
-Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
+Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package version 0.4.0), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.14722
 
 
 # Dependencies
@@ -134,29 +134,46 @@ The same function can also convert from BNG to latitude and longitude in the WSG
 OSGparse("SN853872", CoordSystem = "WGS84")
 ```
 
-## Get station time series data and metadata 
-The station's id number can be used to retrieve the streamflow time series converting the waterml2 file to a time series object (zoo).
+OSGparse() also works with multiple references:
 
 ```R
-# Choose a station by its id number
-stationID <- 3001
- 
-# Get time series data from the waterml2 service (flow)
-data <- GDF(stationID)
-
-# Get time series data from the waterml2 service (rainfall)
-dataR <- CMR(stationID)
-
-# Get time series metadata from the waterml2 service
-metadata <- GDFmeta(stationID)
+OSGparse(someStations$gridReference)
 ```
 
-The time series can be plotted as shown below.
+## Get time series data
 
-```R
-# Plot streamflow timeseries data
-library(zoo)
-plot(data, main = metadata$stationName)
+The first column of the table "someStations" contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo). 
+
+The National River Flow Archive serves two types of time series data:
+
+* Gauged Daily Flows (GDF)
+
+* Catchment Mean Rainfall (CMR)
+
+### Gauged Daily Flows
+
+Gauged Daily Flows can be obtained using the function GDF(). This accepts one input, the station id (as single string or character vector). 
+Here is how to retrieve daily flows for _Shin at Lairg (id = 3001)_ catchment.
+
+```{r}
+# Fetch time series data from the waterml2 service
+data <- GDF("3001")
+metadata <- GDFmeta("3001")
+plot(data, main=paste("Daily flow data for the", metadata$stationName, "catchment"),
+     xlab="", ylab=expression(m^3/s))
+```
+
+### Catchment Mean Rainfall
+
+Catchment Mean Rainfall can be obtained using the function CMR(). This accepts one input, the station id (as single string or character vector). 
+Here is how to retrieve rainfall data for _Shin at Lairg (id = 3001)_ catchment.
+
+```{r}
+# Fetch time series data from the waterml2 service
+data <- CMR("3001")
+metadata <- CMRmeta("3001")
+plot(data, main=paste("Monthly rainfall data for the",metadata$stationName,"catchment"), 
+     xlab="", ylab=expression(mm))
 ```
 
 ## Multiple sites
@@ -175,54 +192,63 @@ plot(secondSite,col="blue")
 lines(thirdSite,col="green")
 ```
 
-# INTEROPERABILITY
+## INTEROPERABILITY
 
-## Create interactive maps using leaflet:
+### Upgrade your data.frame to a data.table:
 
-```R 
+```R
+library(DT)
+datatable(allStations[,c(1:4,7,9,10,12:14,17)])
+```
+
+### Create interactive maps using leaflet:
+
+```R
 library(leaflet)
 
 leaflet(data = someStations) %>% addTiles() %>%
-  addMarkers(~lon, ~lat, popup = ~paste(id,name))
+  addMarkers(~lon, ~lat, popup = ~as.character(paste(id,name)))
 ```
 
-## Interactive plots using dygraphs:
+### Interactive plots using dygraphs:
 
-```R 
+```R
 library(dygraphs)
 dygraph(data) %>% dyRangeSelector()
 ```
 
-## Parallel processing:
+### Parallel processing:
 
 A simple benchmark test
-```R 
+```R
 library(parallel)
-detectCores()   #             How many cores are available on the local machine?
-# 8
+# Use detectCores() to find out many cores are available on your machine
 
-system.time( s1 <- GDF(someStations$id) )
-#   user  system elapsed 
-# 46.368   0.080  48.240
-
-system.time( s2 <- mclapply(someStations$id, GDF, mc.cores = detectCores()) )
-#   user  system elapsed 
-# 24.976   0.192  26.272
+# Filter all the stations with a minimum of 100 years of recordings
+someStations <- catalogue(minRec = 94)
 ```
 
-Make time consuming tasks faster
-```R
-# Use all the stations operated by the Natural Resources Wales
-stations <- catalogue(metadataColumn="operator", 
-                          entryValue="Natural Resources Wales")
+1 core vs multiple cores 
 
-# Get the time series (TS)
-TS <- mclapply(stations$id, GDF, mc.cores = detectCores())    # parallel package
-stations$meanGDF <- unlist( lapply(TS, mean) )   
+```R
+# Get flow data with a sequential approach
+system.time( s1 <- GDF(someStations$id) )
+```
+
+```R
+# Get flow data with a parallel approach
+system.time( s2 <- mclapply(someStations$id, GDF, mc.cores = detectCores()) )  
+```
+
+The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:
+
+```R
+# Calculate the mean flow for each catchment
+someStations$meanGDF <- unlist( lapply(s2, mean) )
 
 # Linear model
 library(ggplot2)
-ggplot(stations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
+ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
   geom_point() +
   stat_smooth(method = "lm", col = "red") +
   xlab(expression(paste("Catchment area [Km^2]",sep=""))) + 
