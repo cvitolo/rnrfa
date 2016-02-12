@@ -19,9 +19,6 @@ Given the station ID number(s), this function retrieves data (time series in zoo
 # One station
 GDF(18019)
 
-# Multiple stations
-# x <- GDF(c(3001,3002,3003))
-
 }
 \author{
 Claudia Vitolo

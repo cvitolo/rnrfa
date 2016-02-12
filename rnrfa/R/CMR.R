@@ -9,11 +9,7 @@
 #' @return list composed of as many objects as in the list of station ID numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 #'
 #' @examples
-#' # One station
 #' CMR(18019)
-#'
-#' # Multiple stations
-#' # x <- CMR(c(3001,3002,3003))
 #'
 
 CMR <- function(ID){
@@ -25,46 +21,26 @@ CMR <- function(ID){
 
   options(warn=-1) # do not print warnings
 
-  wml <- list()
+  website <- "http://nrfaapps.ceh.ac.uk/nrfa"
 
-  counter <- 0
+  url <- paste(website,"/xml/waterml2?db=nrfa_public&stn=", ID,"&dt=cmr",sep="")
 
-  for (stationID in ID){
+  if ( url.exists(url) ){
 
-    counter <- counter + 1
+    doc <- urlsToDocs(url)
+    nodes <- docsToNodes(doc,xpath="/")
+    myList <- nodesToList(nodes)
 
-    website <- "http://nrfaapps.ceh.ac.uk/nrfa"
+    wml <- FindTS(myList)
 
-    url <- paste(website,"/xml/waterml2?db=nrfa_public&stn=",
-                 stationID,"&dt=cmr",sep="")
 
-    if ( url.exists(url) ){
+  }else{
 
-      doc <- urlsToDocs(url)
-      nodes <- docsToNodes(doc,xpath="/")
-      myList <- nodesToList(nodes)
-
-      wml[[counter]] <- FindTS(myList)
-
-      if (length(ID) == 1) {
-
-        wml <- wml[[1]]
-        return( wml )
-
-      }else{
-
-        names(wml)[[counter]] <- paste("ID",stationID,sep="")
-
-      }
-
-    }else{
-
-      message(paste("For station", stationID,"there is no available online dataset in waterml format"))
-
-    }
+    message(paste("For station", ID,
+                  "there is no available online dataset in waterml format"))
 
   }
 
-  return( wml )
+  return(wml)
 
 }
