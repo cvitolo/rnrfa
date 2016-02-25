@@ -5,7 +5,7 @@ import(zoo)
 import(rjson)
 import(sp)
 import(rgdal)
-
+importFrom("plyr", "llply")
 importFrom("utils", "packageDescription")
 
 export(catalogue)

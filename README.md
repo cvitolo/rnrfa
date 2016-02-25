@@ -181,7 +181,7 @@ Retrieving information for multiple sites becomes trivial:
 
 ```R 
 # Search data/metadata in the waterml2 service
-s <- GDF(c(3001,3002,3003))
+s <- lapply(c(3001,3002,3003),GDF)
 
 # s is a list of 3 object (one object for each site)
 firstSite  <- s[[1]]  # s$ID3001

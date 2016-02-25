@@ -19,7 +19,9 @@
 
 OSGparse <- function(gridRefs, CoordSystem = "NG" ) {
 
-  gridRefs <- as.list(gridRefs)
+  # require(sp)
+
+  # gridRefs <- as.list(gridRefs)
   xlon <- c()
   ylat <- c()
 

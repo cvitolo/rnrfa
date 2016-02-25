@@ -4,7 +4,7 @@
 #'
 #' @description This function pulls the list of stations (and related metadata), falling within a given bounding box, from the CEH National River Flow Archive website.
 #'
-#' @param bbox this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))#'
+#' @param bbox this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))
 #' @param metadataColumn name of column to filter
 #' @param entryValue string to search in metadataColumn#'
 #' @param minRec minimum number of recording years
@@ -18,12 +18,12 @@
 #'
 #' @examples
 #' # Retrieve all the stations in the network
-#' x <- catalogue()
+#' # x <- catalogue()
 #'
 #' # Define a bounding box:
-#' # bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+#' bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 #' # Get stations within the bounding box
-#' # x <- catalogue(bbox)
+#' x <- catalogue(bbox)
 #'
 #' # Get stations based on minimum number of recording years
 #' # x <- catalogue(minRec=30)
@@ -34,6 +34,7 @@ catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
   # require(RCurl)
   # require(rjson)
+  # require(plyr)
 
   options(warn=-1)
 
@@ -60,74 +61,85 @@ catalogue <- function(bbox = NULL, metadataColumn = NULL,
   url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb:",
                latMax,",",lonMin,",",latMin,",",lonMax, sep="")
 
-  # url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb%3A",
-  #              latMax,"%2C",lonMin,"%2C",latMin,"%2C",lonMax, sep="")
-
   if( url.exists(url) ) {
 
     if (verbose) message("Retrieving data from live web data source.")
 
-    stationSummary <- fromJSON(file=url)
-    if (length(as.list(stationSummary))==0){
-      message("No GDF stations found within the bounding box.")
-    }else{
-      colNames <- names(stationSummary[[1]])
-
-      class(stationSummary) <- "data.frame"
-      attr(stationSummary, "row.names") <- c(NA_integer_, -length(stationSummary[[1]]))
-      stationSummary <- data.frame(t(stationSummary))
-      names(stationSummary) <- colNames
-    }
-
+    # Get the JSON file
+    stationListJSON <- fromJSON(file=url)
+    # remove nested lists
+    stationList <- llply(stationListJSON, unlist)
+    stationColumns <- unique(unlist(lapply(stationListJSON, names)))
+    cols2rm <- which(stationColumns %in% c("description", "start", "end",
+                                           "primary-purpose",
+                                           "measured-parameter",
+                                           "how-parameter-measured",
+                                           "high-flow-gauging-method",
+                                           "previous-high-flow-gauging-method",
+                                           "wing-wall-height", "bankfull-stage",
+                                           "maximum-gauged-flow",
+                                           "maximum-gauged-level"))
+    stationColumns <- unique(unlist(lapply(stationListJSON, names)))[-cols2rm]
+    selectedMeta <- lapply(stationList, function(x) {x[stationColumns]})
+    stationList <- as.data.frame(do.call(rbind,selectedMeta))
+    names(stationList) <- stationColumns
     ### END (FILTER BASED ON BOUNDING BOX) ###
 
     ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
 
-    temp <- stationSummary
+    temp <- stationList
 
-    if (!is.null(metadataColumn)){
+    if (is.null(metadataColumn) & !is.null(entryValue)) {
+      message("Enter valid metadataColumn")
+    }
+
+    if (!is.null(metadataColumn) & is.null(entryValue)) {
+      message("Enter valid entryValue")
+    }
+
+    if (!is.null(metadataColumn) & !is.null(entryValue)){
 
       if (metadataColumn == "id"){
 
-        myRows <- which(stationSummary$id %in% entryValue)
-        stationSummary <- stationSummary[myRows,]
+        myRows <- which(stationList$id %in% entryValue)
+        stationList <- stationList[myRows,]
 
       }else{
 
-        if (!is.null(metadataColumn) & !is.null(entryValue)) {
+        myColumn <- unlist(eval(parse(text=paste('temp$',metadataColumn))))
 
-          myColumn <- unlist(eval(parse(text=paste('temp$',metadataColumn))))
+        Condition1 <- all(!is.na(as.numeric(as.character(myColumn))))
+        if (Condition1 == TRUE) myColumn <- as.numeric(as.character(myColumn))
 
-          Condition1 <- is.numeric(myColumn)
-          Condition2 <- substr(entryValue, 1, 1) == ">"
-          Condition3 <- substr(entryValue, 1, 1) == "<"
-          Condition4 <- substr(entryValue, 1, 1) == "="
+        Condition2 <- substr(entryValue, 1, 1) == ">"
+        Condition3 <- substr(entryValue, 1, 1) == "<"
+        Condition4 <- substr(entryValue, 1, 1) == "="
 
-          if (Condition1 & (Condition2 | Condition3 | Condition4)){
+        if (Condition1 & (Condition2 | Condition3 | Condition4)){
 
-            if (substr(entryValue, 2, 2)=="="){
+          if (substr(entryValue, 2, 2) == "="){
 
-              threshold <- as.numeric(substr(entryValue, 3, nchar(entryValue)))
-              combinedString <- paste(metadataColumn,
-                                     substr(entryValue, 1, 2),
-                                     substr(entryValue, 3, nchar(entryValue)))
-              myExpression <- eval(parse(text=combinedString))
-              newstationSummary <- subset(temp, myExpression)
+            threshold <- as.numeric(as.character(substr(entryValue, 3, nchar(entryValue))))
+            combinedString <- paste(metadataColumn,
+                                    substr(entryValue, 1, 2),
+                                    substr(entryValue, 3, nchar(entryValue)))
+            myExpression <- eval(parse(text=combinedString))
+            newstationList <- subset(temp, myExpression)
 
-            }else{
-              threshold <- as.numeric(substr(entryValue, 2, nchar(entryValue)))
-              combinedString <- paste("myColumn",
-                                      substr(entryValue, 1, 1),
-                                      substr(entryValue, 2, nchar(entryValue)))
-              myExpression <- eval(parse(text=combinedString))
-              newstationSummary <- subset(temp, myExpression)
-            }
           }else{
-            myExpression <- myColumn==entryValue
-            newstationSummary <- subset(temp, myExpression)
+            threshold <- as.numeric(as.character(substr(entryValue, 2,
+                                                        nchar(entryValue))))
+            combinedString <- paste("myColumn",
+                                    substr(entryValue, 1, 1),
+                                    substr(entryValue, 2, nchar(entryValue)))
+            myExpression <- eval(parse(text=combinedString))
+            newstationList <- subset(temp, myExpression)
           }
-          stationSummary <- newstationSummary
+        }else{
+          myExpression <- myColumn==entryValue
+          newstationList <- subset(temp, myExpression)
         }
+        stationList <- newstationList
 
       }
 
@@ -138,25 +150,25 @@ catalogue <- function(bbox = NULL, metadataColumn = NULL,
     ### FILTER BASED ON MINIMUM RECONDING YEARS ###
 
     if (!is.null(minRec)) {
-      temp <- stationSummary
-      endYear <- as.numeric(unlist(temp$gdfEnd))
+      temp <- stationList
+      endYear <- as.numeric(as.character(unlist(temp$gdfEnd)))
       endYear[is.na(endYear)] <- 0
-      startYear <- as.numeric(unlist(temp$gdfStart))
+      startYear <- as.numeric(as.character(unlist(temp$gdfStart)))
       startYear[is.na(startYear)] <- 0
       recordingYears <- endYear-startYear
       goodRecordingYears <- which(recordingYears>=minRec)
-      stationSummary <- temp[goodRecordingYears,]
+      stationList <- temp[goodRecordingYears,]
     }
 
     ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
 
     # Add lat and lon
-    gridR <- OSGparse(gridRefs = stationSummary$gridReference,
+    gridR <- OSGparse(gridRefs = unlist(stationList$gridReference),
                       CoordSystem = "WGS84")
-    stationSummary$lat <- gridR$ylat
-    stationSummary$lon <- gridR$xlon
+    stationList$lat <- gridR$ylat
+    stationList$lon <- gridR$xlon
 
-    return(stationSummary)
+    return(stationList)
 
   }else{
 

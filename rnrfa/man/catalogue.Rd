@@ -8,7 +8,7 @@ catalogue(bbox = NULL, metadataColumn = NULL, entryValue = NULL,
   minRec = NULL, verbose = FALSE)
 }
 \arguments{
-\item{bbox}{this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))#'}
+\item{bbox}{this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))}
 
 \item{metadataColumn}{name of column to filter}
 
@@ -31,12 +31,12 @@ Offline you can browse the cached version running the command \code{data(station
 }
 \examples{
 # Retrieve all the stations in the network
-x <- catalogue()
+# x <- catalogue()
 
 # Define a bounding box:
-# bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 # Get stations within the bounding box
-# x <- catalogue(bbox)
+x <- catalogue(bbox)
 
 # Get stations based on minimum number of recording years
 # x <- catalogue(minRec=30)
