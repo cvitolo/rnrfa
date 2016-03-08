@@ -10,23 +10,30 @@
 #'
 
 FindInfo <- function(myList){
-  
+
   #require(stringr)
-  
-  stationName <- myList[[1]][[1]]$Collection$observationMember$OM_Observation$featureOfInterest[[2]]
-  
-  typeOfMeasurement <- myList[[1]][[1]]$Collection$localDictionary$Dictionary$dictionaryEntry$Definition$remarks
-  
-  temp <- myList[[1]][[1]]$Collection$samplingFeatureMember$MonitoringPoint$shape$Point$pos$text
-  Latitude <- as.numeric(str_split(temp, " ")[[1]][1])  
-  Longitude <- as.numeric(str_split(temp, " ")[[1]][2])  
-  
-  timeZone <- myList[[1]][[1]]$Collection$samplingFeatureMember$MonitoringPoint$timeZone
-  
-  remarks <- myList[[1]][[1]]$Collection$localDictionary$Dictionary[3]$dictionaryEntry$Definition$remarks
-    
-  info <- data.frame(cbind(stationName,Latitude,Longitude,typeOfMeasurement, timeZone, remarks))    
-    
+
+  x <- myList[[1]][[1]]$Collection
+
+  stationName <- x$observationMember$OM_Observation$featureOfInterest[[2]]
+
+  typeOfMeasurement <- x$localDictionary$Dictionary$dictionaryEntry$Definition$remarks[[1]]
+  variable     <- unlist(strsplit(typeOfMeasurement, ","))[[1]]
+  units        <- unlist(strsplit(typeOfMeasurement, ","))[[2]]
+  typeFunction <- unlist(strsplit(typeOfMeasurement, ","))[[3]]
+  timeStep     <- unlist(strsplit(typeOfMeasurement, ","))[[4]]
+
+  temp <- x$samplingFeatureMember$MonitoringPoint$shape$Point$pos$text
+  Latitude <- as.numeric(strsplit(temp, " ")[[1]][[1]])
+  Longitude <- as.numeric(strsplit(temp, " ")[[1]][[2]])
+
+  timeZone <- x$samplingFeatureMember$MonitoringPoint$timeZone
+
+  remarks <- x$localDictionary$Dictionary[3]$dictionaryEntry$Definition$remarks
+
+  info <- data.frame(cbind(stationName, Latitude, Longitude, variable, units,
+                           typeFunction, timeStep, timeZone, remarks))
+
   return(info)
-  
+
 }

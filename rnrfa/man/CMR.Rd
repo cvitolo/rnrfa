@@ -2,21 +2,26 @@
 % Please edit documentation in R/CMR.R
 \name{CMR}
 \alias{CMR}
-\title{This function retrieves data from wml time series of Catchment Monthly Rainfall from the NRFA database.}
+\title{This function retrieves Catchment Mean Rainfall (CMR).}
 \usage{
-CMR(ID)
+CMR(id, metadata = FALSE, parallel = FALSE)
 }
 \arguments{
-\item{ID}{station ID number(s), each number should be in the range [3002,236051].}
+\item{id}{station ID number(s), each number should be in the range [3002,236051].}
+
+\item{metadata}{Logical, FALSE by default. If metadata = TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).}
+
+\item{parallel}{Logical, FALSE by default. If parallel = TRUE means that the function can be used in parallel computations.}
 }
 \value{
 list composed of as many objects as in the list of station ID numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 }
 \description{
-Given the station ID number(s), this function retrieves data (time series in zoo format).
+Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Catchment Mean Rainfall is measured in mm/month.
 }
 \examples{
 CMR(18019)
+# CMR(c(54022,54090,54091))
 
 }
 \author{

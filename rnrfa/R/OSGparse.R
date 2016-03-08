@@ -99,7 +99,8 @@ OSGparse <- function(gridRefs, CoordSystem = "NG" ) {
 
   }
 
-  newCoords <- list("xlon"=xlon, "ylat"=ylat)
+  if (CoordSystem == "NG") newCoords <- list("easting"=xlon, "northing"=ylat)
+  if (CoordSystem == "WGS84") newCoords <- list("lon"=xlon, "lat"=ylat)
 
   return(newCoords)
 

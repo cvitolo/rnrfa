@@ -1,47 +1,30 @@
-#' This function retrieves data from wml time series of gauged daily flow from the NRFA database.
+#' This function retrieves Gauged Daily Flow (GDF).
 #'
 #' @author Claudia Vitolo
 #'
-#' @description Given the station ID number(s), this function retrieves data (time series in zoo format) and metadata.
+#' @description Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Gauged Daily Flow is measured in mm/day.
 #'
-#' @param ID station ID number(s), each number should be in the range [3002,236051].
+#' @param id station ID number(s), each number should be in the range [3002,236051].
+#' @param metadata Logical, FALSE by default. If metadata = TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).
+#' @param parallel Logical, FALSE by default. If parallel = TRUE means that the function can be used in parallel computations.
 #'
 #' @return list composed of as many objects as in the list of station ID numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 #'
 #' @examples
-#' # One station
 #' GDF(18019)
+#' # GDF(c(54022,54090,54091))
 #'
 
-GDF <- function(ID){
+GDF <- function(id, metadata = FALSE, parallel = FALSE){
 
   # require(RCurl)
   # require(XML2R)
   # require(stringr)
   # require(zoo)
+  # id <- c(54022,54090,54091)
 
-  options(warn=-1) # do not print warnings
+  flow <- getTS(id, type = "gdf", metadata, parallel)
 
-  website <- "http://nrfaapps.ceh.ac.uk/nrfa"
-
-  url <- paste(website,"/xml/waterml2?db=nrfa_public&stn=", ID,"&dt=gdf",sep="")
-
-  if ( url.exists(url) ){
-
-    doc <- urlsToDocs(url)
-    nodes <- docsToNodes(doc,xpath="/")
-    myList <- nodesToList(nodes)
-
-    wml <- FindTS(myList)
-
-
-  }else{
-
-    message(paste("For station", ID,
-                  "there is no available online dataset in waterml format"))
-
-  }
-
-  return(wml)
+  return(flow)
 
 }

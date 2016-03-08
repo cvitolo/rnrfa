@@ -4,19 +4,21 @@
 \alias{catalogue}
 \title{List of stations from UK NRFA}
 \usage{
-catalogue(bbox = NULL, metadataColumn = NULL, entryValue = NULL,
-  minRec = NULL, verbose = FALSE)
+catalogue(bbox = NULL, columnName = NULL, columnValue = NULL,
+  minRec = NULL, verbose = FALSE, all = TRUE)
 }
 \arguments{
 \item{bbox}{this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))}
 
-\item{metadataColumn}{name of column to filter}
+\item{columnName}{name of column to filter}
 
-\item{entryValue}{string to search in metadataColumn#'}
+\item{columnValue}{string to search in columnName#'}
 
 \item{minRec}{minimum number of recording years}
 
 \item{verbose}{if TRUE prints warning messages}
+
+\item{all}{if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.}
 }
 \value{
 data.frame with list of stations and related metadata

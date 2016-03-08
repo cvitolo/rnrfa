@@ -5,10 +5,11 @@
 #' @description This function pulls the list of stations (and related metadata), falling within a given bounding box, from the CEH National River Flow Archive website.
 #'
 #' @param bbox this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))
-#' @param metadataColumn name of column to filter
-#' @param entryValue string to search in metadataColumn#'
+#' @param columnName name of column to filter
+#' @param columnValue string to search in columnName#'
 #' @param minRec minimum number of recording years
 #' @param verbose if TRUE prints warning messages
+#' @param all if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.
 #'
 #' @details coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
 #'
@@ -29,8 +30,8 @@
 #' # x <- catalogue(minRec=30)
 #'
 
-catalogue <- function(bbox = NULL, metadataColumn = NULL,
-                           entryValue = NULL, minRec=NULL, verbose = FALSE) {
+catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
+                      minRec=NULL, verbose = FALSE, all = TRUE) {
 
   # require(RCurl)
   # require(rjson)
@@ -89,54 +90,55 @@ catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
     temp <- stationList
 
-    if (is.null(metadataColumn) & !is.null(entryValue)) {
-      message("Enter valid metadataColumn")
+    if (is.null(columnName) & !is.null(columnValue)) {
+      message("Enter valid columnName")
     }
 
-    if (!is.null(metadataColumn) & is.null(entryValue)) {
-      message("Enter valid entryValue")
+    if (!is.null(columnName) & is.null(columnValue)) {
+      message("Enter valid columnValue")
     }
 
-    if (!is.null(metadataColumn) & !is.null(entryValue)){
+    if (!is.null(columnName) & !is.null(columnValue)){
 
-      if (metadataColumn == "id"){
+      if (columnName == "id"){
 
-        myRows <- which(stationList$id %in% entryValue)
+        myRows <- which(stationList$id %in% columnValue)
         stationList <- stationList[myRows,]
 
       }else{
 
-        myColumn <- unlist(eval(parse(text=paste('temp$',metadataColumn))))
+        myColumn <- unlist(eval(parse(text=paste('temp$',columnName))))
 
         Condition1 <- all(!is.na(as.numeric(as.character(myColumn))))
         if (Condition1 == TRUE) myColumn <- as.numeric(as.character(myColumn))
 
-        Condition2 <- substr(entryValue, 1, 1) == ">"
-        Condition3 <- substr(entryValue, 1, 1) == "<"
-        Condition4 <- substr(entryValue, 1, 1) == "="
+        Condition2 <- substr(columnValue, 1, 1) == ">"
+        Condition3 <- substr(columnValue, 1, 1) == "<"
+        Condition4 <- substr(columnValue, 1, 1) == "="
 
         if (Condition1 & (Condition2 | Condition3 | Condition4)){
 
-          if (substr(entryValue, 2, 2) == "="){
+          if (substr(columnValue, 2, 2) == "="){
 
-            threshold <- as.numeric(as.character(substr(entryValue, 3, nchar(entryValue))))
-            combinedString <- paste(metadataColumn,
-                                    substr(entryValue, 1, 2),
-                                    substr(entryValue, 3, nchar(entryValue)))
+            threshold <- as.numeric(as.character(substr(columnValue,
+                                                        3, nchar(columnValue))))
+            combinedString <- paste(columnName,
+                                    substr(columnValue, 1, 2),
+                                    substr(columnValue, 3, nchar(columnValue)))
             myExpression <- eval(parse(text=combinedString))
             newstationList <- subset(temp, myExpression)
 
           }else{
-            threshold <- as.numeric(as.character(substr(entryValue, 2,
-                                                        nchar(entryValue))))
+            threshold <- as.numeric(as.character(substr(columnValue, 2,
+                                                        nchar(columnValue))))
             combinedString <- paste("myColumn",
-                                    substr(entryValue, 1, 1),
-                                    substr(entryValue, 2, nchar(entryValue)))
+                                    substr(columnValue, 1, 1),
+                                    substr(columnValue, 2, nchar(columnValue)))
             myExpression <- eval(parse(text=combinedString))
             newstationList <- subset(temp, myExpression)
           }
         }else{
-          myExpression <- myColumn==entryValue
+          myExpression <- myColumn==columnValue
           newstationList <- subset(temp, myExpression)
         }
         stationList <- newstationList
@@ -162,13 +164,30 @@ catalogue <- function(bbox = NULL, metadataColumn = NULL,
 
     ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
 
-    # Add lat and lon
-    gridR <- OSGparse(gridRefs = unlist(stationList$gridReference),
-                      CoordSystem = "WGS84")
-    stationList$lat <- gridR$ylat
-    stationList$lon <- gridR$xlon
+    if (nrow(stationList) > 0) {
 
-    return(stationList)
+      # Add lat and lon
+      gridR <- OSGparse(gridRefs = unlist(stationList$gridReference),
+                        CoordSystem = "WGS84")
+      stationList$lat <- gridR$lat
+      stationList$lon <- gridR$lon
+
+      # change columns' data types (remove factors)
+      stationList[] <- lapply(stationList, as.character)
+      stationList[,c(12:14, 17:20)] <- lapply(stationList[,c(12:14, 17:20)],
+                                              as.numeric)
+
+      if (!all) {
+        stationList <- stationList[,c(1, 2, 4, 12, 19, 20)]
+      }
+
+      return(stationList)
+
+    }else{
+
+      message("No station found using the selected criteria!")
+
+    }
 
   }else{
 
