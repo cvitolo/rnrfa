@@ -18,3 +18,5 @@
 *~
 
 tests/*
+demos/*
+setup.R

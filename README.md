@@ -87,32 +87,32 @@ bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 someStations <- catalogue(bbox)
                                   
 # Filter stations belonging to a certain hydrometric area
-someStations <- catalogue(metadataColumn="haName", entryValue="Wye (Hereford)")
+someStations <- catalogue(columnName="haName", columnValue="Wye (Hereford)")
 
 # Filter based on bounding box & metadata strings
 someStations <- catalogue(bbox,
-                          metadataColumn="haName",
-                          entryValue="Wye (Hereford)")
+                          columnName="haName",
+                          columnValue="Wye (Hereford)")
 
 # Filter stations based on threshold
 someStations <- catalogue(bbox,
-                          metadataColumn="catchmentArea",
-                          entryValue=">1")
+                          columnName="catchmentArea",
+                          columnValue=">1")
 
 # Filter based on minimum recording years
 someStations <- catalogue(bbox,
-                          metadataColumn="catchmentArea",
-                          entryValue=">1",
+                          columnName="catchmentArea",
+                          columnValue=">1",
                           minRec=30)
                                   
 # Filter stations based on identification number
-someStations <- catalogue(metadataColumn="id",
-                          entryValue=c(3001,3002,3003))
+someStations <- catalogue(columnName="id",
+                          columnValue=c(3001,3002,3003))
                                
 # Other combined filtering
 someStations <- catalogue(bbox,
-                          metadataColumn="id",
-                          entryValue=c(54022,54090,54091,54092,54097),
+                          columnName="id",
+                          columnValue=c(54022,54090,54091,54092,54097),
                           minRec=35)
 ```
 
@@ -121,7 +121,7 @@ The only geospatial information contained in the list of station in the catalogu
 
 ```R
 # Where is the first catchment located?
-someStations$gridReference[[1]]
+someStations$gridReference[1]
 
 # Convert OS Grid reference to BNG
 OSGparse("SN853872")
@@ -144,52 +144,55 @@ OSGparse(someStations$gridReference)
 
 The first column of the table "someStations" contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo). 
 
-The National River Flow Archive serves two types of time series data:
+The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.
 
-* Gauged Daily Flows (GDF)
+These time series can be obtained using the functions GDF() and CMR(), respectively. Both functions accept three inputs: 
 
-* Catchment Mean Rainfall (CMR)
+* `id`, the station identification numbers (single string or character vector).
 
-### Gauged Daily Flows
+* metadata, a logical variable (FALSE by default). If metadata is TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).
 
-Gauged Daily Flows can be obtained using the function GDF(). This accepts one input, the station id (as single string or character vector). 
-Here is how to retrieve daily flows for _Shin at Lairg (id = 3001)_ catchment.
+* parallel, a logical variable (FALSE by default). If parallel = TRUE means that the function can be used in parallel computations (e.g. with the parallel package).
+
+Here is how to retrieve mean rainfall (monthly) data for _Shin at Lairg (id = 3001)_ catchment.
 
 ```{r}
-# Fetch time series data from the waterml2 service
-data <- GDF("3001")
-metadata <- GDFmeta("3001")
-plot(data, main=paste("Daily flow data for the", metadata$stationName, "catchment"),
-     xlab="", ylab=expression(m^3/s))
+# Fetch only time series data from the waterml2 service
+info <- CMR(id = "3001")
+plot(info)
+
+# Fetch time series data and metadata from the waterml2 service
+info <- CMR(id = "3001", metadata = TRUE)
+plot(info$data, main=paste("Monthly rainfall data for the",
+                           info$meta$stationName,"catchment"), 
+     xlab="", ylab=info$meta$units)
 ```
 
-### Catchment Mean Rainfall
-
-Catchment Mean Rainfall can be obtained using the function CMR(). This accepts one input, the station id (as single string or character vector). 
-Here is how to retrieve rainfall data for _Shin at Lairg (id = 3001)_ catchment.
+Here is how to retrieve (daily) flow data for _Shin at Lairg (id = 3001)_ catchment.
 
 ```{r}
-# Fetch time series data from the waterml2 service
-data <- CMR("3001")
-metadata <- CMRmeta("3001")
-plot(data, main=paste("Monthly rainfall data for the",metadata$stationName,"catchment"), 
-     xlab="", ylab=expression(mm))
+# Fetch only time series data from the waterml2 service
+info <- GDF(id = "3001")
+plot(info)
+
+# Fetch time series data and metadata from the waterml2 service
+info <- GDF(id = "3001", metadata = TRUE)
+plot(info$data, main=paste("Daily flow data for the",
+                           info$meta$stationName,"catchment"), 
+     xlab="", ylab=info$meta$units)
 ```
 
 ## Multiple sites
-Retrieving information for multiple sites becomes trivial:
+By default, the functions `getTS()` can be used to fetch time series data from multiple site in a sequential mode (using 1 core):
 
 ```R 
 # Search data/metadata in the waterml2 service
-s <- lapply(c(3001,3002,3003),GDF)
+s <- CMR(c(3002,3003), metadata = TRUE)
 
-# s is a list of 3 object (one object for each site)
-firstSite  <- s[[1]]  # s$ID3001
-secondSite <- s[[2]]  # s$ID3002
-thirdSite  <- s[[3]]  # s$ID3003
-
-plot(secondSite,col="blue")
-lines(thirdSite,col="green")
+# s is a list of 2 objects (one object for each site)
+plot(s[[1]]$data, 
+     main = paste(s[[1]]$meta$stationName, "and", s[[2]]$meta$stationName))
+lines(s[[2]]$data, col="green")
 ```
 
 ## INTEROPERABILITY
@@ -198,7 +201,7 @@ lines(thirdSite,col="green")
 
 ```R
 library(DT)
-datatable(allStations[,c(1:4,7,9,10,12:14,17)])
+datatable(catalogue(all=FALSE))
 ```
 
 ### Create interactive maps using leaflet:
@@ -214,7 +217,7 @@ leaflet(data = someStations) %>% addTiles() %>%
 
 ```R
 library(dygraphs)
-dygraph(data) %>% dyRangeSelector()
+dygraph(info$data) %>% dyRangeSelector()
 ```
 
 ### Parallel processing:
@@ -237,7 +240,8 @@ system.time( s1 <- GDF(someStations$id) )
 
 ```R
 # Get flow data with a parallel approach
-system.time( s2 <- mclapply(someStations$id, GDF, mc.cores = detectCores()) )  
+system.time( s2 <- mclapply(someStations$id, GDF, 
+                            mc.cores = detectCores(), parallel = TRUE) )  
 ```
 
 The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:
