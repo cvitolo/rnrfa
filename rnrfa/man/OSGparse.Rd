@@ -4,18 +4,18 @@
 \alias{OSGparse}
 \title{Converts OS Grid Reference to BNG/WGS coordinates.}
 \usage{
-OSGparse(gridRefs, CoordSystem = "NG")
+OSGparse(gridRefs, CoordSystem = "BNG")
 }
 \arguments{
-\item{gridRefs}{This is a string (or a vector of strings) that expresses the UK Grid Reference.}
+\item{gridRefs}{This is a string (or a character vector) that contains the OS grid Reference.}
 
-\item{CoordSystem}{This is "NG" (British/Irish National Grid) by default. If you want lat/lon, use CoordSystem = "WGS84" (more info can be found here https://www.epsg-registry.org/).}
+\item{CoordSystem}{By default, this is "BNG" which stands for British National Grids. The other option is to set CoordSystem = "WGS84", which returns latitude/longitude coordinates (more info can be found here https://www.epsg-registry.org/).}
 }
 \value{
-vector made of two elements: the easting and northing (by default) or Lat and Lon coordinates.
+vector made of two elements: the easting and northing (by default) or latitude and longitude coordinates.
 }
 \description{
-This function converts an OS reference to easting/northing coordinates (UK National Grid, epsg:27700).
+This function converts an Ordnance Survey (OS) grid reference to easting/northing or latitude/longitude coordinates.
 }
 \examples{
 # single entry

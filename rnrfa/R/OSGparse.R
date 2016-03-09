@@ -2,12 +2,12 @@
 #'
 #' @author Claudia Vitolo
 #'
-#' @description This function converts an OS reference to easting/northing coordinates (UK National Grid, epsg:27700).
+#' @description This function converts an Ordnance Survey (OS) grid reference to easting/northing or latitude/longitude coordinates.
 #'
-#' @param gridRefs This is a string (or a vector of strings) that expresses the UK Grid Reference.
-#' @param CoordSystem This is "NG" (British/Irish National Grid) by default. If you want lat/lon, use CoordSystem = "WGS84" (more info can be found here https://www.epsg-registry.org/).
+#' @param gridRefs This is a string (or a character vector) that contains the OS grid Reference.
+#' @param CoordSystem By default, this is "BNG" which stands for British National Grids. The other option is to set CoordSystem = "WGS84", which returns latitude/longitude coordinates (more info can be found here https://www.epsg-registry.org/).
 #'
-#' @return vector made of two elements: the easting and northing (by default) or Lat and Lon coordinates.
+#' @return vector made of two elements: the easting and northing (by default) or latitude and longitude coordinates.
 #'
 #' @examples
 #' # single entry
@@ -17,7 +17,7 @@
 #' OSGparse(gridRefs=c("SN831869","SN829838"))
 #'
 
-OSGparse <- function(gridRefs, CoordSystem = "NG" ) {
+OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
 
   # require(sp)
 
@@ -99,7 +99,7 @@ OSGparse <- function(gridRefs, CoordSystem = "NG" ) {
 
   }
 
-  if (CoordSystem == "NG") newCoords <- list("easting"=xlon, "northing"=ylat)
+  if (CoordSystem == "BNG") newCoords <- list("easting"=xlon, "northing"=ylat)
   if (CoordSystem == "WGS84") newCoords <- list("lon"=xlon, "lat"=ylat)
 
   return(newCoords)
