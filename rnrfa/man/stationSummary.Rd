@@ -31,6 +31,8 @@
     \item{\code{sensitivity}}{a list vector}
     \item{\code{lat}}{a numeric vector}
     \item{\code{lon}}{a numeric vector}
+    \item{\code{Region}}{a character vector}
+    \item{\code{RecordedYears}}{a numeric vector}
   }
 }
 \details{
