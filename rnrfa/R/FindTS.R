@@ -32,11 +32,12 @@ FindTS <- function(myList){
 
   }
 
-  myTS <- zoo(value, order.by=as.POSIXlt(time))
+  myTS <- xts(x = value, order.by = as.POSIXlt(time))
+  # zoo(value, order.by=)
 
-  if ( any(is.na(index(myTS))) ){
+  if ( any(is.na(as.POSIXlt(time))) ){
 
-    toDelete <- which(is.na(index(myTS)))
+    toDelete <- which(is.na(as.POSIXlt(time)))
     myTS <- myTS[-toDelete]
 
   }

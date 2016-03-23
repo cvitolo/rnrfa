@@ -4,10 +4,19 @@
 \alias{plotRainFlow}
 \title{Plot rainfall and flow for a given station}
 \usage{
-plotRainFlow(id)
+plotRainFlow(id = NULL, rain = NULL, flow = NULL, area = NULL,
+  title = "")
 }
 \arguments{
 \item{id}{Station identification number}
+
+\item{rain}{Rainfall time series, measured in mm/month}
+
+\item{flow}{Flow time series, measured in m3/s}
+
+\item{area}{Catchment area in Km2}
+
+\item{title}{(optional) Plot title}
 }
 \value{
 Plot rainfall and flow for a given station
@@ -16,6 +25,6 @@ Plot rainfall and flow for a given station
 This function retrieves rainfall and flow time series for a given catchment, divides the flow by the catchment area and converts it to mm/day to that it can be comparable with the rainfall (mm/month). Finally it generates a plots combining rainfall and flow information.
 }
 \examples{
-#' # plotRainFlow(id = 54022)
+# plotRainFlow(id = 54090)
 }
 

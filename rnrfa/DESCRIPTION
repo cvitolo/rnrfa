@@ -17,11 +17,14 @@ Imports:
     XML2R,
     RCurl,
     plyr,
-    zoo,
     rjson,
     rgdal,
     sp,
-    stringr
+    stringr,
+    ggplot2,
+    cowplot,
+    ggmap,
+    xts
 Encoding: UTF-8
 License: GPL-3
 Repository: GitHub

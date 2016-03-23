@@ -3,24 +3,36 @@
 #' @description This function retrieves rainfall and flow time series for a given catchment, divides the flow by the catchment area and converts it to mm/day to that it can be comparable with the rainfall (mm/month). Finally it generates a plots combining rainfall and flow information.
 #'
 #' @param id Station identification number
+#' @param rain Rainfall time series, measured in mm/month
+#' @param flow Flow time series, measured in m3/s
+#' @param area Catchment area in Km2
+#' @param title (optional) Plot title
 #'
 #' @return Plot rainfall and flow for a given station
 #'
 #' @examples
-#' #' # plotRainFlow(id = 54022)
+#' # plotRainFlow(id = 54090)
 
-plotRainFlow <- function(id){
+plotRainFlow <- function(id = NULL,
+                         rain = NULL, flow = NULL, area = NULL, title = ""){
 
-  # Retrieve area (in Km2) from the catalogue
-  meta <- catalogue(columnName="id", columnValue = id)
-  area <- as.numeric(as.character(meta$catchmentArea))
+  if (!is.null(id)){
 
-  # Retrieve rainfall data for station 54022
-  rain <- getTS(id, type = "cmr")
+    # Retrieve area (in Km2) from the catalogue
+    meta <- catalogue(columnName="id", columnValue = id)
+    title <- meta$name
+    area <- as.numeric(as.character(meta$catchmentArea))
 
-  # Retrieve flow data for station 54022
-  flow <- getTS(id, type = "gdf")
-  convertedFlow <- ((flow*1000)/(area*1000000))*86400 # mm/day
+    # Retrieve rainfall data for station 54022
+    rain <- getTS(id, type = "cmr")
+
+    # Retrieve flow data for station 54022
+    flow <- getTS(id, type = "gdf")
+
+  }
+
+  convertedFlow <- convertFlow(flow, area)
+  # (flow*1000)/(area*1000000))*86400 # mm/day
 
   proportion <- ceiling((max(convertedFlow, na.rm = T) -
                            min(convertedFlow, na.rm = T))/3)
@@ -29,7 +41,7 @@ plotRainFlow <- function(id){
   par(mar=c(2,4,3,4))
 
   plot(convertedFlow, ylim =c(-proportion/2,max(convertedFlow)+proportion),
-       main=meta$name, xlab="",ylab="Flow [mm/d]", lwd=0.5)
+       main=title, xlab="",ylab="Flow [mm/d]", lwd=0.5)
 
   # Add precipitation to the top
   par(bty="n", new=T)

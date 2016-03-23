@@ -8,7 +8,6 @@
 #' @param columnName name of column to filter
 #' @param columnValue string to search in columnName#'
 #' @param minRec minimum number of recording years
-#' @param verbose if TRUE prints warning messages
 #' @param all if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.
 #'
 #' @details coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
@@ -31,7 +30,7 @@
 #'
 
 catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
-                      minRec=NULL, verbose = FALSE, all = TRUE) {
+                      minRec=NULL, all = TRUE) {
 
   # require(RCurl)
   # require(rjson)
@@ -63,8 +62,6 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                latMax,",",lonMin,",",latMin,",",lonMax, sep="")
 
   if( url.exists(url) ) {
-
-    if (verbose) message("Retrieving data from live web data source.")
 
     # Get the JSON file
     stationListJSON <- fromJSON(file=url)
