@@ -10,11 +10,11 @@
 #' @return Seasonal averages.
 #'
 #' @examples
-#' # seasonalAverages(df, season = "Spring")
+#' # seasonalAverages(CMR(18019), season = "Spring")
 
 # Extract data between 21st March and 20th June and calculate averages
 # library(xts)
-seasonalAverages <- function(myts, season = "Spring",
+seasonalAverages <- function(timeseries, season = "Spring",
                              startSeason = NULL, endSeason = NULL){
 
   if (is.null(startSeason) & is.null(endSeason)){
@@ -39,11 +39,11 @@ seasonalAverages <- function(myts, season = "Spring",
   }
 
   meanAnnualSpring <- c()
-  for (myyear in unique(year(myts))){
+  for (myyear in unique(.indexyear(timeseries) + 1900)){
     myInterval <- paste(myyear, "-", startSeason, "::",
-                        myyear, "-", endSeasn, sep="")
+                        myyear, "-", endSeason, sep="")
     meanAnnualSpring <- c(meanAnnualSpring,
-                          mean(as.xts(myts)[myInterval], na.rm = TRUE))
+                          mean(timeseries[myInterval], na.rm = TRUE))
   }
 
   # basic straight line of fit

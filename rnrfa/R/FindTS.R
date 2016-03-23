@@ -33,7 +33,6 @@ FindTS <- function(myList){
   }
 
   myTS <- xts(x = value, order.by = as.POSIXlt(time))
-  # zoo(value, order.by=)
 
   if ( any(is.na(as.POSIXlt(time))) ){
 

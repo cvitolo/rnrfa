@@ -4,17 +4,17 @@
 \alias{seasonalAverages}
 \title{Calculate seasonal averages}
 \usage{
-seasonalAverages(myts, season = "Spring", startSeason = NULL,
+seasonalAverages(timeseries, season = "Spring", startSeason = NULL,
   endSeason = NULL)
 }
 \arguments{
+\item{timeseries}{Time series (xts class).}
+
 \item{season}{Name of the season (Autumn, Winter, Spring, Summer)}
 
 \item{startSeason}{String encoding the start of the season (e.g. for spring in the northen hemisphere this is "03-21")}
 
 \item{endSeason}{String encoding the end of the season (e.g. for spring in the northen emisphere this is "06-20")}
-
-\item{timeseries}{Time series (xts class).}
 }
 \value{
 Seasonal averages.
@@ -23,6 +23,6 @@ Seasonal averages.
 This calculates the seasonal averages from a time series.
 }
 \examples{
-# seasonalAverages(df, season = "Spring")
+# seasonalAverages(CMR(18019), season = "Spring")
 }
 
