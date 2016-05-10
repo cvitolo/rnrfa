@@ -23,7 +23,7 @@ getTS <- function(id, type, metadata = FALSE, parallel = FALSE){
   # require(RCurl)
   # require(XML2R)
   # require(stringr)
-  # require(zoo)
+  # require(xts)
   # id <- c(54022,54090,54091)
 
   options(warn=-1)                                       # do not print warnings
