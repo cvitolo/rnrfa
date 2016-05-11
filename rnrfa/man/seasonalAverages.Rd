@@ -5,7 +5,7 @@
 \title{Calculate seasonal averages}
 \usage{
 seasonalAverages(timeseries, season = "Spring", startSeason = NULL,
-  endSeason = NULL)
+  endSeason = NULL, parallel = FALSE)
 }
 \arguments{
 \item{timeseries}{Time series (xts class).}
@@ -15,14 +15,17 @@ seasonalAverages(timeseries, season = "Spring", startSeason = NULL,
 \item{startSeason}{String encoding the start of the season (e.g. for spring in the northen hemisphere this is "03-21")}
 
 \item{endSeason}{String encoding the end of the season (e.g. for spring in the northen emisphere this is "06-20")}
+
+\item{parallel}{Logical, FALSE by default. If parallel = TRUE means that the function can be used in parallel computations.}
 }
 \value{
-Seasonal averages.
+A vector containing the seasonal average and significance level (p-value) for each time series.
 }
 \description{
 This calculates the seasonal averages from a time series.
 }
 \examples{
 # seasonalAverages(CMR(18019), season = "Spring")
+# seasonalAverages(list(CMR(18019), CMR(18019)), season = "Spring")
 }
 

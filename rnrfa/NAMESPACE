@@ -11,6 +11,7 @@ importFrom(cowplot, plot_grid)
 importFrom(plyr, llply)
 importFrom(utils, packageDescription)
 importFrom(graphics, axis, legend, mtext, par)
+importFrom(stats, coef, glm)
 
 export(catalogue)
 export(OSGparse)
