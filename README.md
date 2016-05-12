@@ -1,7 +1,7 @@
 RNRFA: an R package to interact with the UK National River Flow Archive
 =======
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14722.svg)](http://dx.doi.org/10.5281/zenodo.14722)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.51355.svg)](http://dx.doi.org/10.5281/zenodo.51355)
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](http://cran.r-project.org/web/packages/rnrfa)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](http://cran.rstudio.com/web/packages/rnrfa/index.html)
 
