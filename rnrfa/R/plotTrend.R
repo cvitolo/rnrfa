@@ -12,9 +12,14 @@
 
 plotTrend <- function(df, columnName){
 
+  # require(ggmap)
+  # require(cowplot)
+
+  # A colorblind-friendly palette
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
   df$Trend <- NA
-  df$Trend[df$Slope > 0]  <- "Positive"
-  df$Trend[df$Slope == 0] <- "Stable"
+  df$Trend[df$Slope >= 0]  <- "Positive"
   df$Trend[df$Slope < 0]  <- "Negative"
 
   # To avoid Note in R check
@@ -31,7 +36,7 @@ plotTrend <- function(df, columnName){
   plot1 <- ggmap(m, alpha=0.5) +
     geom_point(data = df, aes(x = lon, y = lat, colour = Trend),
                alpha = 0.6,  size = 1) +
-    scale_color_manual(values = c("red", "dodgerblue2", "darkgreen")) +
+    scale_color_manual(values=c("Negative"="red","Positive"="dodgerblue2")) +
     theme(legend.position="top")
 
   # Boxplot by NUTS1 region
