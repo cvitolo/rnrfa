@@ -38,17 +38,21 @@ plotRainFlow <- function(id = NULL,
                            min(convertedFlow, na.rm = T))/3)
 
   # opar <- par()
-  par(mar=c(2,4,3,4))
+  par(mar=c(4,4,4,4))
 
-  plot(convertedFlow, ylim =c(-proportion/2,max(convertedFlow)+proportion),
-       main=title, xlab="",ylab="Flow [mm/d]", lwd=0.5)
+  plot.xts(convertedFlow,
+           ylim =c(-proportion/2,max(convertedFlow)+proportion),
+           main=title, xlab="",ylab="Flow [mm/d]",
+           auto.grid = FALSE, minor.ticks = FALSE, major.ticks = "years",
+           major.format = "%Y")
 
   # Add precipitation to the top
   par(bty="n", new=T)
-  plot(rain, type="h",
+  plot(rain, type="h", main="",
        ylim=rev(range(rain)*5), # downward bars
        yaxt="n", xaxt="n", ann=F, # do not plot x and y axis
-       lwd=0.5, col="deepskyblue3" ) # suggested cosmetics
+       auto.grid = FALSE, minor.ticks = FALSE,
+       col="deepskyblue3" ) # suggested cosmetics
 
   # add right axis (4) to describe P
   axis(4, pretty(range(rain))[c(2,4,6,8)],
