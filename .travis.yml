@@ -1,3 +1,5 @@
 language: r
 before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libgdal-dev libproj-dev
   - cd rnrfa
