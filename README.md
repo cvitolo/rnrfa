@@ -19,12 +19,12 @@ Vitolo C., Fry M. and Buytaert W., R interface for the National River Flow Archi
 
 
 # Dependencies
-The rnrfa package is dependent on the *gdal* library and a number of CRAN packages. In unix-based operating system *gdal* can be installed running the following command in terminal: 
+The rnrfa package is dependent on the **gdal** library and a number of CRAN packages. In unix-based operating systems **gdal** can be installed running the following command in terminal: 
 
     sudo apt-get install -y r-cran-rgdal
 
 
-The R packages can be installed running the following code:
+**R package dependencies** can be installed running the following code:
 ```R
 install.packages(c("XML2R", "RCurl", "zoo", "rjson", "rgdal", "sp", "stringr"))
 ```
