@@ -45,7 +45,7 @@ The stable version of the **rnrfa** package is available from CRAN:
 install.packages("rnrfa")
 ```
 
-This repository contains the development version is available on github via devtools:
+This github repository contains the development version (latest version but can be unstable), which can be installed via devtools:
 
 ```R
 install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
