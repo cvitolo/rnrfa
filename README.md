@@ -4,6 +4,7 @@ RNRFA: an R package to interact with the UK National River Flow Archive
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.51355.svg)](http://dx.doi.org/10.5281/zenodo.51355)
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](http://cran.r-project.org/web/packages/rnrfa)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](http://cran.rstudio.com/web/packages/rnrfa/index.html)
+[![Build Status](https://travis-ci.org/cvitolo/r_rnrfa.svg)](https://travis-ci.org/cvitolo/r_rnrfa.svg?branch=master)
 
 The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.
 
@@ -18,8 +19,12 @@ Vitolo C., Fry M. and Buytaert W., R interface for the National River Flow Archi
 
 
 # Dependencies
-The rnrfa package is dependent on a number of CRAN packages. Install them first:
+The rnrfa package is dependent on the *gdal* library and a number of CRAN packages. In unix-based operating system *gdal* can be installed running the following command in terminal: 
 
+    sudo apt-get install -y r-cran-rgdal
+
+
+The R packages can be installed running the following code:
 ```R
 install.packages(c("XML2R", "RCurl", "zoo", "rjson", "rgdal", "sp", "stringr"))
 ```
