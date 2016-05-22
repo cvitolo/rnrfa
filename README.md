@@ -18,7 +18,7 @@ The RNRFA package aims to achieve a simpler and more efficient access to data by
 Vitolo C., Fry M. and Buytaert W., R interface for the National River Flow Archive (rnrfa, R package version 0.5.3), GitHub repository, https://github.com/cvitolo/r_rnrfa, doi: http://dx.doi.org/10.5281/zenodo.51355
 
 
-# Dependencies
+# Install the package & demo dependencies
 The rnrfa package is dependent on the **gdal** library and a number of CRAN packages. In unix-based operating systems **gdal** can be installed running the following command in terminal: 
 
     sudo apt-get install -y r-cran-rgdal
@@ -38,8 +38,14 @@ lapply(packs, require, character.only = TRUE)
 ```
 
 
-# Installation
-The stable version (preferred option) of rnrfa is available from CRAN using `install.packages("rnrfa")`, while the development version is available on github via devtools:
+# Install the rnrfa package
+The stable version of the **rnrfa** package is available from CRAN:
+
+```R
+install.packages("rnrfa")
+```
+
+This repository contains the development version is available on github via devtools:
 
 ```R
 install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
