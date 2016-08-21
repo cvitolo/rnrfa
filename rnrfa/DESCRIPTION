@@ -11,9 +11,9 @@ Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 URL: http://cvitolo.github.io/r_rnrfa/
 BugReports: https://github.com/cvitolo/r_rnrfa/issues
 Depends:
-    R (>= 3.0.2),
-    utils
+    R (>= 3.0.2)
 Imports:
+    utils,
     XML2R,
     RCurl,
     plyr,

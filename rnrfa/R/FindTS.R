@@ -27,12 +27,12 @@ FindTS <- function(myList){
 
   for (x in 1:l) {
 
-    time[x] <- str_sub(temp[x]$point$MeasurementTVP$time,start=2,end=-1)
+    time[x] <- stringr::str_sub(temp[x]$point$MeasurementTVP$time,start=2,end=-1)
     value[x] <- as.numeric(temp[x]$point$MeasurementTVP$value)
 
   }
 
-  myTS <- xts(x = value, order.by = as.POSIXlt(time))
+  myTS <- xts::xts(x = value, order.by = as.POSIXlt(time))
 
   if ( any(is.na(as.POSIXlt(time))) ){
 

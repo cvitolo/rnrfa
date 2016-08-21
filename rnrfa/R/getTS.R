@@ -68,11 +68,11 @@ getTS_internal <- function(idx, type, metadata){
   myURL <- paste(website,"/xml/waterml2?db=nrfa_public&stn=",
                  idx, "&dt=", type, sep="")
 
-  if ( url.exists(myURL) ){
+  if ( RCurl::url.exists(myURL) ){
 
-    doc <- urlsToDocs(myURL)
-    nodes <- docsToNodes(doc,xpath="/")
-    myList <- nodesToList(nodes)
+    doc <- XML2R::urlsToDocs(myURL)
+    nodes <- XML2R::docsToNodes(doc,xpath="/")
+    myList <- XML2R::nodesToList(nodes)
 
     data <- FindTS(myList)
     if (metadata) meta <- FindInfo(myList)

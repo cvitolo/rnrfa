@@ -7,8 +7,8 @@
 
   package.name <- "rnrfa"
   mylib <- dirname(system.file(package = package.name))
-  ver <- packageDescription(package.name, lib.loc = mylib)$Version
-  build.date <- packageDescription(package.name, lib.loc = mylib)$Date
+  ver <- utils::packageDescription(package.name, lib.loc = mylib)$Version
+  build.date <- utils::packageDescription(package.name, lib.loc = mylib)$Date
 
 
   # build info

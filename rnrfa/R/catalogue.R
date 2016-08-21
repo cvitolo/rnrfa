@@ -16,6 +16,8 @@
 #'
 #' @return data.frame with list of stations and related metadata
 #'
+#' @export
+#'
 #' @examples
 #' # Retrieve all the stations in the network
 #' # x <- catalogue()
@@ -61,12 +63,12 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
   url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb:",
                latMax,",",lonMin,",",latMin,",",lonMax, sep="")
 
-  if( url.exists(url) ) {
+  if( RCurl::url.exists(url) ) {
 
     # Get the JSON file
-    stationListJSON <- fromJSON(file=url)
+    stationListJSON <- rjson::fromJSON(file=url)
     # remove nested lists
-    stationList <- llply(stationListJSON, unlist)
+    stationList <- plyr::llply(stationListJSON, unlist)
 
     if (length(stationListJSON) == 0) {
 

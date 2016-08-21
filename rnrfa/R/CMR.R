@@ -10,6 +10,8 @@
 #'
 #' @return list composed of as many objects as in the list of station ID numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 #'
+#' @export
+#'
 #' @examples
 #' CMR(18019)
 #' # CMR(c(54022,54090,54091))

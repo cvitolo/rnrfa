@@ -9,6 +9,8 @@
 #'
 #' @return vector made of two elements: the easting and northing (by default) or latitude and longitude coordinates.
 #'
+#' @export
+#'
 #' @examples
 #' # single entry
 #' OSGparse(gridRefs="TQ722213")
@@ -45,10 +47,10 @@ OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
       yOffset1 <- 0
       xOffset1 <- 0
       EPSG <- 29902
-      defaultCRS <- CRS("+init=epsg:29902")
+      defaultCRS <- sp::CRS("+init=epsg:29902")
     }else{
       EPSG <- 27700
-      defaultCRS <- CRS("+init=epsg:27700")
+      defaultCRS <- sp::CRS("+init=epsg:27700")
     }
 
     # Second letter identifies the 100x100 km grid
@@ -86,12 +88,12 @@ OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
     # create a spatial data frame with the coordinates. We multiply your four-figures to get metres, and add the X and Y grid offset (also in metres)
     xy = data.frame(x=(xOffset1+xOffset2)*1000 + x*10,
                     y=(yOffset1+yOffset2)*1000 + y*10)
-    coordinates(xy) <- ~x+y
-    proj4string(xy) <- defaultCRS
+    sp::coordinates(xy) <- ~x+y
+    sp::proj4string(xy) <- defaultCRS
 
     # this is the epsg code for OSgrid references in metres. To convert to lat-long WGS84 coords:
     if (CoordSystem == "WGS84") {
-      xy <- spTransform(xy,CRS("+init=epsg:4326"))
+      xy <- sp::spTransform(xy, sp::CRS("+init=epsg:4326"))
     }
 
     xlon <- c(xlon, xy@coords[[1]])

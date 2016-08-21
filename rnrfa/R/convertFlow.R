@@ -7,6 +7,8 @@
 #'
 #' @return Flow time series in mm/d
 #'
+#' @export
+#'
 #' @examples
 #' #' # convertFlow(30, 2)
 
