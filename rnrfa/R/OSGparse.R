@@ -21,15 +21,10 @@
 
 OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
 
-  # require(sp)
-
-  # gridRefs <- as.list(gridRefs)
   xlon <- c()
   ylat <- c()
 
   for (gridRef in gridRefs){
-
-    # For testinG: library(sp); library(rgdal); gridRef <- "SN949824"
 
     # Starting point is the south-west corner
 
@@ -81,14 +76,21 @@ OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
     if (secondLetter=="Y") {yOffset2 <- 0; xOffset2 <- 300}
     if (secondLetter=="Z") {yOffset2 <- 0; xOffset2 <- 400}
 
-    # The grid square gets you 100km resolution, the the first four numbers are x coordinate in 10m steps and the second four numbers are y coords in 10m steps. You have to lookup the grid square offset from the map of grid square. For NU, thats 4 along and 6 up. For your example, extract the coordinates thus:
-    x=as.numeric(paste(substr(gridRef,3,5),0,sep=""))
-    y=as.numeric(paste(substr(gridRef,6,8),0,sep=""))
+    # Split the numeric grid reference in half and extract to x, y
+    n <- nchar(gridRef) - 2
+    x <- (substr(gridRef, 3, (n / 2) + 2))
+    y <- (substr(gridRef, (n / 2) + 3, n + 2))
 
-    # create a spatial data frame with the coordinates. We multiply your four-figures to get metres, and add the X and Y grid offset (also in metres)
-    xy = data.frame(x=(xOffset1+xOffset2)*1000 + x*10,
-                    y=(yOffset1+yOffset2)*1000 + y*10)
-    sp::coordinates(xy) <- ~x+y
+    # Adjust grid reference to metres while prefixing letter conversion
+    n <- 5 - nchar(x)
+    xO <- (xOffset1 + xOffset2) / 100
+    yO <- (yOffset1 + yOffset2) / 100
+    x <- as.numeric(paste0(xO, x, paste0(rep(0, times=n), collapse="")))
+    y <- as.numeric(paste0(yO, y, paste0(rep(0, times=n), collapse="")))
+
+    # Create a spatial data frame with the coordinates.
+    xy <- data.frame(x, y)
+    sp::coordinates(xy) <- ~x + y
     sp::proj4string(xy) <- defaultCRS
 
     # this is the epsg code for OSgrid references in metres. To convert to lat-long WGS84 coords:
