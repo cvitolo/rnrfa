@@ -22,23 +22,8 @@ Description: Utility functions to retrieve data from the UK National River Flow
     Archive. The package contains R wrappers to the UK NRFA data temporary-API.
     There are functions to retrieve stations falling in a bounding box,
     to generate a map and extracting time series and general information.
-Depends:
-    R (>= 3.0.2)
-Imports:
-    rgdal,
-    utils,
-    cowplot,
-    plyr,
-    graphics,
-    stats,
-    RCurl,
-    XML2R,
-    stringr,
-    xts,
-    sp,
-    rjson,
-    ggmap,
-    ggplot2
+Depends: R (>= 3.0.2)
+Imports: utils, cowplot, plyr, graphics, stats, RCurl, XML2R, stringr, xts, rjson, ggmap, ggplot2, sp
 Suggests: testthat
 Encoding: UTF-8
 License: GPL-3

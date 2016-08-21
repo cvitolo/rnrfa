@@ -6,7 +6,6 @@
 #' @docType package
 #' @title UK National River Flow Archive data from R
 #'
-#' @importFrom rgdal
 #' @importFrom utils packageDescription
 #' @importFrom cowplot plot_grid
 #' @importFrom plyr llply
@@ -16,10 +15,10 @@
 #' @importFrom XML2R urlsToDocs docsToNodes nodesToList
 #' @importFrom stringr str_sub
 #' @importFrom xts xts .indexyear plot.xts
-#' @importFrom sp CRS coordinates proj4string spTransform
 #' @importFrom rjson fromJSON
 #' @importFrom ggmap ggmap get_map
 #' @importFrom ggplot2 ggplot geom_point aes coord_flip scale_color_manual theme geom_boxplot theme_minimal ylab xlab unit element_text margin
+#' @importFrom sp coordinates proj4string CRS spTransform
 #'
 
 #' StationSummary dataset.
