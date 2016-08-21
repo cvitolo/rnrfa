@@ -27,7 +27,7 @@ The rnrfa package is dependent on the **gdal** library and a number of CRAN pack
 
 **R package dependencies** can be installed running the following code:
 ```R
-install.packages(c("XML2R", "RCurl", "zoo", "rjson", "rgdal", "sp", "stringr"))
+install.packages(c("XML2R", "RCurl", "zoo", "rjson", "sp", "stringr"))
 ```
 
 This demo makes also use of external libraries. To install and load them run the following commands:
