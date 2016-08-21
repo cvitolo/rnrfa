@@ -1,5 +1,19 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 
-
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  eval=FALSE
+)
+```
 
 <!-- Edit the README.Rmd only!!! The README.md is generated automatically from README.Rmd. -->
 
@@ -31,15 +45,13 @@ The rnrfa package is dependent on the **gdal** library and a number of CRAN pack
 
 **R package dependencies** can be installed running the following code:
 
-
-```r
+```{r}
 install.packages(c("XML2R", "RCurl", "zoo", "rjson", "sp", "stringr"))
 ```
 
 This demo makes also use of external libraries. To install and load them run the following commands:
 
-
-```r
+```{r}
 packs <- c("devtools", "parallel", "ggplot2", "DT", "leaflet", "dygraphs")
 install.packages(packs)
 lapply(packs, require, character.only = TRUE)
@@ -49,22 +61,19 @@ lapply(packs, require, character.only = TRUE)
 
 The stable version of the **rnrfa** package is available from CRAN:
 
-
-```r
+```{r}
 install.packages("rnrfa")
 ```
 
 Or you can install the development version from Github with [devtools](https://github.com/hadley/devtools):
 
-
-```r
+```{r}
 devtools::install_github("cvitolo/r_rnrfa", subdir = "rnrfa")
 ```
 
 Now, load the rnrfa package:
 
-
-```r
+```{r, eval = TRUE}
 library(rnrfa)
 ```
 
@@ -73,8 +82,7 @@ library(rnrfa)
 #### List of monitoring stations
 The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
 
-
-```r
+```{r}
 # Retrieve information for all the stations in the catalogue:
 allStations <- catalogue()
 ```
@@ -105,8 +113,7 @@ Those entries are briefly described as follows:
 #### Station filtering
 The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
-
-```r
+```{r}
 # Define a bounding box:
 bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
 
@@ -146,8 +153,7 @@ someStations <- catalogue(bbox,
 #### Conversions
 The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
 
-
-```r
+```{r}
 # Where is the first catchment located?
 someStations$gridReference[1]
 
@@ -157,16 +163,14 @@ OSGparse("SN853872")
 
 The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.
 
-
-```r
+```{r}
 # Convert BNG to WSGS84
 OSGparse("SN853872", CoordSystem = "WGS84")
 ```
 
 OSGparse() also works with multiple references:
 
-
-```r
+```{r}
 OSGparse(someStations$gridReference)
 ```
 
@@ -186,8 +190,7 @@ These time series can be obtained using the functions GDF() and CMR(), respectiv
 
 Here is how to retrieve mean rainfall (monthly) data for _Shin at Lairg (id = 3001)_ catchment.
 
-
-```r
+```{r}
 # Fetch only time series data from the waterml2 service
 info <- CMR(id = "3001")
 plot(info)
@@ -201,8 +204,7 @@ plot(info$data, main=paste("Monthly rainfall data for the",
 
 Here is how to retrieve (daily) flow data for _Shin at Lairg (id = 3001)_ catchment.
 
-
-```r
+```{r}
 # Fetch only time series data from the waterml2 service
 info <- GDF(id = "3001")
 plot(info)
@@ -217,8 +219,7 @@ plot(info$data, main=paste("Daily flow data for the",
 #### Multiple sites
 By default, the functions `getTS()` can be used to fetch time series data from multiple site in a sequential mode (using 1 core):
 
-
-```r
+```{r} 
 # Search data/metadata in the waterml2 service
 s <- CMR(c(3002,3003), metadata = TRUE)
 
@@ -232,16 +233,14 @@ lines(s[[2]]$data, col="green")
 
 Upgrade your data.frame to a data.table:
 
-
-```r
+```{r}
 library(DT)
 datatable(catalogue(all=FALSE))
 ```
 
 Create interactive maps using leaflet:
 
-
-```r
+```{r}
 library(leaflet)
 
 leaflet(data = someStations) %>% addTiles() %>%
@@ -250,15 +249,13 @@ leaflet(data = someStations) %>% addTiles() %>%
 
 Interactive plots using dygraphs:
 
-
-```r
+```{r}
 library(dygraphs)
 dygraph(info$data) %>% dyRangeSelector()
 ```
 
 Parallel processing: a simple benchmark test
-
-```r
+```{r}
 library(parallel)
 # Use detectCores() to find out many cores are available on your machine
 
@@ -268,14 +265,12 @@ someStations <- catalogue(minRec = 94)
 
 1 core vs multiple cores 
 
-
-```r
+```{r}
 # Get flow data with a sequential approach
 system.time( s1 <- GDF(someStations$id) )
 ```
 
-
-```r
+```{r}
 # Get flow data with a parallel approach
 system.time( s2 <- mclapply(someStations$id, GDF, 
                             mc.cores = detectCores(), parallel = TRUE) )  
@@ -283,8 +278,7 @@ system.time( s2 <- mclapply(someStations$id, GDF,
 
 The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:
 
-
-```r
+```{r}
 # Calculate the mean flow for each catchment
 someStations$meanGDF <- unlist( lapply(s2, mean) )
 
