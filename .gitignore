@@ -20,3 +20,6 @@
 tests/*
 demos/*
 setup.R
+
+README.html
+README_cache/*

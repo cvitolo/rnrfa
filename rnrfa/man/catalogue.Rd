@@ -30,16 +30,18 @@ coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinate
 Offline you can browse the cached version running the command \code{data(stationSummary)}
 }
 \examples{
-# Retrieve all the stations in the network
-# x <- catalogue()
+\dontrun{
+  # Retrieve all the stations in the network
+  x <- catalogue()
 
-# Define a bounding box:
-bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
-# Get stations within the bounding box
-x <- catalogue(bbox)
+  # Define a bounding box:
+  bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+  # Get stations within the bounding box
+  x <- catalogue(bbox)
 
-# Get stations based on minimum number of recording years
-# x <- catalogue(minRec=30)
+  # Get stations based on minimum number of recording years
+  x <- catalogue(minRec=30)
+  }
 
 }
 \author{
