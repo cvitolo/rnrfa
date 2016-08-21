@@ -2,12 +2,6 @@ context("Test coordinates")
 
 test_that("Test grid references with different length", {
 
-  gridRef <- "SN9491282412"
-  # gridRef <- "SN94918241"
-  # gridRef <- "SN949824"
-  # gridRef <- "SN9482"
-
-
   expect_that(OSGparse("SN9491282412"),
               equals(structure(list(easting = 294912, northing = 282412),
                                .Names = c("easting", "northing"))))
