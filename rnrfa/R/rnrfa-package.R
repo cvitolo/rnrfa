@@ -1,14 +1,12 @@
-#' rnrfa: UK NRFA data from R.
+#' rnrfa: UK National River Flow Archive Data from R.
 #'
-#' This is an R wrapper to the UK NRFA web services and data API (see http://nrfa.ceh.ac.uk/). There are functions to retrieve a list of stations based on various criteria (e.g. geographical bounding box) and extracting time series of gauged daily flows and catchment mean rainfall as well as metadata. It also contain the dataset \code{StationSummary}.
+#' Utility functions to retrieve data from the UK National River Flow Archive. The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.
 #'
-#' @version 0.1.0
 #' @name rnrfa-package
-#' @aliases rnrfa
 #' @docType package
 #' @title UK National River Flow Archive data from R
-#' @author Claudia Vitolo <cvitolodev@gmail.com>, Matthew Fry <mfry@ceh.ac.uk>
 #'
+#' @importFrom rgdal
 #' @importFrom utils packageDescription
 #' @importFrom cowplot plot_grid
 #' @importFrom plyr llply

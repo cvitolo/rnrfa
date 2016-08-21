@@ -3,10 +3,18 @@ Type: Package
 Title: UK National River Flow Archive Data from R
 Version: 0.5.3
 Date: 2016-08-21
-Authors@R: c(person("Claudia", "Vitolo", email = "cvitolodev@gmail.com", role = c("aut", "cre")),
-             person("Matthew", "Fry", role = c("ctb"), comment = "Matthew "),
-             person("Wouter", "Buytaert", role = c("ctb"), comment = "This package is part of Claudia Vitolo's PhD work and Wouter is the supervisor."),
-             person("Michael", "Spencer", role = c("ctb"), comment = "Michael Spencer updated the function OSGparse to work with grid references of different lengths"))
+Authors@R: c(person("Claudia", "Vitolo",
+                    email = "cvitolodev@gmail.com",
+                    role = c("aut", "cre")),
+             person("Matthew", "Fry",
+                    role = c("ctb"),
+                    comment = "Matthew supervised the unofficial API integration."),
+             person("Wouter", "Buytaert",
+                    role = c("ctb"),
+                    comment = "This package is part of Claudia Vitolo's PhD work and Wouter is the supervisor."),
+             person("Michael", "Spencer",
+                    role = c("ctb"),
+                    comment = "Michael updated the function OSGparse to work with grid references of different lengths."))
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 URL: http://cvitolo.github.io/r_rnrfa/
 BugReports: https://github.com/cvitolo/r_rnrfa/issues
@@ -17,6 +25,7 @@ Description: Utility functions to retrieve data from the UK National River Flow
 Depends:
     R (>= 3.0.2)
 Imports:
+    rgdal,
     utils,
     cowplot,
     plyr,
