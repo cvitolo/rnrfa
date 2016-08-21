@@ -18,6 +18,9 @@ Flow time series in mm/d
 This function converts flow time series from cumecs (m3/s) to mm/d by dividing the flow by the catchment area and converting it to mm/day.
 }
 \examples{
-#' # convertFlow(30, 2)
+\dontrun{
+  convertFlow(30, 2)
+}
+
 }
 

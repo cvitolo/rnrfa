@@ -18,11 +18,13 @@ vector made of two elements: the easting and northing (by default) or latitude a
 This function converts an Ordnance Survey (OS) grid reference to easting/northing or latitude/longitude coordinates.
 }
 \examples{
-# single entry
-OSGparse(gridRefs="TQ722213")
+\dontrun{
+  # single entry
+  OSGparse(gridRefs="TQ722213")
 
-# multiple entries
-OSGparse(gridRefs=c("SN831869","SN829838"))
+  # multiple entries
+  OSGparse(gridRefs=c("SN831869","SN829838"))
+}
 
 }
 \author{

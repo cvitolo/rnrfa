@@ -25,6 +25,8 @@ Plot rainfall and flow for a given station
 This function retrieves rainfall and flow time series for a given catchment, divides the flow by the catchment area and converts it to mm/day to that it can be comparable with the rainfall (mm/month). Finally it generates a plots combining rainfall and flow information.
 }
 \examples{
-# plotRainFlow(id = 54090)
+\dontrun{
+  plotRainFlow(id = 54090)
+}
 }
 

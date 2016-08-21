@@ -22,10 +22,12 @@ list composed of as many objects as in the list of station identification number
 Given the station identification number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. The time series can be of two types: \code{cmr} (catchment mean rainfall, monthly) or \code{gdf} (gauged daily flows, daily).
 }
 \examples{
-# getTS(18019, type = "cmr")
-# getTS(c(54022,54090,54091), type = "cmr")
-# getTS(18019, type = "gdf")
-# getTS(c(54022,54090,54091), type = "gdf")
+\dontrun{
+  getTS(18019, type = "cmr")
+  getTS(c(54022,54090,54091), type = "cmr")
+  getTS(18019, type = "gdf")
+  getTS(c(54022,54090,54091), type = "gdf")
+}
 
 }
 \author{

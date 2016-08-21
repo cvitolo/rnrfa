@@ -12,11 +12,13 @@
 #' @export
 #'
 #' @examples
-#' # single entry
-#' OSGparse(gridRefs="TQ722213")
+#' \dontrun{
+#'   # single entry
+#'   OSGparse(gridRefs="TQ722213")
 #'
-#' # multiple entries
-#' OSGparse(gridRefs=c("SN831869","SN829838"))
+#'   # multiple entries
+#'   OSGparse(gridRefs=c("SN831869","SN829838"))
+#' }
 #'
 
 OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {

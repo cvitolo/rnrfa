@@ -10,7 +10,9 @@
 #' @export
 #'
 #' @examples
-#' # plotTrend(df, Region)
+#' \dontrun{
+#'   plotTrend(df, Region)
+#' }
 
 plotTrend <- function(df, columnName){
 

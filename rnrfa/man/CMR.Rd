@@ -20,9 +20,10 @@ list composed of as many objects as in the list of station ID numbers. Each obje
 Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Catchment Mean Rainfall is measured in mm/month.
 }
 \examples{
-CMR(18019)
-# CMR(c(54022,54090,54091))
-
+\dontrun{
+  CMR(18019)
+  CMR(c(54022,54090,54091))
+}
 }
 \author{
 Claudia Vitolo

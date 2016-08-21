@@ -13,8 +13,11 @@
 #' @export
 #'
 #' @examples
-#' # seasonalAverages(CMR(18019), season = "Spring")
-#' # seasonalAverages(list(CMR(18019), CMR(18019)), season = "Spring")
+#' \dontrun{
+#'   seasonalAverages(CMR(18019), season = "Spring")
+#'   seasonalAverages(list(CMR(18019), CMR(18019)), season = "Spring")
+#' }
+#'
 
 seasonalAverages <- function(timeseries, season = "Spring",
                              startSeason = NULL, endSeason = NULL,

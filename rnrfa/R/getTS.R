@@ -12,10 +12,12 @@
 #' @return list composed of as many objects as in the list of station identification numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 #'
 #' @examples
-#' # getTS(18019, type = "cmr")
-#' # getTS(c(54022,54090,54091), type = "cmr")
-#' # getTS(18019, type = "gdf")
-#' # getTS(c(54022,54090,54091), type = "gdf")
+#' \dontrun{
+#'   getTS(18019, type = "cmr")
+#'   getTS(c(54022,54090,54091), type = "cmr")
+#'   getTS(18019, type = "gdf")
+#'   getTS(c(54022,54090,54091), type = "gdf")
+#' }
 #'
 
 getTS <- function(id, type, metadata = FALSE, parallel = FALSE){

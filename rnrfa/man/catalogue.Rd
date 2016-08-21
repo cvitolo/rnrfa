@@ -41,7 +41,7 @@ Offline you can browse the cached version running the command \code{data(station
 
   # Get stations based on minimum number of recording years
   x <- catalogue(minRec=30)
-  }
+}
 
 }
 \author{

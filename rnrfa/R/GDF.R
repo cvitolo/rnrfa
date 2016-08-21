@@ -13,8 +13,10 @@
 #' @export
 #'
 #' @examples
-#' GDF(18019)
-#' # GDF(c(54022,54090,54091))
+#' \dontrun{
+#'   GDF(18019)
+#'   GDF(c(54022,54090,54091))
+#' }
 #'
 
 GDF <- function(id, metadata = FALSE, parallel = FALSE){

@@ -18,6 +18,8 @@ Two plots, side-by-side, the first showing the distribution of the Trend over a 
 This function plots a previously calculated trend.
 }
 \examples{
-# plotTrend(df, Region)
+\dontrun{
+  plotTrend(df, Region)
+}
 }
 

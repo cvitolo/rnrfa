@@ -30,7 +30,7 @@
 #'
 #'   # Get stations based on minimum number of recording years
 #'   x <- catalogue(minRec=30)
-#'   }
+#' }
 #'
 
 catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,

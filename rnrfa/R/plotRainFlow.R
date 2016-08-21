@@ -13,7 +13,9 @@
 #' @export
 #'
 #' @examples
-#' # plotRainFlow(id = 54090)
+#' \dontrun{
+#'   plotRainFlow(id = 54090)
+#' }
 
 plotRainFlow <- function(id = NULL,
                          rain = NULL, flow = NULL, area = NULL, title = ""){

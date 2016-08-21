@@ -20,8 +20,10 @@ list composed of as many objects as in the list of station ID numbers. Each obje
 Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Gauged Daily Flow is measured in mm/day.
 }
 \examples{
-GDF(18019)
-# GDF(c(54022,54090,54091))
+\dontrun{
+  GDF(18019)
+  GDF(c(54022,54090,54091))
+}
 
 }
 \author{

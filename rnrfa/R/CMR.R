@@ -13,9 +13,10 @@
 #' @export
 #'
 #' @examples
-#' CMR(18019)
-#' # CMR(c(54022,54090,54091))
-#'
+#' \dontrun{
+#'   CMR(18019)
+#'   CMR(c(54022,54090,54091))
+#' }
 
 CMR <- function(id, metadata = FALSE, parallel = FALSE){
 
