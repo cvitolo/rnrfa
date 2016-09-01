@@ -77,15 +77,16 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
     }else{
 
       stationColumns <- unique(unlist(lapply(stationListJSON, names)))
-      cols2rm <- which(stationColumns %in% c("description", "start", "end",
-                                             "primary-purpose",
-                                             "measured-parameter",
-                                             "how-parameter-measured",
-                                             "high-flow-gauging-method",
-                                             "previous-high-flow-gauging-method",
-                                             "wing-wall-height", "bankfull-stage",
-                                             "maximum-gauged-flow",
-                                             "maximum-gauged-level"))
+      cols2rm <- which(stationColumns %in%
+                         c("description", "start", "end",
+                           "primary-purpose",
+                           "measured-parameter",
+                           "how-parameter-measured",
+                           "high-flow-gauging-method",
+                           "previous-high-flow-gauging-method",
+                           "wing-wall-height", "bankfull-stage",
+                           "maximum-gauged-flow",
+                           "maximum-gauged-level"))
       stationColumns <- unique(unlist(lapply(stationListJSON, names)))[-cols2rm]
       selectedMeta <- lapply(stationList, function(x) {x[stationColumns]})
       stationList <- as.data.frame(do.call(rbind,selectedMeta))
@@ -127,10 +128,12 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
             if (substr(columnValue, 2, 2) == "="){
 
               threshold <- as.numeric(as.character(substr(columnValue,
-                                                          3, nchar(columnValue))))
+                                                          3,
+                                                          nchar(columnValue))))
               combinedString <- paste(columnName,
                                       substr(columnValue, 1, 2),
-                                      substr(columnValue, 3, nchar(columnValue)))
+                                      substr(columnValue, 3,
+                                             nchar(columnValue)))
               myExpression <- eval(parse(text=combinedString))
               newstationList <- subset(temp, myExpression)
 
@@ -139,7 +142,8 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                                                           nchar(columnValue))))
               combinedString <- paste("myColumn",
                                       substr(columnValue, 1, 1),
-                                      substr(columnValue, 2, nchar(columnValue)))
+                                      substr(columnValue, 2,
+                                             nchar(columnValue)))
               myExpression <- eval(parse(text=combinedString))
               newstationList <- subset(temp, myExpression)
             }
