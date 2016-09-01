@@ -8,6 +8,7 @@
 #' @param type This is character string that can have one of the two following values: "cmr" (to obtain catchment mean rainfall) or "gdf" (to obtain gauged daily flow).
 #' @param metadata Logical, FALSE by default. If metadata = TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).
 #' @param cl (optional) This is a cluster object, created by the parallel package. This is set to NULL by default, which sends sequential calls to the server.
+#' @param verbose (FALSE by default). If set to TRUE prints GET request on the console.
 #'
 #' @return list composed of as many objects as in the list of station identification numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
 #'
@@ -23,7 +24,7 @@
 #' }
 #'
 
-get_ts <- function(id, type, metadata = FALSE, cl = NULL){
+get_ts <- function(id, type, metadata, cl, verbose){
 
   options(warn=-1)                                       # do not print warnings
 
@@ -40,9 +41,9 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL){
 
       # In the case of a single identification number
       if (metadata == TRUE) {
-        tsList <- get_ts_internal(id, type, metadata)
+        tsList <- get_ts_internal(id, type, metadata, verbose)
       }else{
-        tsList <- unlist(get_ts_internal(id, type, metadata))
+        tsList <- unlist(get_ts_internal(id, type, metadata, verbose))
       }
 
     }else{
@@ -58,7 +59,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL){
           tsList <- parallel::parLapply(cl = cl,
                                         X = as.list(id),
                                         fun = get_ts_internal,
-                                        type, metadata)
+                                        type, metadata, verbose)
 
         }else{
           stop('cl is not a cluster object!')
@@ -67,7 +68,8 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL){
       }else{
 
         # multiple identification numbers - sequential data retrieval
-        tsList <- lapply(X = as.list(id), FUN = get_ts_internal, type, metadata)
+        tsList <- lapply(X = as.list(id), FUN = get_ts_internal,
+                         type, metadata, verbose)
         names(tsList) <- id
 
       }
@@ -81,7 +83,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL){
 }
 
 
-get_ts_internal <- function(idx, type, metadata){
+get_ts_internal <- function(idx, type, metadata, verbose){
 
   # idx <- "54022"
   # type <- "cmr"
@@ -93,6 +95,8 @@ get_ts_internal <- function(idx, type, metadata){
                                        dt = type))
 
   if ( !httr::http_error(site_fetch) ){
+
+    if (verbose) print(site_fetch[[1]])
 
     dataXML <- xml2::read_xml(site_fetch)
 
