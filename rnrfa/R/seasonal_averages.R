@@ -14,12 +14,12 @@
 #'
 #' @examples
 #' \dontrun{
-#'   seasonalAverages(CMR(18019), season = "Spring")
-#'   seasonalAverages(list(CMR(18019), CMR(18019)), season = "Spring")
+#'   seasonal_averages(CMR(18019), season = "Spring")
+#'   seasonal_averages(list(CMR(18019), CMR(18019)), season = "Spring")
 #' }
 #'
 
-seasonalAverages <- function(timeseries, season = "Spring",
+seasonal_averages <- function(timeseries, season = "Spring",
                              startSeason = NULL, endSeason = NULL,
                              parallel = FALSE){
 
@@ -34,13 +34,13 @@ seasonalAverages <- function(timeseries, season = "Spring",
 
       # multiple time series
       tsList <- lapply(X = as.list(timeseries),
-                       FUN = seasonalAverages_internal,
+                       FUN = seasonal_averages_internal,
                        season, startSeason, endSeason)
 
     }else{
 
       # this is the case of a single time series
-      tsList <- seasonalAverages_internal(timeseries,
+      tsList <- seasonal_averages_internal(timeseries,
                                           season, startSeason, endSeason)
 
     }
@@ -51,7 +51,7 @@ seasonalAverages <- function(timeseries, season = "Spring",
 
 }
 
-seasonalAverages_internal <- function(timeseries, season = "Spring",
+seasonal_averages_internal <- function(timeseries, season = "Spring",
                                       startSeason = NULL, endSeason = NULL){
 
   if (is.null(startSeason) & is.null(endSeason)){

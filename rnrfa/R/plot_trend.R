@@ -11,10 +11,10 @@
 #'
 #' @examples
 #' \dontrun{
-#'   plotTrend(df, Region)
+#'   plot_trend(df, Region)
 #' }
 
-plotTrend <- function(df, columnName){
+plot_trend <- function(df, columnName){
 
   # A colorblind-friendly palette
   cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")

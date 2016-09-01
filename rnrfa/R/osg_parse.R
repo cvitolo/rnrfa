@@ -14,14 +14,14 @@
 #' @examples
 #' \dontrun{
 #'   # single entry
-#'   OSGparse(gridRefs="TQ722213")
+#'   osg_parse(gridRefs="TQ722213")
 #'
 #'   # multiple entries
-#'   OSGparse(gridRefs=c("SN831869","SN829838"))
+#'   osg_parse(gridRefs=c("SN831869","SN829838"))
 #' }
 #'
 
-OSGparse <- function(gridRefs, CoordSystem = "BNG" ) {
+osg_parse <- function(gridRefs, CoordSystem = "BNG" ) {
 
   xlon <- c()
   ylat <- c()

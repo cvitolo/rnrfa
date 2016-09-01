@@ -1,12 +1,12 @@
-context("Test CMR function")
+context("Test cmr function")
 
-test_that("Output of CMR function for single station", {
+test_that("Output of cmr function for single station", {
 
-  x <- CMR(id = 18019, metadata = FALSE, cl = NULL)
+  x <- cmr(id = 18019, metadata = FALSE, cl = NULL)
 
   expect_that(length(x) >= 346, equals(TRUE))
 
-  x <- CMR(id = 18019, metadata = TRUE, cl = NULL)
+  x <- cmr(id = 18019, metadata = TRUE, cl = NULL)
 
   expect_that(length(x) == 2, equals(TRUE))
   expect_that(x[[2]][[1]][[1]] == "Comer Burn at Comer", equals(TRUE))
@@ -15,15 +15,15 @@ test_that("Output of CMR function for single station", {
 
 })
 
-test_that("Output of CMR function for multiple stations", {
+test_that("Output of cmr function for multiple stations", {
 
   ids <- c(54022,54090,54091)
 
-  x <- CMR(id = ids, metadata = FALSE, cl = NULL)
+  x <- cmr(id = ids, metadata = FALSE, cl = NULL)
 
   expect_that(length(x) == 3, equals(TRUE))
 
-  x <- CMR(id = ids, metadata = TRUE, cl = NULL)
+  x <- cmr(id = ids, metadata = TRUE, cl = NULL)
 
   expect_that(length(x) == 3, equals(TRUE))
   expect_that(length(x[[1]]) == 2, equals(TRUE))
@@ -36,7 +36,7 @@ test_that("Output of CMR function for multiple stations", {
 
 })
 
-# test_that("Output of CMR function for data retrieval from multiple stations simultaneously", {
+# test_that("Output of cmr function for data retrieval from multiple stations simultaneously", {
 #
 #   library(parallel)
 #   if (detectCores() >= 2) {
@@ -44,7 +44,7 @@ test_that("Output of CMR function for multiple stations", {
 #
 #     ids <- c(54022,54090,54091)
 #
-#     x <- CMR(id = ids, metadata = FALSE, cl = cl)
+#     x <- cmr(id = ids, metadata = FALSE, cl = cl)
 #
 #     stopCluster(cl)
 #

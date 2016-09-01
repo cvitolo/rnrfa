@@ -173,7 +173,7 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
       if (nrow(stationList) > 0) {
 
         # Add lat and lon
-        gridR <- OSGparse(gridRefs = unlist(stationList$gridReference),
+        gridR <- osg_parse(gridRefs = unlist(stationList$gridReference),
                           CoordSystem = "WGS84")
         stationList$lat <- gridR$lat
         stationList$lon <- gridR$lon

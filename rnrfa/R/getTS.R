@@ -13,17 +13,17 @@
 #'
 #' @examples
 #' \dontrun{
-#'   getTS(18019, type = "cmr")
+#'   get_ts(18019, type = "cmr")
 #'
-#'   getTS(c(54022,54090,54091), type = "cmr")
+#'   get_ts(c(54022,54090,54091), type = "cmr")
 #'
-#'   getTS(18019, type = "gdf")
+#'   get_ts(18019, type = "gdf")
 #'
-#'   getTS(c(54022,54090,54091), type = "gdf")
+#'   get_ts(c(54022,54090,54091), type = "gdf")
 #' }
 #'
 
-getTS <- function(id, type, metadata = FALSE, cl = NULL){
+get_ts <- function(id, type, metadata = FALSE, cl = NULL){
 
   options(warn=-1)                                       # do not print warnings
 
@@ -40,9 +40,9 @@ getTS <- function(id, type, metadata = FALSE, cl = NULL){
 
       # In the case of a single identification number
       if (metadata == TRUE) {
-        tsList <- getTS_internal(id, type, metadata)
+        tsList <- get_ts_internal(id, type, metadata)
       }else{
-        tsList <- unlist(getTS_internal(id, type, metadata))
+        tsList <- unlist(get_ts_internal(id, type, metadata))
       }
 
     }else{
@@ -57,7 +57,7 @@ getTS <- function(id, type, metadata = FALSE, cl = NULL){
           # multiple identification numbers - simultaneous data retrieval
           tsList <- parallel::parLapply(cl = cl,
                                         X = as.list(id),
-                                        fun = getTS_internal,
+                                        fun = get_ts_internal,
                                         type, metadata)
 
         }else{
@@ -67,7 +67,7 @@ getTS <- function(id, type, metadata = FALSE, cl = NULL){
       }else{
 
         # multiple identification numbers - sequential data retrieval
-        tsList <- lapply(X = as.list(id), FUN = getTS_internal, type, metadata)
+        tsList <- lapply(X = as.list(id), FUN = get_ts_internal, type, metadata)
         names(tsList) <- id
 
       }
@@ -81,7 +81,7 @@ getTS <- function(id, type, metadata = FALSE, cl = NULL){
 }
 
 
-getTS_internal <- function(idx, type, metadata){
+get_ts_internal <- function(idx, type, metadata){
 
   # idx <- "54022"
   # type <- "cmr"

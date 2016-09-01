@@ -11,11 +11,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   convertFlow(30, 2)
+#'   convert_flow(30, 2)
 #' }
 #'
 
-convertFlow <- function(flowCumecs, catchmentArea){
+convert_flow <- function(flowCumecs, catchmentArea){
 
   # Convert area from Km2 to m2
   catchmentArea <- catchmentArea*1000000

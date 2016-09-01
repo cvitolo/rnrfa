@@ -1,8 +1,8 @@
-#' This function retrieves Catchment Mean Rainfall (CMR).
+#' This function retrieves Gauged Daily Flow (gdf).
 #'
 #' @author Claudia Vitolo
 #'
-#' @description Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Catchment Mean Rainfall is measured in mm/month.
+#' @description Given the station ID number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. Gauged Daily Flow is measured in mm/day.
 #'
 #' @param id station ID number(s), each number should be in the range [3002,236051].
 #' @param metadata Logical, FALSE by default. If metadata = TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).
@@ -14,14 +14,15 @@
 #'
 #' @examples
 #' \dontrun{
-#'   CMR(18019)
-#'   CMR(c(54022,54090,54091))
+#'   gdf(18019)
+#'   gdf(c(54022,54090,54091))
 #' }
+#'
 
-CMR <- function(id, metadata = FALSE, cl = NULL){
+gdf <- function(id, metadata = FALSE, cl = NULL){
 
-  rain <- getTS(id, type = "cmr", metadata, cl)
+  flow <- get_ts(id, type = "gdf", metadata, cl)
 
-  return(rain)
+  return(flow)
 
 }

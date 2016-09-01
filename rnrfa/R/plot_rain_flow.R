@@ -14,11 +14,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   plotRainFlow(id = 54090)
+#'   plot_rain_flow(id = 54090)
 #' }
 
-plotRainFlow <- function(id = NULL,
-                         rain = NULL, flow = NULL, area = NULL, title = ""){
+plot_rain_flow <- function(id = NULL,
+                           rain = NULL, flow = NULL, area = NULL, title = ""){
 
   if (!is.null(id)){
 
@@ -28,14 +28,14 @@ plotRainFlow <- function(id = NULL,
     area <- as.numeric(as.character(meta$catchmentArea))
 
     # Retrieve rainfall data for station 54022
-    rain <- getTS(id, type = "cmr")
+    rain <- get_ts(id, type = "cmr")
 
     # Retrieve flow data for station 54022
-    flow <- getTS(id, type = "gdf")
+    flow <- get_ts(id, type = "gdf")
 
   }
 
-  convertedFlow <- convertFlow(flow, area)
+  convertedFlow <- convert_flow(flow, area)
   # (flow*1000)/(area*1000000))*86400 # mm/day
 
   proportion <- ceiling((max(convertedFlow, na.rm = T) -
