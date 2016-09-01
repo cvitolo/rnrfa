@@ -20,6 +20,7 @@
 #' @importFrom ggplot2 ggplot geom_point aes coord_flip scale_color_manual theme geom_boxplot theme_minimal ylab xlab unit element_text margin
 #' @importFrom sp coordinates proj4string CRS spTransform
 #'
+NULL
 
 #' StationSummary dataset.
 #'
