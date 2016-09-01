@@ -169,8 +169,8 @@ get_ts_internal <- function(idx, type, metadata, verbose){
     message(paste("For station", idx,
                   "there is no available online dataset in waterml format \n"))
 
-    data <- NULL
-    if (metadata) meta <- NULL
+    data <- NA
+    if (metadata) meta <- NA
 
   }
 
