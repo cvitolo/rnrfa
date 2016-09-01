@@ -11,8 +11,8 @@
 #' @importFrom plyr llply
 #' @importFrom graphics axis legend mtext par plot
 #' @importFrom stats glm
-#' @importFrom RCurl url.exists
-#' @importFrom XML2R urlsToDocs docsToNodes nodesToList
+#' @importFrom httr GET http_error
+#' @importFrom xml2 read_xml
 #' @importFrom stringr str_sub
 #' @importFrom xts xts .indexyear plot.xts
 #' @importFrom rjson fromJSON

@@ -1,0 +1,8 @@
+Updated to v0.5.4 and submitted to CRAN. 
+----------------------------------------
+
+Major changes:
+
+1. Michael Spencer (contributor) updated the function OSGparse to work with grid references of different lengths.
+
+2. Added testthat framework for unit tests

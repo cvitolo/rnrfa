@@ -36,10 +36,6 @@
 catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                       minRec=NULL, all = TRUE) {
 
-  # require(RCurl)
-  # require(rjson)
-  # require(plyr)
-
   options(warn=-1)
 
   ### FILTER BASED ON BOUNDING BOX ###
@@ -60,15 +56,17 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
 
   }
 
-  website <- "http://nrfaapps.ceh.ac.uk/nrfa"
+  myBBOX <- paste0(latMax, ",", lonMin, ",", latMin, ",", lonMax)
 
-  url <- paste(website,"/json/stationSummary?db=nrfa_public&stn=llbb:",
-               latMax,",",lonMin,",",latMin,",",lonMax, sep="")
+  site_fetch <- httr::GET(url = "http://nrfaapps.ceh.ac.uk/",
+                          path = "nrfa/json/stationSummary",
+                          query = list(db = "nrfa_public",
+                                       stn = paste0("llbb:", myBBOX)))
 
-  if( RCurl::url.exists(url) ) {
+  if( !httr::http_error(site_fetch) ) {
 
     # Get the JSON file
-    stationListJSON <- rjson::fromJSON(file=url)
+    stationListJSON <- rjson::fromJSON(file = site_fetch[[1]])
     # remove nested lists
     stationList <- plyr::llply(stationListJSON, unlist)
 
