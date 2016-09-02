@@ -7,6 +7,7 @@
 #' @title UK National River Flow Archive data from R
 #'
 #' @importFrom utils packageDescription
+#' @importFrom stats quantile
 #' @importFrom cowplot plot_grid
 #' @importFrom plyr llply
 #' @importFrom graphics axis legend mtext par plot

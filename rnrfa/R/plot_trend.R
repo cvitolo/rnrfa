@@ -45,7 +45,9 @@ plot_trend <- function(df, columnName){
                            ggplot2::aes(x = eval(parse(text=columnName)),
                                         y = Slope,
                                         group = eval(parse(text=columnName)))) +
-    ggplot2::geom_boxplot() +
+    ggplot2::geom_boxplot(outlier.shape = NA) +
+    ggplot2::scale_y_continuous(limits = stats::quantile(df$Slope,
+                                                         c(0.1, 0.9))) +
     ggplot2::theme_minimal() + ggplot2::ylab("Slope") + ggplot2::xlab("") +
     ggplot2::coord_flip() +
     ggplot2::theme(plot.margin=ggplot2::unit(c(1,1,1,1.2),"cm"),

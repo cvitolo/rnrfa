@@ -17,6 +17,8 @@
 *.pdf
 *~
 
+rnrfa.Rcheck
+
 tests/*
 demos/*
 setup.R
