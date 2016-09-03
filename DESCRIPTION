@@ -1,7 +1,7 @@
 Package: rnrfa
 Type: Package
 Title: UK National River Flow Archive Data from R
-Version: 0.5.6
+Version: 1.0
 Date: 2016-08-21
 Authors@R: c(person("Claudia", "Vitolo",
                     email = "cvitolodev@gmail.com",
