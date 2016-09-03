@@ -8,6 +8,7 @@ RNRFA: an R package to interact with the UK National River Flow Archive
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.51355.svg)](http://dx.doi.org/10.5281/zenodo.51355)
 [![Build Status](https://travis-ci.org/cvitolo/r_rnrfa.svg)](https://travis-ci.org/cvitolo/r_rnrfa.svg?branch=master)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cvitolo/r_rnrfa?branch=master&svg=true)](https://ci.appveyor.com/project/cvitolo/r_rnrfa)
 [![codecov.io](https://codecov.io/github/cvitolo/r_rnrfa/coverage.svg?branch=master)](https://codecov.io/github/cvitolo/r_rnrfa?branch=master)
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](http://cran.r-project.org/web/packages/rnrfa)
 [![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/rnrfa)](http://cran.rstudio.com/web/packages/rnrfa/index.html)
@@ -35,15 +36,14 @@ The rnrfa package is dependent on the **gdal** library and a number of CRAN pack
 
 
 ```r
-install.packages(c("cowplot", "plyr",     "RCurl"    "XML2R"   
- [8] "stringr"  "xts"      "rjson"    "ggmap"    "ggplot2"  "sp"))
+install.packages(c("cowplot", "plyr", "httr", "xml2", "stringr", "xts", "rjson", "ggmap", "ggplot2", "sp", "rgdal", "parallel"))
 ```
 
 This demo makes also use of external libraries. To install and load them run the following commands:
 
 
 ```r
-packs <- c("devtools", "parallel", "ggplot2", "DT", "leaflet", "dygraphs")
+packs <- c("devtools", "DT", "leaflet")
 install.packages(packs)
 lapply(packs, require, character.only = TRUE)
 ```
