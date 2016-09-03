@@ -14,7 +14,7 @@ install:
 
 environment:
   matrix:
-  - TEST_DIR: rnrfa
+  - TEST_DIR: rnrfa/
 
 before_build:
   - echo %TEST_DIR%
