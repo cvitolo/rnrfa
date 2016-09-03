@@ -71,7 +71,7 @@ install.packages("rnrfa")
 Or you can install the development version from Github with [devtools](https://github.com/hadley/devtools):
 
 ```{r}
-devtools::install_github("cvitolo/r_rnrfa")
+devtools::install_github("cvitolo/rnrfa")
 ```
 
 Now, load the rnrfa package:
