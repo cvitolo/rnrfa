@@ -16,8 +16,8 @@ Authors@R: c(person("Claudia", "Vitolo",
                     role = c("ctb"),
                     comment = "Michael updated the function osg_parse to work with grid references of different lengths."))
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
-URL: http://cvitolo.github.io/r_rnrfa/
-BugReports: https://github.com/cvitolo/r_rnrfa/issues
+URL: http://cvitolo.github.io/rnrfa/
+BugReports: https://github.com/cvitolo/rnrfa/issues
 Description: Utility functions to retrieve data from the UK National River Flow
     Archive. The package contains R wrappers to the UK NRFA data temporary-API.
     There are functions to retrieve stations falling in a bounding box,
