@@ -1,4 +1,9 @@
 language: r
+
+os:
+ - linux
+ - osx
+
 cache: packages
 before_install:
   - sudo apt-get -qq update
