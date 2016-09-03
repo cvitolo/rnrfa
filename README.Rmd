@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- Edit the README.Rmd only!!! The README.md is generated automatically from README.Rmd. -->
 
-RNRFA: an R package to interact with the UK National River Flow Archive
+rnrfa: An R package to Retrieve, Filter and Visualize Data from the UK National River Flow Archive
 ---------------
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.51355.svg)](http://dx.doi.org/10.5281/zenodo.51355)
@@ -35,8 +35,6 @@ There is currently an API under development that in future should provide access
 The information returned by the first three services is in JSON format, while the last one is an XML variant.
 
 The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses.
-
-Please note that this project is released with a [Contributor Code of Conduct](rnrfa/CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ### Dependencies
 The rnrfa package depends on a number of CRAN packages. Check for missing dependencies and install them:
@@ -154,27 +152,27 @@ someStations <- catalogue(bbox,
 ```
 
 #### Conversions
-The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
+The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "osg_parse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
 
 ```{r}
 # Where is the first catchment located?
 someStations$gridReference[1]
 
 # Convert OS Grid reference to BNG
-OSGparse("SN853872")
+osg_parse("SN853872")
 ```
 
 The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.
 
 ```{r}
 # Convert BNG to WSGS84
-OSGparse("SN853872", CoordSystem = "WGS84")
+osg_parse("SN853872", CoordSystem = "WGS84")
 ```
 
-OSGparse() also works with multiple references:
+osg_parse() also works with multiple references:
 
 ```{r}
-OSGparse(someStations$gridReference)
+osg_parse(someStations$gridReference)
 ```
 
 #### Get time series data
@@ -183,23 +181,23 @@ The first column of the table "someStations" contains the id number. This can be
 
 The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.
 
-These time series can be obtained using the functions GDF() and CMR(), respectively. Both functions accept three inputs: 
+These time series can be obtained using the functions gdf() and cmr(), respectively. Both functions accept three inputs: 
 
   * `id`, the station identification numbers (single string or character vector).
 
   * `metadata`, a logical variable (FALSE by default). If metadata is TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).
 
-  * `parallel`, a logical variable (FALSE by default). If parallel = TRUE means that the function can be used in parallel computations (e.g. with the parallel package).
+  * `cl`, This is a cluster object, created by the parallel package. This is set to NULL by default, which sends sequential calls to the server.
 
 Here is how to retrieve mean rainfall (monthly) data for _Shin at Lairg (id = 3001)_ catchment.
 
 ```{r}
 # Fetch only time series data from the waterml2 service
-info <- CMR(id = "3001")
+info <- cmr(id = "3001")
 plot(info)
 
 # Fetch time series data and metadata from the waterml2 service
-info <- CMR(id = "3001", metadata = TRUE)
+info <- cmr(id = "3001", metadata = TRUE)
 plot(info$data, main=paste("Monthly rainfall data for the",
                            info$meta$stationName,"catchment"), 
      xlab="", ylab=info$meta$units)
@@ -209,11 +207,11 @@ Here is how to retrieve (daily) flow data for _Shin at Lairg (id = 3001)_ catchm
 
 ```{r}
 # Fetch only time series data from the waterml2 service
-info <- GDF(id = "3001")
+info <- gdf(id = "3001")
 plot(info)
 
 # Fetch time series data and metadata from the waterml2 service
-info <- GDF(id = "3001", metadata = TRUE)
+info <- gdf(id = "3001", metadata = TRUE)
 plot(info$data, main=paste("Daily flow data for the",
                            info$meta$stationName,"catchment"), 
      xlab="", ylab=info$meta$units)
@@ -224,7 +222,7 @@ By default, the functions `getTS()` can be used to fetch time series data from m
 
 ```{r} 
 # Search data/metadata in the waterml2 service
-s <- CMR(c(3002,3003), metadata = TRUE)
+s <- cmr(c(3002,3003), metadata = TRUE)
 
 # s is a list of 2 objects (one object for each site)
 plot(s[[1]]$data, 
@@ -257,37 +255,31 @@ library(dygraphs)
 dygraph(info$data) %>% dyRangeSelector()
 ```
 
-Parallel processing: a simple benchmark test
+Sequential vs Concurrent requests: a simple benchmark test
 ```{r}
 library(parallel)
 # Use detectCores() to find out many cores are available on your machine
+cl <- makeCluster(getOption("cl.cores", detectCores()))
 
-# Filter all the stations with a minimum of 100 years of recordings
-someStations <- catalogue(minRec = 94)
-```
+# Filter all the stations within the above bounding box
+someStations <- catalogue(bbox)
 
-1 core vs multiple cores 
-
-```{r}
 # Get flow data with a sequential approach
-system.time( s1 <- GDF(someStations$id) )
-```
+system.time( s1 <- gdf(someStations$id, cl = NULL) )
 
-```{r}
-# Get flow data with a parallel approach
-system.time( s2 <- mclapply(someStations$id, GDF, 
-                            mc.cores = detectCores(), parallel = TRUE) )  
+# Get flow data with a concurrent approach (using `parLapply()`)
+system.time( s2 <- gdf(id = someStations$id, cl = cl) )  
 ```
 
 The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:
 
 ```{r}
 # Calculate the mean flow for each catchment
-someStations$meanGDF <- unlist( lapply(s2, mean) )
+someStations$meangdf <- unlist( lapply(s2, mean) )
 
 # Linear model
 library(ggplot2)
-ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meanGDF)) + 
+ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meangdf)) + 
   geom_point() +
   stat_smooth(method = "lm", col = "red") +
   xlab(expression(paste("Catchment area [Km^2]",sep=""))) + 
@@ -298,6 +290,8 @@ ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meanGDF)) +
 Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: http://nrfa.ceh.ac.uk/costs-terms-and-conditions
 
 This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 ### Meta
 

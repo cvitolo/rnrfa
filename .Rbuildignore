@@ -6,5 +6,7 @@ CONDUCT.md
 appveyor.yml
 NEWS.txt
 README.Rmd
+README.html
+README_cache
 preparePackage.R
 inst/*
