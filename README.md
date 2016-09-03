@@ -6,7 +6,7 @@
 rnrfa: An R package to Retrieve, Filter and Visualize Data from the UK National River Flow Archive
 ---------------
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.51355.svg)](http://dx.doi.org/10.5281/zenodo.51355)
+[![DOI](https://zenodo.org/badge/9118/cvitolo/rnrfa.svg)](https://zenodo.org/badge/latestdoi/9118/cvitolo/rnrfa)
 [![Build Status](https://travis-ci.org/cvitolo/rnrfa.svg)](https://travis-ci.org/cvitolo/rnrfa.svg?branch=master)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cvitolo/rnrfa?branch=master&svg=true)](https://ci.appveyor.com/project/cvitolo/rnrfa)
 [![codecov.io](https://codecov.io/github/cvitolo/rnrfa/coverage.svg?branch=master)](https://codecov.io/github/cvitolo/rnrfa?branch=master)
