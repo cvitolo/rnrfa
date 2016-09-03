@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+
+CONDUCT.md
+.travis.yml
+appveyor.yml
+NEWS.txt
+README.Rmd
+preparePackage.R
+inst/*

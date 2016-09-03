@@ -12,7 +12,6 @@
 *.tar.gz
 
 # Others
-.Rbuildignore
 *.Rproj
 *.pdf
 *~
