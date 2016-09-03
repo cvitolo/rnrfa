@@ -1,4 +1,17 @@
-Updated to v0.5.4 and submitted to CRAN. 
+Updated to v1.1 and submitted to CRAN.
+----------------------------------------
+
+Major changes:
+
+1. testthat framework for unit tests
+2. travis for continuous integration on linux
+3. appveyors for continuous integration on windows
+4. added code of conduct
+5. renamed functions to follow best practice
+6. moved package to root directory to follow best practice
+
+
+Updated to v0.5.4 and submitted to CRAN.
 ----------------------------------------
 
 Major changes:
