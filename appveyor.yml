@@ -12,15 +12,6 @@ install:
 
 # Adapt as necessary starting from here
 
-environment:
-  matrix:
-  - TEST_DIR: .
-  - TEST_DIR: rnrfa/
-
-before_build:
-  - echo %TEST_DIR%
-  - cd %TEST_DIR%
-
 build_script:
   - travis-tool.sh install_deps
 
