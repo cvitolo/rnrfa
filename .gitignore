@@ -19,9 +19,7 @@
 
 rnrfa.Rcheck
 
-tests/*
-demos/*
-setup.R
-
 README.html
 README_cache/*
+
+inst/*
