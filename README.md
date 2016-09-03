@@ -21,6 +21,8 @@ The information returned by the first three services is in JSON format, while th
 
 The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses.
 
+Please note that this project is released with a [Contributor Code of Conduct](rnrfa/CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 ### Dependencies
 The rnrfa package depends on a number of CRAN packages. Check for missing dependencies and install them:
 
@@ -33,7 +35,8 @@ The rnrfa package is dependent on the **gdal** library and a number of CRAN pack
 
 
 ```r
-install.packages(c("XML2R", "RCurl", "zoo", "rjson", "sp", "stringr"))
+install.packages(c("cowplot", "plyr",     "RCurl"    "XML2R"   
+ [8] "stringr"  "xts"      "rjson"    "ggmap"    "ggplot2"  "sp"))
 ```
 
 This demo makes also use of external libraries. To install and load them run the following commands:
