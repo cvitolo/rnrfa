@@ -95,8 +95,8 @@ get_ts_internal <- function(idx, type, metadata, verbose){
                                        dt = type))
 
   if ( !httr::http_error(site_fetch) &
-       class(try(expr = xml2::read_xml(site_fetch), silent = TRUE)) !=
-       "try-error" ){
+       all(class(try(expr = xml2::read_xml(site_fetch), silent = TRUE)) !=
+       "try-error") ){
 
     if (verbose) print(site_fetch[[1]])
 

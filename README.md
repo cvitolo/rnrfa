@@ -19,11 +19,7 @@ The RNRFA package aims to achieve a simpler and more efficient access to data by
 
 ### Dependencies
 
-The rnrfa package depends on a number of CRAN packages. Check for missing dependencies and install them:
-
-The rnrfa package is dependent on the **gdal** library and a number of CRAN packages. In unix-based operating systems **gdal** can be installed running the following command in terminal:
-
-    sudo apt-get install -y r-cran-rgdal
+The rnrfa package depends on the **gdal** library, make sure you have it installed on your system before attempting to install this package.
 
 **R package dependencies** can be installed running the following code:
 
