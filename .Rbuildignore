@@ -10,3 +10,4 @@ README.html
 README_cache
 preparePackage.R
 inst/*
+docs/*

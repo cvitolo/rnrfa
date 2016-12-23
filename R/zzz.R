@@ -7,12 +7,13 @@
 
   package.name <- "rnrfa"
   mylib <- dirname(system.file(package = package.name))
-  ver <- utils::packageDescription(package.name, lib.loc = mylib)$Version
-  build.date <- utils::packageDescription(package.name, lib.loc = mylib)$Date
+  # ver <- utils::packageDescription(package.name, lib.loc = mylib)$Version
+  #build.date <- utils::packageDescription(package.name, lib.loc = mylib)$Date
 
 
   # build info
-  packageStartupMessage("RNRFA (Versions ", ver, ", built: ", build.date, ")")
+  # packageStartupMessage("RNRFA (Versions ", ver, ", built: ", build.date, ")")
+  packageStartupMessage("Package rnrfa")
 
   # cat, for readability of the message text
 
@@ -23,6 +24,5 @@
 |  Terms & Conditions:                                           |
 |  http://nrfa.ceh.ac.uk/costs-terms-and-conditions              |
 +----------------------------------------------------------------+
-
 ")
 }
