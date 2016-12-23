@@ -1,3 +1,19 @@
+Updated to v1.3 and submitted to CRAN.
+--------------------------------------
+
+Major changes:
+
+1. Removed dependency from cowplot package
+
+
+Updated to v1.2 and submitted paper to the R Journal
+----------------------------------------------------
+
+Major changes:
+
+1. Added some utility functions (e.g. plot_trend) to generate plots in the paper
+
+
 Updated to v1.1 and submitted to CRAN.
 ----------------------------------------
 
