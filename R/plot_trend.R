@@ -17,7 +17,8 @@
 plot_trend <- function(df, columnName){
 
   # A colorblind-friendly palette
-  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
+                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
   df$Trend <- NA
   df$Trend[df$Slope >= 0]  <- "Positive"
@@ -33,12 +34,16 @@ plot_trend <- function(df, columnName){
                             max(df$lon, na.rm = TRUE)+tolerance,
                             max(df$lat, na.rm = TRUE))+tolerance,
                maptype = 'toner-lite')
+
+  # Plot map
   plot1 <- ggmap::ggmap(m, alpha=0.5) +
     ggplot2::geom_point(data = df,
                         ggplot2::aes(x = lon, y = lat, colour = Trend),
                         alpha = 0.6,  size = 1) +
-    ggplot2::scale_color_manual(values=c("Negative"="red","Positive"="dodgerblue2")) +
-    ggplot2::theme(legend.position="top")
+    ggplot2::scale_color_manual(values=c("Negative"="red",
+                                         "Positive"="dodgerblue2")) +
+    ggplot2::theme(legend.position="top") +
+    ggplot2::ggtitle("A")
 
   # Boxplot by NUTS1 region
   plot2 <- ggplot2::ggplot(df,
@@ -52,8 +57,10 @@ plot_trend <- function(df, columnName){
     ggplot2::coord_flip() +
     ggplot2::theme(plot.margin=ggplot2::unit(c(1,1,1,1.2),"cm"),
                    axis.title.x=
-                     ggplot2::element_text(margin=ggplot2::margin(10,0,0,0)))
+                     ggplot2::element_text(margin=ggplot2::margin(10,0,0,0))) +
+    ggplot2::ggtitle("B")
 
-  cowplot::plot_grid(plot1, plot2, align='h', labels=c('A', 'B'))
+  # cowplot::plot_grid(plot1, plot2, align='h', labels=c('A', 'B'))
+  return(list("A" = plot1, "B" = plot2))
 
 }
