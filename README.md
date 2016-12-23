@@ -3,7 +3,7 @@
 rnrfa: An R package to Retrieve, Filter and Visualize Data from the UK National River Flow Archive
 --------------------------------------------------------------------------------------------------
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.61439.svg)](http://dx.doi.org/10.5281/zenodo.61439)
+[![DOI](https://zenodo.org/badge/22428118.svg)](https://zenodo.org/badge/latestdoi/22428118)
 
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](https://cran.r-project.org/package=rnrfa) [![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/rnrfa)](https://cran.r-project.org/package=rnrfa) [![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](https://cran.r-project.org/package=rnrfa)
 
