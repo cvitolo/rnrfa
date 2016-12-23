@@ -6,7 +6,7 @@
 #'
 #' @param bbox this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))
 #' @param columnName name of column to filter
-#' @param columnValue string to search in columnName#'
+#' @param columnValue string to search in columnName
 #' @param minRec minimum number of recording years
 #' @param all if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.
 #'
