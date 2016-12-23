@@ -12,7 +12,7 @@ catalogue(bbox = NULL, columnName = NULL, columnValue = NULL,
 
 \item{columnName}{name of column to filter}
 
-\item{columnValue}{string to search in columnName#'}
+\item{columnValue}{string to search in columnName}
 
 \item{minRec}{minimum number of recording years}
 

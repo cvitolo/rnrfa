@@ -7,7 +7,7 @@
 plot_trend(df, columnName)
 }
 \arguments{
-\item{df}{Data frame containing at least 4 column: lat (latitude), lon (longitude), Slope and an additonal user-defined column \code{columnName}.}
+\item{df}{Data frame containing at least 4 column: lat (latitude), lon (longitude), Slope and an additional user-defined column \code{columnName}.}
 
 \item{columnName}{name of the column to use for grouping the results.}
 }
