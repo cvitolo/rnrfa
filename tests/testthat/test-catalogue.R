@@ -1,12 +1,12 @@
 context("Test catalogue function")
 
-# test_that("Output of catalogue function is expected to be at least 1539x20", {
-#
-#   expect_that(dim(catalogue()), equals(c(1539, 20)))
-#
-#   closeAllConnections()
-#
-# })
+test_that("Output of catalogue function is expected to be at least 1539x20", {
+
+  expect_that(dim(catalogue()) >= c(1539,23), equals(c(TRUE, TRUE)))
+
+  # closeAllConnections()
+
+})
 
 # test_that("Check output of catalogue for Plynlimon area", {
 #
