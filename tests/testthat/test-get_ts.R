@@ -3,16 +3,7 @@ context("get_ts")
 test_that("get_ts cmr single works", {
   
   rain <- rnrfa:::get_ts(id = 18019, type = "cmr")
-  test <- structure(410, class = c("xts", "zoo"), 
-                    .indexCLASS = c("POSIXlt", "POSIXt"), 
-                    tclass = c("POSIXlt", "POSIXt"), 
-                    .indexTZ = "", 
-                    tzone = "", 
-                    index = structure(504921600, tzone = "", 
-                                      tclass = c("POSIXlt", "POSIXt")), 
-                    .Dim = c(1L, 1L))
-  
-  expect_equal(rain[1,], test)
+  expect_equal(as.numeric(rain[1]), 410)
   
 })
 
