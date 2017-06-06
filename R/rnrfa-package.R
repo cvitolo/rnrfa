@@ -6,6 +6,7 @@
 #' @docType package
 #' @title UK National River Flow Archive data from R
 #'
+#' @import rgdal 
 #' @importFrom stats quantile
 #' @importFrom plyr llply
 #' @importFrom graphics axis legend mtext par plot
