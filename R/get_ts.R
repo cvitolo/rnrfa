@@ -24,7 +24,7 @@
 #' }
 #'
 
-get_ts <- function(id, type, metadata, cl, verbose){
+get_ts <- function(id, type, metadata = FALSE, cl, verbose = FALSE){
 
   options(warn=-1)                                       # do not print warnings
 
