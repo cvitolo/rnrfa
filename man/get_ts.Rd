@@ -4,7 +4,7 @@
 \alias{get_ts}
 \title{This function retrieves time series data.}
 \usage{
-get_ts(id, type, metadata, cl, verbose)
+get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE)
 }
 \arguments{
 \item{id}{station identification number(s), each number should be in the range [3002,236051].}
@@ -38,4 +38,3 @@ Given the station identification number(s), this function retrieves data (time s
 \author{
 Claudia Vitolo
 }
-

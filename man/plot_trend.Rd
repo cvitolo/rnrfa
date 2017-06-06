@@ -22,4 +22,3 @@ This function plots a previously calculated trend.
   plot_trend(df, Region)
 }
 }
-

@@ -184,11 +184,12 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
 
         # change columns' data types (remove factors)
         stationList[] <- lapply(stationList, as.character)
-        stationList[,c(12:14, 17:20)] <- lapply(stationList[,c(12:14, 17:20)],
-                                                as.numeric)
+        #stationList[,c(12:14, 17:20)] <- lapply(stationList[,c(12:14, 17:20)],
+        #                                        as.numeric)
 
         if (!all) {
-          stationList <- stationList[,c(1, 2, 4, 12, 19, 20)]
+          stationList <- stationList[,c("id", "name", "location", "river",
+                                        "lat", "lon")]
         }
 
         return(stationList)

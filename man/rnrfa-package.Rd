@@ -10,4 +10,3 @@ rnrfa: UK National River Flow Archive Data from R.
 \details{
 Utility functions to retrieve data from the UK National River Flow Archive (http://nrfa.ceh.ac.uk/). The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.
 }
-

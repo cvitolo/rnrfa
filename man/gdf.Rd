@@ -31,4 +31,3 @@ Given the station ID number(s), this function retrieves data (time series in zoo
 \author{
 Claudia Vitolo
 }
-

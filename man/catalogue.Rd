@@ -47,4 +47,3 @@ Offline you can browse the cached version running the command \code{data(station
 \author{
 Claudia Vitolo
 }
-

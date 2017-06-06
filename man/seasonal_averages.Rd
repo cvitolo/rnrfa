@@ -31,4 +31,3 @@ This calculates the seasonal averages from a time series.
 }
 
 }
-
