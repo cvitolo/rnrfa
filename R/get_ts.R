@@ -60,6 +60,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE){
                                         X = as.list(id),
                                         fun = get_ts_internal,
                                         type, metadata, verbose)
+          names(tsList) <- id
 
         }else{
           stop('cl is not a cluster object!')
