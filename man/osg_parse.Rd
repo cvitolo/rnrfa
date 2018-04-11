@@ -4,7 +4,7 @@
 \alias{osg_parse}
 \title{Converts OS Grid Reference to BNG/WGS coordinates.}
 \usage{
-osg_parse(gridRefs, CoordSystem = "BNG")
+osg_parse(gridRefs, CoordSystem = c("BNG", "WGS84"))
 }
 \arguments{
 \item{gridRefs}{This is a string (or a character vector) that contains the OS grid Reference.}
