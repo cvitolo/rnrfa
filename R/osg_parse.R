@@ -21,93 +21,83 @@
 #' }
 #'
 
-osg_parse <- function(gridRefs, CoordSystem = "BNG" ) {
+osg_parse <- function (gridRefs, CoordSystem = c("BNG", "WGS84"))
+{
+    gridRefs <- as.character(gridRefs)
+    CoordSystem <- match.arg(CoordSystem)
 
-  xlon <- c()
-  ylat <- c()
+    epsg.out <- unname(c("BNG" = 27700, "WGS84" = 4326)[CoordSystem])
+    names.out <- list("BNG" = c("easting", "northing"),
+                      "WGS84" = c("lon", "lat"))[[CoordSystem]]
 
-  for (gridRef in gridRefs){
+    letter <- strsplit(substr(gridRefs, 1L, 2L), split = "", fixed = TRUE)
+    letter <- do.call(rbind, letter)
 
-    # Starting point is the south-west corner
+    # Ireland has a different CRS
+    epsg.source <- ifelse(letter[, 1] == "I", 29902, 27700)
 
     # First letter identifies the 500x500 km grid
-    firstLetter <- substr(gridRef,1,1)
-    # Englan + Wales + Scotland
-    if (firstLetter=="S") {xOffset1 <- 0;   yOffset1 <- 0}
-    if (firstLetter=="T") {xOffset1 <- 500; yOffset1 <- 0}
-    if (firstLetter=="N") {xOffset1 <- 0;   yOffset1 <- 500}
-    if (firstLetter=="H") {xOffset1 <- 0;   yOffset1 <- 1000}
-    if (firstLetter=="O") {xOffset1 <- 500; yOffset1 <- 500}
-
-    # Norther Ireland?
-    if (firstLetter=="I") {
-      yOffset1 <- 0
-      xOffset1 <- 0
-      EPSG <- 29902
-      defaultCRS <- sp::CRS("+init=epsg:29902")
-    }else{
-      EPSG <- 27700
-      defaultCRS <- sp::CRS("+init=epsg:27700")
-    }
+    offset1 <- list("S" = c(x = 0, y = 0), "T" = c(5, 0),
+                    "N" = c(0, 5), "H" = c(0, 10),
+                    "O" = c(5, 5), "I" = c(0, 0))
+    offset1 <- do.call(rbind, offset1)
 
     # Second letter identifies the 100x100 km grid
-    secondLetter <- substr(gridRef,2,2)
-    if (secondLetter=="A") {yOffset2 <- 400; xOffset2 <- 0}
-    if (secondLetter=="B") {yOffset2 <- 400; xOffset2 <- 100}
-    if (secondLetter=="C") {yOffset2 <- 400; xOffset2 <- 200}
-    if (secondLetter=="D") {yOffset2 <- 400; xOffset2 <- 300}
-    if (secondLetter=="E") {yOffset2 <- 400; xOffset2 <- 400}
-    if (secondLetter=="F") {yOffset2 <- 300; xOffset2 <- 0}
-    if (secondLetter=="G") {yOffset2 <- 300; xOffset2 <- 100}
-    if (secondLetter=="H") {yOffset2 <- 300; xOffset2 <- 200}
-    if (secondLetter=="J") {yOffset2 <- 300; xOffset2 <- 300}
-    if (secondLetter=="K") {yOffset2 <- 300; xOffset2 <- 400}
-    if (secondLetter=="L") {yOffset2 <- 200; xOffset2 <- 0}
-    if (secondLetter=="M") {yOffset2 <- 200; xOffset2 <- 100}
-    if (secondLetter=="N") {yOffset2 <- 200; xOffset2 <- 200}
-    if (secondLetter=="O") {yOffset2 <- 200; xOffset2 <- 300}
-    if (secondLetter=="P") {yOffset2 <- 200; xOffset2 <- 400}
-    if (secondLetter=="Q") {yOffset2 <- 100; xOffset2 <- 0}
-    if (secondLetter=="R") {yOffset2 <- 100; xOffset2 <- 100}
-    if (secondLetter=="S") {yOffset2 <- 100; xOffset2 <- 200}
-    if (secondLetter=="T") {yOffset2 <- 100; xOffset2 <- 300}
-    if (secondLetter=="U") {yOffset2 <- 100; xOffset2 <- 400}
-    if (secondLetter=="V") {yOffset2 <- 0; xOffset2 <- 0}
-    if (secondLetter=="W") {yOffset2 <- 0; xOffset2 <- 100}
-    if (secondLetter=="X") {yOffset2 <- 0; xOffset2 <- 200}
-    if (secondLetter=="Y") {yOffset2 <- 0; xOffset2 <- 300}
-    if (secondLetter=="Z") {yOffset2 <- 0; xOffset2 <- 400}
+    offset2 <- list(
+        "A" = c(y = 4, x = 0), "B" = c(4, 1), "C" = c(4, 2), "D" = c(4, 3), "E" = c(4, 4),
+        "F" = c(3, 0), "G" = c(3, 1), "H" = c(3, 2), "J" = c(3, 3), "K" = c(3, 4),
+        "L" = c(2, 0), "M" = c(2, 1), "N" = c(2, 2), "O" = c(2, 3),"P" = c(2, 4),
+        "Q" = c(1, 0), "R" = c(1, 1), "S" = c(1, 2), "T" = c(1, 3), "U" = c(1, 4),
+        "V" = c(0, 0), "W" = c(0, 1), "X" = c(0, 2), "Y" = c(0, 3), "Z" = c(0, 4))
+    offset2 <- do.call(rbind, offset2)[, c("x", "y")]
 
-    # Split the numeric grid reference in half and extract to x, y
-    n <- nchar(gridRef) - 2
-    x <- (substr(gridRef, 3, (n / 2) + 2))
-    y <- (substr(gridRef, (n / 2) + 3, n + 2))
+    offset <- offset1[letter[, 1], , drop = FALSE] +
+        offset2[letter[, 2], , drop = FALSE]
 
-    # Adjust grid reference to metres while prefixing letter conversion
-    n <- 5 - nchar(x)
-    xO <- (xOffset1 + xOffset2) / 100
-    yO <- (yOffset1 + yOffset2) / 100
-    x <- as.numeric(paste0(xO, x, paste0(rep(0, times=n), collapse="")))
-    y <- as.numeric(paste0(yO, y, paste0(rep(0, times=n), collapse="")))
+    padz <- function(x, n=max(nchar(x))) gsub(" ", "0", formatC(x, width=-n))
 
-    # Create a spatial data frame with the coordinates.
-    xy <- data.frame(x, y)
-    sp::coordinates(xy) <- ~x + y
-    sp::proj4string(xy) <- defaultCRS
+    # extract x and y parts, pad with trailing zeros if precision is low
+    n <- nchar(gridRefs) - 2
+    x <- paste0(offset[, "x"], padz(substr(gridRefs, 3, (n/2) + 2), n = 5))
+    y <- paste0(offset[, "y"], padz(substr(gridRefs, (n/2) + 3, n + 2), n = 5))
 
-    # this is the epsg code for OSgrid references in metres. To convert to lat-long WGS84 coords:
-    if (CoordSystem == "WGS84") {
-      xy <- sp::spTransform(xy, sp::CRS("+init=epsg:4326"))
+    xy <- .transform_crs(x = as.numeric(x), y = as.numeric(y),
+                         from = epsg.source, to = epsg.out)
+
+    colnames(xy) <- names.out
+
+    return(as.list(xy))
+}
+
+
+
+.transform_crs <- function(x, y, from, to)
+{
+    df <- data.frame(x = as.numeric(x), y = as.numeric(y), from, to)
+
+    .transform <- function(x) {
+        # transformation can only be vectorized for unique CRS
+        if(length(unique(x$from)) > 1) stop("Cannot handle multiple source CRS.")
+        if(length(unique(x$to)) > 1) stop("Cannot handle multiple target CRS.")
+
+        xy <- x[, c("x", "y")]
+
+        from <- x$from[1]
+        to <- x$to[1]
+
+        # nothing to do ...
+        if(from == to) return(xy)
+
+        sp::coordinates(xy) <- ~x + y
+        sp::proj4string(xy) <- sp::CRS(paste0("+init=epsg:", from))
+
+        xy.new <- sp::spTransform(xy, sp::CRS(paste0("+init=epsg:", to)))
+
+        as.data.frame(sp::coordinates(xy.new))
     }
 
-    xlon <- c(xlon, xy@coords[[1]])
-    ylat <- c(ylat, xy@coords[[2]])
+    # split to obain unique CRS
+    grouped <- split(df, f = df[, c("from", "to")])
 
-  }
-
-  if (CoordSystem == "BNG") newCoords <- list("easting"=xlon, "northing"=ylat)
-  if (CoordSystem == "WGS84") newCoords <- list("lon"=xlon, "lat"=ylat)
-
-  return(newCoords)
-
+    unsplit(lapply(grouped, .transform), f = df[, c("from", "to")])
 }
