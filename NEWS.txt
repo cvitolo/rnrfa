@@ -1,3 +1,11 @@
+Updated to v1.4 and submitted to CRAN.
+--------------------------------------
+
+Major changes:
+
+1. osg_parse now is vectorised, thanks to Tobias Gauster! 
+
+
 Updated to v1.3 and submitted to CRAN.
 --------------------------------------
 
