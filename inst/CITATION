@@ -1,0 +1,13 @@
+citHeader("To cite 'rnrfa' in publications, please use:")
+
+citEntry(entry = "article",
+  url = "https://journal.r-project.org/archive/2016/RJ-2016-036/index.html",
+  year  = "2016",
+  publisher = "R Foundation for Statistical Computing",
+  volume = "8",
+  number = "2",
+  pages = "102--116",
+  author = "Vitolo, Claudia and Fry, Matthew and Buytaert, Wouter",
+  title = "rnrfa: an R package to retrieve, filter and visualize data from the {UK National River Flow Archive}",
+  journal = "{The R Journal}",
+textVersion = "Vitolo, C., Fry, M. and Buytaert, W., 2016. rnrfa: an R package to retrieve, filter and visualize data from the UK National River Flow Archive. The R Journal, 8(2), pp.102-116.")
