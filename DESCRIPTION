@@ -12,7 +12,7 @@ BugReports: https://github.com/cvitolo/rnrfa/issues
 Description: Utility functions to retrieve data from the UK National River Flow Archive (<http://nrfa.ceh.ac.uk/>). The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.
 Depends: R (>= 3.0.2)
 Imports: rgdal, plyr, graphics, stats, httr, xml2, stringr, xts, rjson, ggmap, ggplot2, sp, parallel
-Suggests: testthat, knitr
+Suggests: testthat, knitr, covr, lintr
 LazyData: true
 Encoding: UTF-8
 License: GPL-3

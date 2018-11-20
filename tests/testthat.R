@@ -1,5 +1,6 @@
 library('testthat')
 library('rnrfa')
+library('lintr')
 
 test_check('rnrfa')
 
