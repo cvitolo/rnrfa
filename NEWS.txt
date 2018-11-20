@@ -1,3 +1,13 @@
+Updated to v1.5 and submitted to CRAN.
+--------------------------------------
+
+Major changes:
+
+1. osg_parse now does not fail when gridRefs is a mixture of upper and lower cases, thanks to Christoph Kratz (@bogsnork on GitHub, see https://github.com/cvitolo/rnrfa/issues/12)!
+2. fixed tests for get_ts
+3. automatic deployment of website for documentation on github
+
+
 Updated to v1.4 and submitted to CRAN.
 --------------------------------------
 

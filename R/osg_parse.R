@@ -23,7 +23,7 @@
 
 osg_parse <- function (gridRefs, CoordSystem = c("BNG", "WGS84"))
 {
-    gridRefs <- as.character(gridRefs)
+    gridRefs <- toupper(as.character(gridRefs))
     CoordSystem <- match.arg(CoordSystem)
 
     epsg.out <- unname(c("BNG" = 27700, "WGS84" = 4326)[CoordSystem])
