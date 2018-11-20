@@ -4,18 +4,22 @@
 #'
 #' @param timeseries Time series (xts class).
 #' @param season Name of the season (Autumn, Winter, Spring, Summer)
-#' @param startSeason String encoding the start of the season (e.g. for spring in the northen hemisphere this is "03-21")
-#' @param endSeason String encoding the end of the season (e.g. for spring in the northen emisphere this is "06-20")
-#' @param parallel Logical, FALSE by default. If parallel = TRUE means that the function can be used in parallel computations.
+#' @param startSeason String encoding the start of the season (e.g. for spring
+#' in the northen hemisphere this is "03-21")
+#' @param endSeason String encoding the end of the season (e.g. for spring in
+#' the northen emisphere this is "06-20")
+#' @param parallel Logical, FALSE by default. If parallel = TRUE means that the
+#' function can be used in parallel computations.
 #'
-#' @return A vector containing the seasonal average and significance level (p-value) for each time series.
+#' @return A vector containing the seasonal average and significance level
+#' (p-value) for each time series.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#'   seasonal_averages(CMR(18019), season = "Spring")
-#'   seasonal_averages(list(CMR(18019), CMR(18019)), season = "Spring")
+#'   seasonal_averages(cmr(18019), season = "Spring")
+#'   seasonal_averages(list(cmr(18019), cmr(18019)), season = "Spring")
 #' }
 #'
 
@@ -78,7 +82,7 @@ seasonal_averages_internal <- function(timeseries, season = "Spring",
   meanAnnualSpring <- c()
   for (myyear in unique(xts::.indexyear(timeseries) + 1900)){
     myInterval <- paste(myyear, "-", startSeason, "::",
-                        myyear, "-", endSeason, sep="")
+                        myyear, "-", endSeason, sep = "")
     meanAnnualSpring <- c(meanAnnualSpring,
                           mean(timeseries[myInterval], na.rm = TRUE))
   }
@@ -87,7 +91,7 @@ seasonal_averages_internal <- function(timeseries, season = "Spring",
   fit <- stats::glm(meanAnnualSpring~seq(1, length(meanAnnualSpring)))
   # F-statistics of the significance test with the summary function
   # extract slope and p-value (for significance to be true, p should be < 0.05)
-  co <- summary(fit)$coefficients[2,c(1,4)] # only slope: coef(fit)[[2]]
+  co <- summary(fit)$coefficients[2, c(1, 4)] # only slope: coef(fit)[[2]]
 
   return(as.numeric(co))
 

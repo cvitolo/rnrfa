@@ -2,17 +2,24 @@
 #'
 #' @author Claudia Vitolo
 #'
-#' @description This function pulls the list of stations (and related metadata), falling within a given bounding box, from the CEH National River Flow Archive website.
+#' @description This function pulls the list of stations (and related metadata),
+#' falling within a given bounding box, from the CEH National River Flow Archive
+#' website.
 #'
-#' @param bbox this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))
+#' @param bbox this is a geographical bounding box (e.g. list(lonMin = -3.82,
+#' lonMax = -3.63, latMin = 52.43, latMax = 52.52))
 #' @param columnName name of column to filter
 #' @param columnValue string to search in columnName
 #' @param minRec minimum number of recording years
-#' @param all if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.
+#' @param all if TRUE it returns all the available metadata. If FALSE, it
+#' returns only the following columns: id, name, river, hydrometricArea,
+#' operator, haName, catchmentArea, altitude, lat, lon.
 #'
-#' @details coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
-#'
-#' Offline you can browse the cached version running the command \code{data(stationSummary)}
+#' @details coordinates of bounding box are required in WGS84 (EPSG: 4326).
+#' If BB coordinates are missing, the function returns the list corresponding to
+#' the maximum extent of the network.
+#' Offline you can browse the cached version running the command
+#' \code{data(stationSummary)}
 #'
 #' @return data.frame with list of stations and related metadata
 #'
@@ -36,7 +43,7 @@
 catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                       minRec=NULL, all = TRUE) {
 
-  options(warn=-1)
+  options(warn = -1)
 
   ### FILTER BASED ON BOUNDING BOX ###
 
@@ -63,7 +70,7 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                           query = list(db = "nrfa_public",
                                        stn = paste0("llbb:", myBBOX)))
 
-  if( !httr::http_error(site_fetch) ) {
+  if (!httr::http_error(site_fetch)) {
 
     # Get the JSON file
     stationListJSON <- rjson::fromJSON(file = site_fetch[[1]])
@@ -88,8 +95,8 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                            "maximum-gauged-flow",
                            "maximum-gauged-level"))
       stationColumns <- unique(unlist(lapply(stationListJSON, names)))[-cols2rm]
-      selectedMeta <- lapply(stationList, function(x) {x[stationColumns]})
-      stationList <- as.data.frame(do.call(rbind,selectedMeta))
+      selectedMeta <- lapply(stationList, function(x) { x[stationColumns] })
+      stationList <- as.data.frame(do.call(rbind, selectedMeta))
       names(stationList) <- stationColumns
       ### END (FILTER BASED ON BOUNDING BOX) ###
 
@@ -110,11 +117,11 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
         if (columnName == "id"){
 
           myRows <- which(stationList$id %in% columnValue)
-          stationList <- stationList[myRows,]
+          stationList <- stationList[myRows, ]
 
         }else{
 
-          myColumn <- unlist(eval(parse(text=paste('temp$',columnName))))
+          myColumn <- unlist(eval(parse(text = paste("temp$", columnName))))
 
           Condition1 <- all(!is.na(as.numeric(as.character(myColumn))))
           if (Condition1 == TRUE) myColumn <- as.numeric(as.character(myColumn))
@@ -134,7 +141,7 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                                       substr(columnValue, 1, 2),
                                       substr(columnValue, 3,
                                              nchar(columnValue)))
-              myExpression <- eval(parse(text=combinedString))
+              myExpression <- eval(parse(text = combinedString))
               newstationList <- subset(temp, myExpression)
 
             }else{
@@ -144,11 +151,11 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
                                       substr(columnValue, 1, 1),
                                       substr(columnValue, 2,
                                              nchar(columnValue)))
-              myExpression <- eval(parse(text=combinedString))
+              myExpression <- eval(parse(text = combinedString))
               newstationList <- subset(temp, myExpression)
             }
           }else{
-            myExpression <- myColumn==columnValue
+            myExpression <- myColumn == columnValue
             newstationList <- subset(temp, myExpression)
           }
           stationList <- newstationList
@@ -167,9 +174,9 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
         endYear[is.na(endYear)] <- 0
         startYear <- as.numeric(as.character(unlist(temp$gdfStart)))
         startYear[is.na(startYear)] <- 0
-        recordingYears <- endYear-startYear
-        goodRecordingYears <- which(recordingYears>=minRec)
-        stationList <- temp[goodRecordingYears,]
+        recordingYears <- endYear - startYear
+        goodRecordingYears <- which(recordingYears >= minRec)
+        stationList <- temp[goodRecordingYears, ]
       }
 
       ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
@@ -188,8 +195,8 @@ catalogue <- function(bbox = NULL, columnName = NULL, columnValue = NULL,
         #                                        as.numeric)
 
         if (!all) {
-          stationList <- stationList[,c("id", "name", "location", "river",
-                                        "lat", "lon")]
+          stationList <- stationList[, c("id", "name", "location", "river",
+                                         "lat", "lon")]
         }
 
         return(stationList)
