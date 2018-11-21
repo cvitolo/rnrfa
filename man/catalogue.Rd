@@ -8,7 +8,8 @@ catalogue(bbox = NULL, columnName = NULL, columnValue = NULL,
   minRec = NULL, all = TRUE)
 }
 \arguments{
-\item{bbox}{this is a geographical bounding box (e.g. list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52))}
+\item{bbox}{this is a geographical bounding box (e.g. list(lonMin = -3.82,
+lonMax = -3.63, latMin = 52.43, latMax = 52.52))}
 
 \item{columnName}{name of column to filter}
 
@@ -16,18 +17,24 @@ catalogue(bbox = NULL, columnName = NULL, columnValue = NULL,
 
 \item{minRec}{minimum number of recording years}
 
-\item{all}{if TRUE it returns all the available metadata. If FALSE, it returns only the following columns: id, name, river, hydrometricArea, operator, haName, catchmentArea, altitude, lat, lon.}
+\item{all}{if TRUE it returns all the available metadata. If FALSE, it
+returns only the following columns: id, name, river, hydrometricArea,
+operator, haName, catchmentArea, altitude, lat, lon.}
 }
 \value{
 data.frame with list of stations and related metadata
 }
 \description{
-This function pulls the list of stations (and related metadata), falling within a given bounding box, from the CEH National River Flow Archive website.
+This function pulls the list of stations (and related metadata),
+falling within a given bounding box, from the CEH National River Flow Archive
+website.
 }
 \details{
-coordinates of bounding box are required in WGS84 (EPSG: 4326). If BB coordinates are missing, the function returns the list corresponding to the maximum extent of the network.
-
-Offline you can browse the cached version running the command \code{data(stationSummary)}
+coordinates of bounding box are required in WGS84 (EPSG: 4326).
+If BB coordinates are missing, the function returns the list corresponding to
+the maximum extent of the network.
+Offline you can browse the cached version running the command
+\code{data(stationSummary)}
 }
 \examples{
 \dontrun{

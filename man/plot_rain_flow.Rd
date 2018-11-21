@@ -22,7 +22,10 @@ plot_rain_flow(id = NULL, rain = NULL, flow = NULL, area = NULL,
 Plot rainfall and flow for a given station
 }
 \description{
-This function retrieves rainfall and flow time series for a given catchment, divides the flow by the catchment area and converts it to mm/day to that it can be comparable with the rainfall (mm/month). Finally it generates a plots combining rainfall and flow information.
+This function retrieves rainfall and flow time series for a
+given catchment, divides the flow by the catchment area and converts it to
+mm/day to that it can be comparable with the rainfall (mm/month). Finally it
+generates a plots combining rainfall and flow information.
 }
 \examples{
 \dontrun{

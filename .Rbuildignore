@@ -4,6 +4,7 @@
 CONDUCT.md
 .travis.yml
 appveyor.yml
-NEWS.txt
 README.Rmd
-_pkgdown.yml
+README_cache
+^_pkgdown\.yml$
+^docs$
