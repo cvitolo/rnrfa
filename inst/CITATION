@@ -11,3 +11,12 @@ citEntry(entry = "article",
   title = "rnrfa: an R package to retrieve, filter and visualize data from the {UK National River Flow Archive}",
   journal = "{The R Journal}",
 textVersion = "Vitolo, C., Fry, M. and Buytaert, W., 2016. rnrfa: an R package to retrieve, filter and visualize data from the UK National River Flow Archive. The R Journal, 8(2), pp.102-116.")
+
+citEntry(entry = "manual",
+  year  = "2018",
+  month = "11",
+  day = "21",
+  author = "Vitolo, Claudia and Fry, Matthew and Buytaert, Wouter and Spencer, Michael and Gauster, Tobias",
+  title = "rnrfa: an R package to retrieve, filter and visualize data from the {UK National River Flow Archive}",
+  journal = "{Zenodo}",
+textVersion = "Vitolo, C., Fry, M., Buytaert, W., Spencer, M., Gauster, T. (2018, November 21). rnrfa (R package, version 1.5). Zenodo. http://doi.org/10.5281/zenodo.593201")
