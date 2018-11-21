@@ -1,12 +1,15 @@
 #' rnrfa: UK National River Flow Archive Data from R.
 #'
-#' Utility functions to retrieve data from the UK National River Flow Archive (http://nrfa.ceh.ac.uk/). The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.
+#' Utility functions to retrieve data from the UK National River Flow Archive
+#' (http://nrfa.ceh.ac.uk/). The package contains R wrappers to the UK NRFA data
+#' temporary-API. There are functions to retrieve stations falling in a bounding
+#' box, to generate a map and extracting time series and general information.
 #'
 #' @name rnrfa-package
 #' @docType package
 #' @title UK National River Flow Archive data from R
 #'
-#' @import rgdal 
+#' @import rgdal
 #' @importFrom stats quantile
 #' @importFrom plyr llply
 #' @importFrom graphics axis legend mtext par plot
@@ -17,9 +20,12 @@
 #' @importFrom xts xts .indexyear plot.xts
 #' @importFrom rjson fromJSON
 #' @importFrom ggmap ggmap get_map
-#' @importFrom ggplot2 ggplot geom_point aes coord_flip scale_color_manual theme geom_boxplot theme_minimal ylab xlab unit element_text margin ggtitle
+#' @importFrom ggplot2 ggplot geom_point aes coord_flip scale_color_manual theme
+#' @importFrom ggplot2 geom_boxplot theme_minimal ylab xlab unit element_text
+#' @importFrom ggplot2 margin ggtitle
 #' @importFrom sp coordinates proj4string CRS spTransform
 #' @importFrom parallel parLapply
+#' @importFrom tibble as_tibble
 #'
 NULL
 
@@ -59,7 +65,8 @@ NULL
 #' \item{\code{lon}}{a numeric vector of longitude coordinates}
 #' }
 #' }
-#' @details This is the full set of river station that can be retrieved using UK NRFA APIs.
+#' @details This is the full set of river station that can be retrieved using UK
+#' NRFA APIs.
 #'
 #' @source http://nrfaapps.ceh.ac.uk/data/nrfa/
 #' @examples data(StationSummary)

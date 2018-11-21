@@ -4,20 +4,20 @@
 \alias{plot_trend}
 \title{Plot trend}
 \usage{
-plot_trend(df, columnName)
+plot_trend(df, column_name)
 }
 \arguments{
 \item{df}{Data frame containing at least 4 column:
-lat (latitude), lon (longitude), Slope and an additional user-defined column
-\code{columnName}.}
+lat (latitude), lon (longitude), slope and an additional user-defined column
+\code{column_name}.}
 
-\item{columnName}{name of the column to use for grouping the results.}
+\item{column_name}{name of the column to use for grouping the results.}
 }
 \value{
 Two plots, side-by-side, the first showing the distribution of the
-Trend over a map, based on the slope of the linear model that describes the
-trend. The second plot shows a boxplot of the Slope grouped based on the
-column Region. Region and Slope can be user-defined.
+trend over a map, based on the slope of the linear model that describes the
+trend. The second plot shows a boxplot of the slope grouped based on the
+column Region. Region and slope can be user-defined.
 }
 \description{
 This function plots a previously calculated trend.

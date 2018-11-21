@@ -3,14 +3,14 @@
 #' @description This function plots a previously calculated trend.
 #'
 #' @param df Data frame containing at least 4 column:
-#' lat (latitude), lon (longitude), Slope and an additional user-defined column
-#' \code{columnName}.
-#' @param columnName name of the column to use for grouping the results.
+#' lat (latitude), lon (longitude), slope and an additional user-defined column
+#' \code{column_name}.
+#' @param column_name name of the column to use for grouping the results.
 #'
 #' @return Two plots, side-by-side, the first showing the distribution of the
-#' Trend over a map, based on the slope of the linear model that describes the
-#' trend. The second plot shows a boxplot of the Slope grouped based on the
-#' column Region. Region and Slope can be user-defined.
+#' trend over a map, based on the slope of the linear model that describes the
+#' trend. The second plot shows a boxplot of the slope grouped based on the
+#' column Region. Region and slope can be user-defined.
 #'
 #' @export
 #'
@@ -19,18 +19,14 @@
 #'   plot_trend(df, Region)
 #' }
 
-plot_trend <- function(df, columnName){
+plot_trend <- function(df, column_name){
 
-  # A colorblind-friendly palette
-  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
-                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
-  df$Trend <- NA
-  df$Trend[df$Slope >= 0]  <- "Positive"
-  df$Trend[df$Slope < 0]  <- "Negative"
+  df$trend <- NA
+  df$trend[df$slope >= 0]  <- "Positive"
+  df$trend[df$slope < 0]  <- "Negative"
 
   # To avoid Note in R check
-  lon <- lat <- Trend <- Slope <- NULL
+  lon <- lat <- trend <- slope <- NULL
 
   # Plot red dot for decreasing trend, blue dot for increasing trend
   tolerance <- (max(df$lon, na.rm = TRUE) - min(df$lon, na.rm = TRUE)) / 10
@@ -43,7 +39,7 @@ plot_trend <- function(df, columnName){
   # Plot map
   plot1 <- ggmap::ggmap(m, alpha = 0.5) +
     ggplot2::geom_point(data = df,
-                        ggplot2::aes(x = lon, y = lat, colour = Trend),
+                        ggplot2::aes(x = lon, y = lat, colour = trend),
                         alpha = 0.6,  size = 1) +
     ggplot2::scale_color_manual(values = c("Negative" = "red",
                                            "Positive" = "dodgerblue2")) +
@@ -52,16 +48,21 @@ plot_trend <- function(df, columnName){
 
   # Boxplot by NUTS1 region
   plot2 <- ggplot2::ggplot(df,
-                           ggplot2::aes(x = eval(parse(text = columnName)),
-                                        y = Slope,
-                                        group = eval(parse(text = columnName)))) +
+                           ggplot2::aes(x = eval(parse(text = column_name)),
+                                        y = slope,
+                                        group = eval(parse(text =
+                                                             column_name)))) +
     ggplot2::geom_boxplot(outlier.shape = NA) +
-    ggplot2::scale_y_continuous(limits = stats::quantile(df$Slope,
+    ggplot2::scale_y_continuous(limits = stats::quantile(df$slope,
                                                          c(0.05, 0.95))) +
     ggplot2::theme_minimal() + ggplot2::ylab("Slope") + ggplot2::xlab("") +
     ggplot2::coord_flip() +
     ggplot2::theme(plot.margin = ggplot2::unit(c(1, 1, 1, 1.2), "cm"),
-                   axis.title.x = ggplot2::element_text(margin = ggplot2::margin(10, 0, 0, 0))) +
+                   axis.title.x = ggplot2::element_text(margin =
+                                                          ggplot2::margin(10,
+                                                                          0,
+                                                                          0,
+                                                                          0))) +
     ggplot2::ggtitle("B")
 
   return(list("A" = plot1, "B" = plot2))

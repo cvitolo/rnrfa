@@ -17,7 +17,7 @@ test_that("Output of cmr function for single station", {
 
 test_that("Output of cmr function for multiple stations", {
 
-  ids <- c(54022,54090,54091)
+  ids <- c(54022, 54090, 54091)
 
   x <- cmr(id = ids, metadata = FALSE, cl = NULL)
 
@@ -35,25 +35,3 @@ test_that("Output of cmr function for multiple stations", {
   closeAllConnections()
 
 })
-
-# test_that("Output of cmr function for data retrieval from multiple stations simultaneously", {
-#
-#   library(parallel)
-#   if (detectCores() >= 2) {
-#     cl <- makeCluster(getOption("cl.cores", 2))
-#
-#     ids <- c(54022,54090,54091)
-#
-#     x <- cmr(id = ids, metadata = FALSE, cl = cl)
-#
-#     stopCluster(cl)
-#
-#     expect_that(length(x) == 3, equals(TRUE))
-#
-#     closeAllConnections()
-#
-#   }else{
-#     stop('Single core, cannot test simultaneous calls to server')
-#   }
-#
-# })

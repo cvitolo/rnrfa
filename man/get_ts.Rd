@@ -7,21 +7,36 @@
 get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE)
 }
 \arguments{
-\item{id}{station identification number(s), each number should be in the range [3002,236051].}
+\item{id}{station identification number(s), each number should be in the
+range [3002,236051].}
 
-\item{type}{This is character string that can have one of the two following values: "cmr" (to obtain catchment mean rainfall) or "gdf" (to obtain gauged daily flow).}
+\item{type}{This is character string that can have one of the two following
+values: "cmr" (to obtain catchment mean rainfall) or "gdf" (to obtain gauged
+daily flow).}
 
-\item{metadata}{Logical, FALSE by default. If metadata = TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).}
+\item{metadata}{Logical, FALSE by default. If metadata = TRUE means that the
+result for a single station is a list with two elements: data (the time
+series) and meta (metadata).}
 
-\item{cl}{(optional) This is a cluster object, created by the parallel package. This is set to NULL by default, which sends sequential calls to the server.}
+\item{cl}{(optional) This is a cluster object, created by the parallel
+package. This is set to NULL by default, which sends sequential calls to the
+server.}
 
-\item{verbose}{(FALSE by default). If set to TRUE prints GET request on the console.}
+\item{verbose}{(FALSE by default). If set to TRUE prints GET request on the
+console.}
 }
 \value{
-list composed of as many objects as in the list of station identification numbers. Each object can be accessed using their names or index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time series.
+list composed of as many objects as in the list of station
+identification numbers. Each object can be accessed using their names or
+index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time
+series.
 }
 \description{
-Given the station identification number(s), this function retrieves data (time series in zoo format with accompanying metadata) from the WaterML2 service on the NRFA database. The time series can be of two types: \code{cmr} (catchment mean rainfall, monthly) or \code{gdf} (gauged daily flows, daily).
+Given the station identification number(s), this function
+retrieves data (time series in zoo format with accompanying metadata) from
+the WaterML2 service on the NRFA database. The time series can be of two
+types: \code{cmr} (catchment mean rainfall, monthly) or \code{gdf}
+(gauged daily flows, daily).
 }
 \examples{
 \dontrun{
