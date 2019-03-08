@@ -26,7 +26,7 @@ plot_rain_flow <- function(id = NULL,
   if (!is.null(id)){
 
     # Retrieve area (in Km2) from the catalogue
-    meta <- catalogue(columnName = "id", columnValue = id)
+    meta <- catalogue(column_name = "id", column_value = id)
     title <- meta$name
     area <- as.numeric(as.character(meta$catchmentArea))
 
@@ -38,16 +38,15 @@ plot_rain_flow <- function(id = NULL,
 
   }
 
-  convertedFlow <- convert_flow(flow, area)
-  # (flow*1000)/(area*1000000))*86400 # mm/day
+  converted_flow <- convert_flow(flow, area)
 
-  proportion <- ceiling((max(convertedFlow, na.rm = T) -
-                           min(convertedFlow, na.rm = T)) / 3)
+  proportion <- ceiling((max(converted_flow, na.rm = T) -
+                           min(converted_flow, na.rm = T)) / 3)
 
   graphics::par(mar = c(4, 4, 4, 4))
 
-  xts::plot.xts(convertedFlow,
-                ylim = c(-proportion / 2, max(convertedFlow) + proportion),
+  xts::plot.xts(converted_flow,
+                ylim = c(-proportion / 2, max(converted_flow) + proportion),
                 main = title, xlab = "", ylab = "Flow [mm/d]",
                 auto.grid = FALSE, minor.ticks = FALSE, major.ticks = "years",
                 major.format = "%Y")

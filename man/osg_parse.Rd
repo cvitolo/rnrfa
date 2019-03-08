@@ -4,26 +4,32 @@
 \alias{osg_parse}
 \title{Converts OS Grid Reference to BNG/WGS coordinates.}
 \usage{
-osg_parse(gridRefs, CoordSystem = c("BNG", "WGS84"))
+osg_parse(grid_refs, coord_system = c("BNG", "WGS84"))
 }
 \arguments{
-\item{gridRefs}{This is a string (or a character vector) that contains the OS grid Reference.}
+\item{grid_refs}{This is a string (or a character vector) that contains the
+OS grid Reference.}
 
-\item{CoordSystem}{By default, this is "BNG" which stands for British National Grids. The other option is to set CoordSystem = "WGS84", which returns latitude/longitude coordinates (more info can be found here https://www.epsg-registry.org/).}
+\item{coord_system}{By default, this is "BNG" which stands for British
+National Grids. The other option is to set coord_system = "WGS84", which
+returns latitude/longitude coordinates (more info can be found here
+https://www.epsg-registry.org/).}
 }
 \value{
-vector made of two elements: the easting and northing (by default) or latitude and longitude coordinates.
+vector made of two elements: the easting and northing (by default) or
+latitude and longitude coordinates.
 }
 \description{
-This function converts an Ordnance Survey (OS) grid reference to easting/northing or latitude/longitude coordinates.
+This function converts an Ordnance Survey (OS) grid reference to
+easting/northing or latitude/longitude coordinates.
 }
 \examples{
 \dontrun{
   # single entry
-  osg_parse(gridRefs="TQ722213")
+  osg_parse(grid_refs = "TQ722213")
 
   # multiple entries
-  osg_parse(gridRefs=c("SN831869","SN829838"))
+  osg_parse(grid_refs = c("SN831869","SN829838"))
 }
 
 }

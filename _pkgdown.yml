@@ -8,8 +8,16 @@ navbar:
     menu:
     - text: Paper on The R Journal
       href: https://journal.r-project.org/archive/2016/RJ-2016-036/index.html
+    - text: Vignettes
+      href: articles/index.html
   - text: News
     href: news/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/cvitolo/rnrfa/
+    
+articles:
+- title: Vignettes
+  desc: ~
+  contents:
+    - rnrfa-vignette

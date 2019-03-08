@@ -4,18 +4,18 @@
 \alias{seasonal_averages}
 \title{Calculate seasonal averages}
 \usage{
-seasonal_averages(timeseries, season = "Spring", startSeason = NULL,
-  endSeason = NULL, parallel = FALSE)
+seasonal_averages(timeseries, season = "Spring", startseason = NULL,
+  endseason = NULL, parallel = FALSE)
 }
 \arguments{
 \item{timeseries}{Time series (xts class).}
 
 \item{season}{Name of the season (Autumn, Winter, Spring, Summer)}
 
-\item{startSeason}{String encoding the start of the season (e.g. for spring
+\item{startseason}{String encoding the start of the season (e.g. for spring
 in the northen hemisphere this is "03-21")}
 
-\item{endSeason}{String encoding the end of the season (e.g. for spring in
+\item{endseason}{String encoding the end of the season (e.g. for spring in
 the northen emisphere this is "06-20")}
 
 \item{parallel}{Logical, FALSE by default. If parallel = TRUE means that the

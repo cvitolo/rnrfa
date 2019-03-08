@@ -4,25 +4,25 @@
 \alias{catalogue}
 \title{List of stations from UK NRFA}
 \usage{
-catalogue(bbox = NULL, columnName = NULL, columnValue = NULL,
-  minRec = NULL, all = TRUE)
+catalogue(bbox = NULL, column_name = NULL, column_value = NULL,
+  min_rec = NULL, all = TRUE)
 }
 \arguments{
-\item{bbox}{this is a geographical bounding box (e.g. list(lonMin = -3.82,
-lonMax = -3.63, latMin = 52.43, latMax = 52.52))}
+\item{bbox}{this is a geographical bounding box (e.g. list(lon_min = -3.82,
+lon_max = -3.63, lat_min = 52.43, lat_max = 52.52))}
 
-\item{columnName}{name of column to filter}
+\item{column_name}{name of column to filter}
 
-\item{columnValue}{string to search in columnName}
+\item{column_value}{string to search in column_name}
 
-\item{minRec}{minimum number of recording years}
+\item{min_rec}{minimum number of recording years}
 
 \item{all}{if TRUE it returns all the available metadata. If FALSE, it
 returns only the following columns: id, name, river, hydrometricArea,
 operator, haName, catchmentArea, altitude, lat, lon.}
 }
 \value{
-data.frame with list of stations and related metadata
+tibble table containing the list of stations and related metadata
 }
 \description{
 This function pulls the list of stations (and related metadata),
@@ -42,12 +42,12 @@ Offline you can browse the cached version running the command
   x <- catalogue()
 
   # Define a bounding box:
-  bbox <- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)
+  bbox <- list(lon_min=-3.82, lon_max=-3.63, lat_min=52.43, lat_max=52.52)
   # Get stations within the bounding box
   x <- catalogue(bbox)
 
   # Get stations based on minimum number of recording years
-  x <- catalogue(minRec=30)
+  x <- catalogue(min_rec=30)
 }
 
 }

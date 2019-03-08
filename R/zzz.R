@@ -5,17 +5,7 @@
 # spill-over: output information about RNRFA
 .onAttach <- function(...) {
 
-  # package.name <- "rnrfa"
-  # mylib <- dirname(system.file(package = package.name))
-  # ver <- utils::packageDescription(package.name, lib.loc = mylib)$Version
-  #build.date <- utils::packageDescription(package.name, lib.loc = mylib)$Date
-
-  # build info
-  # packageStartupMessage("RNRFA (Versions ", ver, ", built: ", build.date, ")")
-
-  # cat, for readability of the message text
-
-  # RNRFA info - do not exceed 80char/line
+  # RNRFA info
   packageStartupMessage("
 +----------------------------------------------------------------+
 |  If you wish to use NRFA data, please refer to the following   |

@@ -1,9 +1,10 @@
 #' Convert flow from cumecs to mm/d
 #'
-#' @description This function converts flow time series from cumecs (m3/s) to mm/d by dividing the flow by the catchment area and converting it to mm/day.
+#' @description This function converts flow time series from cumecs (m3/s) to
+#' mm/d by dividing the flow by the catchment area and converting it to mm/day.
 #'
-#' @param flowCumecs This is the flow time series in cumecs (m3/s)
-#' @param catchmentArea This is the catchment are in Km2.
+#' @param flow_cumecs This is the flow time series in cumecs (m3/s)
+#' @param catchment_area This is the catchment are in Km2.
 #'
 #' @return Flow time series in mm/d
 #'
@@ -15,17 +16,17 @@
 #' }
 #'
 
-convert_flow <- function(flowCumecs, catchmentArea){
+convert_flow <- function(flow_cumecs, catchment_area){
 
   # Convert area from Km2 to m2
-  catchmentArea <- catchmentArea*1000000
+  catchment_area <- catchment_area * 1000000
 
   # Convert 1 second to 1 day
-  second2day <- 60*60*24
+  second2day <- 60 * 60 * 24
 
   # Convert flow from m3/s to mm/d
-  convertedFlow <- ((flowCumecs*1000)/catchmentArea)*second2day
+  converted_flow <- ((flow_cumecs * 1000) / catchment_area) * second2day
 
-  return(convertedFlow)
+  return(converted_flow)
 
 }

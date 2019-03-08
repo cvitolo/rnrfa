@@ -4,9 +4,9 @@
 #'
 #' @param timeseries Time series (xts class).
 #' @param season Name of the season (Autumn, Winter, Spring, Summer)
-#' @param startSeason String encoding the start of the season (e.g. for spring
+#' @param startseason String encoding the start of the season (e.g. for spring
 #' in the northen hemisphere this is "03-21")
-#' @param endSeason String encoding the end of the season (e.g. for spring in
+#' @param endseason String encoding the end of the season (e.g. for spring in
 #' the northen emisphere this is "06-20")
 #' @param parallel Logical, FALSE by default. If parallel = TRUE means that the
 #' function can be used in parallel computations.
@@ -24,8 +24,8 @@
 #'
 
 seasonal_averages <- function(timeseries, season = "Spring",
-                             startSeason = NULL, endSeason = NULL,
-                             parallel = FALSE){
+                              startseason = NULL, endseason = NULL,
+                              parallel = FALSE){
 
   if (length(as.list(timeseries)) == 0) {
 
@@ -37,58 +37,58 @@ seasonal_averages <- function(timeseries, season = "Spring",
     if (length(as.list(timeseries)) > 1 & parallel == FALSE){
 
       # multiple time series
-      tsList <- lapply(X = as.list(timeseries),
+      tslist <- lapply(X = as.list(timeseries),
                        FUN = seasonal_averages_internal,
-                       season, startSeason, endSeason)
+                       season, startseason, endseason)
 
     }else{
 
       # this is the case of a single time series
-      tsList <- seasonal_averages_internal(timeseries,
-                                          season, startSeason, endSeason)
+      tslist <- seasonal_averages_internal(timeseries,
+                                          season, startseason, endseason)
 
     }
 
   }
 
-  return(tsList)
+  return(tslist)
 
 }
 
 seasonal_averages_internal <- function(timeseries, season = "Spring",
-                                      startSeason = NULL, endSeason = NULL){
+                                       startseason = NULL, endseason = NULL){
 
-  if (is.null(startSeason) & is.null(endSeason)){
+  if (is.null(startseason) & is.null(endseason)){
 
     if (season == "Autumn") {
-      startSeason <- "09-21"
-      endSeason   <- "12-20"
+      startseason <- "09-21"
+      endseason   <- "12-20"
     }
     if (season == "Winter") {
-      startSeason <- "12-21"
-      endSeason   <- "03-20"
+      startseason <- "12-21"
+      endseason   <- "03-20"
     }
     if (season == "Spring") {
-      startSeason <- "03-21"
-      endSeason   <- "06-20"
+      startseason <- "03-21"
+      endseason   <- "06-20"
     }
     if (season == "Summer") {
-      startSeason <- "06-21"
-      endSeason   <- "09-20"
+      startseason <- "06-21"
+      endseason   <- "09-20"
     }
 
   }
 
-  meanAnnualSpring <- c()
+  meanannualspring <- c()
   for (myyear in unique(xts::.indexyear(timeseries) + 1900)){
-    myInterval <- paste(myyear, "-", startSeason, "::",
-                        myyear, "-", endSeason, sep = "")
-    meanAnnualSpring <- c(meanAnnualSpring,
-                          mean(timeseries[myInterval], na.rm = TRUE))
+    myinterval <- paste(myyear, "-", startseason, "::",
+                        myyear, "-", endseason, sep = "")
+    meanannualspring <- c(meanannualspring,
+                          mean(timeseries[myinterval], na.rm = TRUE))
   }
 
   # basic straight line of fit
-  fit <- stats::glm(meanAnnualSpring~seq(1, length(meanAnnualSpring)))
+  fit <- stats::glm(meanannualspring~seq(1, length(meanannualspring)))
   # F-statistics of the significance test with the summary function
   # extract slope and p-value (for significance to be true, p should be < 0.05)
   co <- summary(fit)$coefficients[2, c(1, 4)] # only slope: coef(fit)[[2]]
