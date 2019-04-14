@@ -10,15 +10,16 @@
 #' @title UK National River Flow Archive data from R
 #'
 #' @import rgdal
+#' @import dplyr
+#' @importFrom curl has_internet
+#' @importFrom utils str
+#' @importFrom jsonlite fromJSON
+#' @importFrom lubridate year
 #' @importFrom stats quantile
-#' @importFrom plyr llply
 #' @importFrom graphics axis legend mtext par plot
 #' @importFrom stats glm
 #' @importFrom httr GET http_error
-#' @importFrom xml2 read_xml
-#' @importFrom stringr str_sub
 #' @importFrom xts xts .indexyear plot.xts
-#' @importFrom rjson fromJSON
 #' @importFrom ggmap ggmap get_map
 #' @importFrom ggplot2 ggplot geom_point aes coord_flip scale_color_manual theme
 #' @importFrom ggplot2 geom_boxplot theme_minimal ylab xlab unit element_text

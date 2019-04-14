@@ -2,7 +2,11 @@ library("testthat")
 library("rnrfa")
 library("lintr")
 
-test_check("rnrfa")
+if (!curl::has_internet()) {
+  message("No internet, cannot run tests")
+}else{
+  test_check("rnrfa")
+}
 
 # Static code analysis
 # Integration with lintr: tests to fail if there are any lints in the project

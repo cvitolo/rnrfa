@@ -35,6 +35,9 @@
 #'   # Get stations within the bounding box
 #'   x <- catalogue(bbox)
 #'
+#'   # Get stations based on minimum catchment area
+#'   x <- catalogue(column_name = "catchment-area", column_value = 2000)
+#'
 #'   # Get stations based on minimum number of recording years
 #'   x <- catalogue(min_rec=30)
 #' }
@@ -43,10 +46,15 @@
 catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
                       min_rec = NULL, all = TRUE) {
 
+  # Prevent warnings and notes
   options(warn = -1)
+  latitude <- longitude <- NULL
+
+  parameters <- list(format = "json-object", station = "*", fields = "all")
+  response <- nrfa_api(webservice = "station-info", parameters)
+  df <- response$content$data
 
   ### FILTER BASED ON BOUNDING BOX ###
-
   if (!is.null(bbox)){
 
     lon_min <- bbox$lon_min
@@ -54,170 +62,68 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     lat_min <- bbox$lat_min
     lat_max <- bbox$lat_max
 
-  }else{
-
-    lon_min <- -180
-    lon_max <- +180
-    lat_min <- -90
-    lat_max <- +90
+    df <- df %>%
+      filter(between(latitude, lat_min, lat_max),
+             between(longitude, lon_min, lon_max))
 
   }
 
-  my_bbox <- paste0(lat_max, ",", lon_min, ",", lat_min, ",", lon_max)
+  ### FILTER BASED ON MINIMUM RECONDING YEARS ###
+  if (!is.null(min_rec)) {
+    end_year <- lubridate::year(df$`gdf-end-date`)
+    end_year[is.na(end_year)] <- 0
+    start_year <- lubridate::year(df$`gdf-start-date`)
+    start_year[is.na(start_year)] <- 0
+    recording_years <- end_year - start_year
+    good_recording_years <- which(recording_years >= min_rec)
+    df <- df[good_recording_years, ]
+  }
 
-  site_fetch <- httr::GET(url = "http://nrfaapps.ceh.ac.uk/",
-                          path = "nrfa/json/stationSummary",
-                          query = list(db = "nrfa_public",
-                                       stn = paste0("llbb:", my_bbox)))
-
-  if (!httr::http_error(site_fetch)) {
-
-    # Get the JSON file
-    station_list_json <- rjson::fromJSON(file = site_fetch[[1]])
-    # remove nested lists
-    station_list <- plyr::llply(station_list_json, unlist)
-
-    if (length(station_list_json) == 0) {
-
-      message("NRFA services seem temporarily unavailable, try again later.")
-
-    }else{
-
-      station_columns <- unique(unlist(lapply(station_list_json, names)))
-      cols2rm <- which(station_columns %in%
-                         c("description", "start", "end",
-                           "primary-purpose",
-                           "measured-parameter",
-                           "how-parameter-measured",
-                           "high-flow-gauging-method",
-                           "previous-high-flow-gauging-method",
-                           "wing-wall-height", "bankfull-stage",
-                           "maximum-gauged-flow",
-                           "maximum-gauged-level"))
-      temp <- lapply(station_list_json, names)
-      station_columns <- unique(unlist(temp))[-cols2rm]
-      selected_meta <- lapply(station_list,
-                              function(x){
-                                x[station_columns]
-                                })
-      station_list <- as.data.frame(do.call(rbind, selected_meta))
-      names(station_list) <- station_columns
-      ### END (FILTER BASED ON BOUNDING BOX) ###
-
-      ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
-
-      temp <- station_list
-
-      if (is.null(column_name) & !is.null(column_value)) {
-        message("Enter valid column_name")
-      }
-
-      if (!is.null(column_name) & is.null(column_value)) {
-        message("Enter valid column_value")
-      }
-
-      if (!is.null(column_name) & !is.null(column_value)){
-
-        if (column_name == "id"){
-
-          my_rows <- which(station_list$id %in% column_value)
-          station_list <- station_list[my_rows, ]
-
+  ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
+  if (is.null(column_name) & !is.null(column_value)) {
+    stop("Enter valid column_name")
+  }
+  if (!is.null(column_name) & is.null(column_value)) {
+    stop("Enter valid column_value")
+  }
+  if (!is.null(column_name) & !is.null(column_value)) {
+    my_column <- unlist(eval(parse(text = paste0("df$`", column_name, "`"))))
+    # The column contains numbers
+    condition_1 <- is.numeric(my_column)
+    if (condition_1){
+      my_column <- as.numeric(as.character(my_column))
+      condition_2 <- substr(column_value, 1, 1) == ">"
+      condition_3 <- substr(column_value, 1, 1) == "<"
+      condition_4 <- substr(column_value, 1, 1) == "="
+      if (condition_2 | condition_3 | condition_4){
+        if (substr(column_value, 2, 2) == "="){
+          threshold <- as.numeric(as.character(substr(column_value, 3,
+                                                      nchar(column_value))))
+          combined <- paste0("df$`", column_name, "`",
+                             substr(column_value, 1, 2),
+                             substr(column_value, 3, nchar(column_value)))
+          my_expression <- eval(parse(text = combined))
+          newstation_list <- subset(df, my_expression)
         }else{
-
-          my_column <- unlist(eval(parse(text = paste("temp$", column_name))))
-
-          condition_1 <- all(!is.na(as.numeric(as.character(my_column))))
-          if (condition_1 == TRUE){
-            my_column <- as.numeric(as.character(my_column))
-          }
-          condition_2 <- substr(column_value, 1, 1) == ">"
-          condition_3 <- substr(column_value, 1, 1) == "<"
-          condition_4 <- substr(column_value, 1, 1) == "="
-
-          if (condition_1 & (condition_2 | condition_3 | condition_4)){
-
-            if (substr(column_value, 2, 2) == "="){
-
-              threshold <- as.numeric(as.character(substr(column_value,
-                                                          3,
-                                                          nchar(column_value))))
-              combined_string <- paste(column_name,
-                                      substr(column_value, 1, 2),
-                                      substr(column_value, 3,
-                                             nchar(column_value)))
-              my_expression <- eval(parse(text = combined_string))
-              newstation_list <- subset(temp, my_expression)
-
-            }else{
-              threshold <- as.numeric(as.character(substr(column_value, 2,
-                                                          nchar(column_value))))
-              combined_string <- paste("my_column",
-                                      substr(column_value, 1, 1),
-                                      substr(column_value, 2,
-                                             nchar(column_value)))
-              my_expression <- eval(parse(text = combined_string))
-              newstation_list <- subset(temp, my_expression)
-            }
-          }else{
-            my_expression <- my_column == column_value
-            newstation_list <- subset(temp, my_expression)
-          }
-          station_list <- newstation_list
-
+          threshold <- as.numeric(as.character(substr(column_value, 2,
+                                                      nchar(column_value))))
+          combined_string <- paste("my_column",
+                                   substr(column_value, 1, 1),
+                                   substr(column_value, 2,
+                                          nchar(column_value)))
+          my_expression <- eval(parse(text = combined_string))
+          newstation_list <- subset(df, my_expression)
         }
-
       }
-
-      ### END (FILTER BASED ON METADATA STRINGS/THRESHOLD) ###
-
-      ### FILTER BASED ON MINIMUM RECONDING YEARS ###
-
-      if (!is.null(min_rec)) {
-        temp <- station_list
-        end_year <- as.numeric(as.character(unlist(temp$gdfEnd)))
-        end_year[is.na(end_year)] <- 0
-        start_year <- as.numeric(as.character(unlist(temp$gdfStart)))
-        start_year[is.na(start_year)] <- 0
-        recording_years <- end_year - start_year
-        good_recording_years <- which(recording_years >= min_rec)
-        station_list <- temp[good_recording_years, ]
-      }
-
-      ### END (FILTER BASED ON MINIMUM RECONDING YEARS) ###
-
-      if (nrow(station_list) > 0) {
-
-        # Add lat and lon
-        grid_r <- osg_parse(grid_refs = unlist(station_list$gridReference),
-                           coord_system = "WGS84")
-        station_list$lat <- grid_r$lat
-        station_list$lon <- grid_r$lon
-
-        # change columns' data types (remove factors)
-        station_list[] <- lapply(station_list, as.character)
-
-        if (!all) {
-          station_list <- station_list[, c("id", "name", "location", "river",
-                                         "lat", "lon")]
-        }
-
-        return(tibble::as_tibble(station_list))
-
-      }else{
-
-        message("No station found using the selected criteria!")
-
-      }
-
+    }else{
+      # The column contains characters
+      my_expression <- my_column == column_value
+      newstation_list <- subset(df, my_expression)
     }
-
-  }else{
-
-    message("The connection with the live web data source failed.")
-
-    stop
-
+    df <- newstation_list
   }
+
+  # Convert data frame to tibble
+  return(tibble::as_tibble(df))
 
 }

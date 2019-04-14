@@ -30,7 +30,7 @@ This calculates the seasonal averages from a time series.
 }
 \examples{
 \dontrun{
-  seasonal_averages(cmr(18019), season = "Spring")
+  seasonal_averages(timeseries = cmr(18019), season = "Spring")
   seasonal_averages(list(cmr(18019), cmr(18019)), season = "Spring")
 }
 

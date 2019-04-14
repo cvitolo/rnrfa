@@ -10,9 +10,22 @@ get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE)
 \item{id}{station identification number(s), each number should be in the
 range [3002,236051].}
 
-\item{type}{This is character string that can have one of the two following
-values: "cmr" (to obtain catchment mean rainfall) or "gdf" (to obtain gauged
-daily flow).}
+\item{type}{The following data-types are available:
+\itemize{
+  \item gdf = Gauged daily flows
+  \item gmf = Gauged monthly flows
+  \item ndf = Naturalised daily flows
+  \item nmf = Naturalised monthly flows
+  \item cdr = Catchment daily rainfall
+  \item cdr-d = Catchment daily rainfall distance to rain gauge
+  \item cmr = Catchment monthly rainfall
+  \item pot-stage = Peaks over threshold stage
+  \item pot-flow = Peaks over threshold flow
+  \item gauging-stage = Gauging stage
+  \item gauging-flow = Gauging flow
+  \item amax-stage = Annual maxima stage
+  \item amax-flow = Annual maxima flow
+}}
 
 \item{metadata}{Logical, FALSE by default. If metadata = TRUE means that the
 result for a single station is a list with two elements: data (the time
@@ -41,12 +54,11 @@ types: \code{cmr} (catchment mean rainfall, monthly) or \code{gdf}
 \examples{
 \dontrun{
   get_ts(18019, type = "cmr")
-
   get_ts(c(54022,54090,54091), type = "cmr")
-
   get_ts(18019, type = "gdf")
-
   get_ts(c(54022,54090,54091), type = "gdf")
+  plot(get_ts(id = 23001, type = "ndf"))
+  plot(get_ts(id = 23001, type = "nmf"))
 }
 
 }

@@ -6,11 +6,10 @@
 .onAttach <- function(...) {
 
   # RNRFA info
-  packageStartupMessage("
-+----------------------------------------------------------------+
-|  If you wish to use NRFA data, please refer to the following   |
-|  Terms & Conditions:                                           |
-|  http://nrfa.ceh.ac.uk/costs-terms-and-conditions              |
-+----------------------------------------------------------------+
-")
+  packageStartupMessage("+--------------------------------------------------+
+| Acknowledgement:                                 |
+| Data from the UK National River Flow Archive     |
+| Terms & Conditions:                              |
+| http://nrfa.ceh.ac.uk/costs-terms-and-conditions |
++--------------------------------------------------+")
 }
