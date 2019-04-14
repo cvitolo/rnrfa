@@ -1,6 +1,6 @@
 Package: rnrfa
 Title: UK National River Flow Archive Data from R
-Version: 1.6.0
+Version: 2.0
 Authors@R: c(person("Claudia", "Vitolo",
                     email = "cvitolodev@gmail.com",
                     role = c("aut", "cre"),
@@ -16,14 +16,14 @@ Description: Utility functions to retrieve data from the UK National River Flow 
 Depends: R (>= 3.0.2)
 Imports:
     rgdal,
-    plyr,
+    dplyr,
+    curl,
+    jsonlite,
+    lubridate,
     graphics,
     stats,
     httr,
-    xml2,
-    stringr,
     xts,
-    rjson,
     ggmap,
     ggplot2,
     sp,
@@ -39,5 +39,5 @@ LazyData: true
 Encoding: UTF-8
 License: GPL-3
 Repository: CRAN
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

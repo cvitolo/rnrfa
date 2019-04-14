@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   seasonal_averages(cmr(18019), season = "Spring")
+#'   seasonal_averages(timeseries = cmr(18019), season = "Spring")
 #'   seasonal_averages(list(cmr(18019), cmr(18019)), season = "Spring")
 #' }
 #'
@@ -62,27 +62,28 @@ seasonal_averages_internal <- function(timeseries, season = "Spring",
 
     if (season == "Autumn") {
       startseason <- "09-21"
-      endseason   <- "12-20"
+      ndays   <- 91
     }
     if (season == "Winter") {
       startseason <- "12-21"
-      endseason   <- "03-20"
+      ndays   <- 90
     }
     if (season == "Spring") {
       startseason <- "03-21"
-      endseason   <- "06-20"
+      ndays   <- 92
     }
     if (season == "Summer") {
       startseason <- "06-21"
-      endseason   <- "09-20"
+      ndays   <- 92
     }
 
   }
 
   meanannualspring <- c()
   for (myyear in unique(xts::.indexyear(timeseries) + 1900)){
-    myinterval <- paste(myyear, "-", startseason, "::",
-                        myyear, "-", endseason, sep = "")
+    as.Date(paste0(myyear, "-", startseason)) + ndays
+    myinterval <- paste0(as.Date(paste0(myyear, "-", startseason)), "::",
+                        as.Date(paste0(myyear, "-", startseason)) + ndays)
     meanannualspring <- c(meanannualspring,
                           mean(timeseries[myinterval], na.rm = TRUE))
   }

@@ -4,12 +4,12 @@ test_that("Output of cmr function for single station", {
 
   x <- cmr(id = 18019, metadata = FALSE, cl = NULL)
 
-  expect_that(length(x) >= 346, equals(TRUE))
+  expect_that(length(x) >= 660, equals(TRUE))
 
   x <- cmr(id = 18019, metadata = TRUE, cl = NULL)
 
   expect_that(length(x) == 2, equals(TRUE))
-  expect_that(x[[2]][[1]][[1]] == "Comer Burn at Comer", equals(TRUE))
+  expect_that(x$meta$station.name == "Comer Burn at Comer", equals(TRUE))
 
   closeAllConnections()
 

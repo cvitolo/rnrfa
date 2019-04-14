@@ -29,7 +29,7 @@ The rnrfa package depends on the **gdal** library, make sure you have it install
 **R package dependencies** can be installed running the following code:
 
 ```{r}
-install.packages(c("cowplot", "plyr", "httr", "xml2", "stringr", "xts", "rjson", "ggmap", "ggplot2", "sp", "rgdal", "parallel", "tibble"))
+install.packages(c("cowplot", "httr", "xts", "ggmap", "ggplot2", "sp", "rgdal", "parallel", "tibble"))
 ```
 
 This demo makes also use of external libraries. To install and load them run the following commands:
@@ -56,75 +56,107 @@ devtools::install_github("cvitolo/rnrfa")
 
 Now, load the rnrfa package:
 
-```{r, eval = TRUE}
+```{r}
 library(rnrfa)
 ```
 
 ## Functions
 
-### List of monitoring stations
-The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. 
+### List of station identification numbers
+The function stations_info() returns a vector of all NRFA station identifiers. 
 
-```{r, eval = TRUE}
+```{r}
+# Retrieve station identifiers:
+allIDs <- station_ids()
+head(allIDs)
+```
+
+### List of monitoring stations
+The function catalogue() retrieves information for monitoring stations. The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a tibble containing one record for each station and as many columns as the number of metadata entries available. 
+
+```{r}
 # Retrieve information for all the stations in the catalogue:
 allStations <- catalogue()
 head(allStations)
 ```
 
-The columns are briefly described below:
+The columns are briefly described below (see also [API documentation](https://nrfaapps.ceh.ac.uk/nrfa/nrfa-api.html#ws-station-info)):
 
-* `id` = Station identification number
-* `ma-station-id` = Other station identification number
-* `name` = Name of the station
-* `location` = Area in which the station is located
-* `river` = River catchment
-* `hydrometricArea` = UK hydrometric area identification number
-* `operator` = UK measuring authorities
-* `haName` = Hydrometric Area name
-* `gridReference` = OS Grid Reference number
-* `stationType` = Type of station (e.g. flume, weir, etc.)
-* `catchmentArea` = Catchment area in (Km^2)
-* `gdfStart` = Year in which recordings started
-* `gdfEnd` = Year in which recordings ended
-* `farText` = Information on the regime (e.g. natural, regulated, etc.)
-* `categories` = various tags (e.g. FEH\_POOLING, FEH\_QMED, HIFLOWS\_INCLUDED)
-* `altitude` = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.
-* `sensitivity` = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.
-* `benchmark2` = NA (placeholder)
-* `maximum-gauging-stage` = maximum gauging stage
-* `maximum-gauging-stage-date-time` = maximum gauging stage date time
-* `maximum-gauging-flow` = maximum gauging flow
-* `maximum-gauging-flow-date-time` = maximum gauging flow date time
-* `lat` = a numeric vector of latitude coordinates.
-* `lon` = a numeric vector of longitude coordinates.
+* `id` The station identifier.
+* `name` The station name.
+* `catchment-area` The catchment area (in km2).
+* `grid-reference` The station grid reference. For JSON output the grid-reference is represented as an object with the following properties:
+  - `ngr` (String) The grid reference in string form (i.e. "SS9360201602").
+  - `easting` (Number) The grid reference easting (in metres).
+  - `northing` (Number) The grid reference northing (in metres).
+* `lat-long` The station latitude/longitude. For JSON output the lat-long is represented as an object with the following properties:
+  - `string` (String) The textual representation of the lat/long (i.e. "50°48'15.0265"N 3°30'40.7121"W").
+  - `latitude` (Number) The latitude (expressed in decimal degrees).
+  - `longitude` (Number) The longitude (expressed in decimal degrees).
+* `river` The name of the river.
+* `location` The name of the location on the river.
+* `station-level` The altitude of the station, in metres, above Ordnance Datum or, in Northern Ireland, Malin Head.
+* `easting` The grid reference easting.
+* `northing` The grid reference northing.
+* `station-information` Basic station information: id, name, catchment-area, grid-reference, lat-long, river, location, station-level, measuring-authority-id, measuring-authority-station-id, hydrometric-area, opened, closed, station-type, bankfull-flow, structurefull-flow, sensitivity.
+category.
+* Information about the main station categories: nrfa-mean-flow, nrfa-peak-flow, feh-pooling, feh-qmed, feh-neither, nhmp, benchmark, live-data.
+catchment-information
+* Basic catchment information: factors-affecting-runoff.
+gdf-statistics
+* Gauged daily flow statistics: gdf-start-date, gdf-end-date, gdf-mean-flow, gdf-min-flow, gdf-first-date-of-min, gdf-last-date-of-min, gdf-max-flow, gdf-first-date-of-max, gdf-last-date-of-max, gdf-q95-flow, gdf-q70-flow, gdf-q50-flow, gdf-q10-flow, gdf-q05-flow, gdf-base-flow-index, gdf-day-count, gdf-flow-count.
+* peak-flow-statistics
+* Basic peak-flow statistics: peak-flow-start-date, peak-flow-end-date, qmed.
+elevation
+* Catchment elevation pecentile data: minimum-altitude, 10-percentile-altitude, 50-percentile-altitude, 90-percentile-altitude, maximum-altitude.
+catchment-rainfall
+* Catchment rainfall standard period data: saar-1941-1970, saar-1961-1990.
+lcm2000
+* Land cover map data (2000): lcm2000-woodland, lcm2000-arable-horticultural, lcm2000-grassland, lcm2000-mountain-heath-bog, lcm2000-urban.
+lcm2007
+* Land cover map data (2007): lcm2007-woodland, lcm2007-arable-horticultural, lcm2007-grassland, lcm2007-mountain-heath-bog, lcm2007-urban.
+geology
+* Catchment geology data: high-perm-bedrock, moderate-perm-bedrock, low-perm-bedrock, mixed-perm-bedrock, high-perm-superficial, low-perm-superficial, mixed-perm-superficial.
+feh-descriptors
+* FEH catchment descriptors: propwet, bfihost, farl, dpsbar.
+urban-extent
+* Urban extent data: urbext-1990, urbext-2000.
+spatial-location
+* The grid reference and lat/long as individual fields: easting, northing, latitude, longitude.
 
 ### Station filtering
 The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. 
 
-```{r, eval = TRUE}
+```{r}
 # Define a bounding box:
 bbox <- list(lon_min = -3.82, lon_max = -3.63, lat_min = 52.43, lat_max = 52.52)
-
 # Filter stations based on bounding box
 catalogue(bbox)
-                                  
+```
+
+```{r}
+# Filter based on minimum recording years
+catalogue(min_rec = 100)
+
 # Filter stations belonging to a certain hydrometric area
-catalogue(column_name="haName", column_value="Wye (Hereford)")
+catalogue(column_name="river", column_value="Wye")
 
 # Filter based on bounding box & metadata strings
-catalogue(bbox, column_name="haName", column_value="Wye (Hereford)")
+catalogue(bbox, column_name="river", column_value="Wye")
 
 # Filter stations based on threshold
-catalogue(bbox, column_name="catchmentArea", column_value=">1")
+catalogue(bbox, column_name="catchment-area", column_value=">1")
 
 # Filter based on minimum recording years
-catalogue(bbox, column_name = "catchmentArea",
+catalogue(bbox, column_name = "catchment-area",
           column_value = ">1",
           min_rec = 30)
                                   
 # Filter stations based on identification number
 catalogue(column_name="id", column_value=c(3001,3002,3003))
-                               
+```
+
+```{r}
 # Other combined filtering
 someStations <- catalogue(bbox,
                           column_name = "id",
@@ -133,11 +165,11 @@ someStations <- catalogue(bbox,
 ```
 
 ### Conversions
-The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "osg_parse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
+The RNRFA package allows convenient conversion between UK grid reference and more standard coordinate systems. The function "osg_parse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:
 
-```{r, eval = TRUE}
+```{r}
 # Where is the first catchment located?
-someStations$gridReference[1]
+someStations$`grid-reference`$ngr[1]
 
 # Convert OS Grid reference to BNG
 osg_parse("SN853872")
@@ -145,15 +177,15 @@ osg_parse("SN853872")
 
 The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.
 
-```{r, eval = TRUE}
+```{r}
 # Convert BNG to WSGS84
 osg_parse(grid_refs = "SN853872", coord_system = "WGS84")
 ```
 
 osg_parse() also works with multiple references:
 
-```{r, eval = TRUE}
-osg_parse(grid_refs = someStations$gridReference)
+```{r}
+osg_parse(grid_refs = someStations$`grid-reference`$ngr)
 ```
 
 ### Get time series data
@@ -172,7 +204,7 @@ These time series can be obtained using the functions gdf() and cmr(), respectiv
 
 Here is how to retrieve mean rainfall (monthly) data for _Shin at Lairg (id = 3001)_ catchment.
 
-```{r, eval = TRUE, fig.width = 7}
+```{r, fig.width=7}
 # Fetch only time series data from the waterml2 service
 info <- cmr(id = "3001")
 plot(info)
@@ -186,28 +218,29 @@ plot(info$data, main=paste("Monthly rainfall data for the",
 
 Here is how to retrieve (daily) flow data for _Shin at Lairg (id = 3001)_ catchment.
 
-```{r, eval = TRUE, fig.width = 7}
-# Fetch only time series data from the waterml2 service
+```{r, fig.width=7}
+# Fetch only time series data
 info <- gdf(id = "3001")
 plot(info)
 
 # Fetch time series data and metadata from the waterml2 service
 info <- gdf(id = "3001", metadata = TRUE)
-plot(info$data, main=paste("Daily flow data for the",
-                           info$meta$stationName,"catchment"), 
-     xlab="", ylab=info$meta$units)
+plot(info$data, main=paste0("Daily flow data for the ",
+                            info$meta$station.name,
+                            " catchment (",
+                            info$meta$data.type.units, ")"))
 ```
 
 ### Multiple sites
 By default, the functions `getTS()` can be used to fetch time series data from multiple site in a sequential mode (using 1 core):
 
-```{r, eval = TRUE, fig.width = 7} 
-# Search data/metadata in the waterml2 service
+```{r, fig.width=7}
+# Search data/metadata
 s <- cmr(c(3002,3003), metadata = TRUE)
 
 # s is a list of 2 objects (one object for each site)
 plot(s[[1]]$data, 
-     main = paste(s[[1]]$meta$stationName, "and", s[[2]]$meta$stationName))
+     main = paste(s[[1]]$meta$station.name, "and", s[[2]]$meta$station.name))
 lines(s[[2]]$data, col="green")
 ```
 
@@ -217,7 +250,7 @@ Upgrade your data.frame to a data.table:
 
 ```{r}
 library(DT)
-datatable(catalogue(all=FALSE))
+datatable(catalogue())
 ```
 
 Create interactive maps using leaflet:
@@ -226,7 +259,7 @@ Create interactive maps using leaflet:
 library(leaflet)
 
 leaflet(data = someStations) %>% addTiles() %>%
-  addMarkers(~lon, ~lat, popup = ~as.character(paste(id,name)))
+  addMarkers(~longitude, ~latitude, popup = ~as.character(paste(id,name)))
 ```
 
 Interactive plots using dygraphs:
@@ -250,6 +283,8 @@ system.time(s1 <- gdf(someStations$id, cl = NULL))
 
 # Get flow data with a concurrent approach (using `parLapply()`)
 system.time(s2 <- gdf(id = someStations$id, cl = cl))
+
+stopCluster(cl)
 ```
 
 The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:
@@ -260,7 +295,7 @@ someStations$meangdf <- unlist(lapply(s2, mean))
 
 # Linear model
 library(ggplot2)
-ggplot(someStations, aes(x = as.numeric(catchmentArea), y = meangdf)) +
+ggplot(someStations, aes(x = as.numeric(`catchment-area`), y = meangdf)) +
   geom_point() +
   stat_smooth(method = "lm", col = "red") +
   xlab(expression(paste("Catchment area [Km^2]",sep=""))) +

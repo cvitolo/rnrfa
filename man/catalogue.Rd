@@ -46,6 +46,9 @@ Offline you can browse the cached version running the command
   # Get stations within the bounding box
   x <- catalogue(bbox)
 
+  # Get stations based on minimum catchment area
+  x <- catalogue(column_name = "catchment-area", column_value = 2000)
+
   # Get stations based on minimum number of recording years
   x <- catalogue(min_rec=30)
 }
