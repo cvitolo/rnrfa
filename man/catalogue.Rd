@@ -33,8 +33,6 @@ website.
 coordinates of bounding box are required in WGS84 (EPSG: 4326).
 If BB coordinates are missing, the function returns the list corresponding to
 the maximum extent of the network.
-Offline you can browse the cached version running the command
-\code{data(stationSummary)}
 }
 \examples{
 \dontrun{
