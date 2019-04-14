@@ -5,7 +5,6 @@ Major changes:
 
 1. Developed new function to interface new API 
 2. Updated existing functions to work with the new API
-3. Fixed automatic deployment of website for documentation on github
 
 
 Updated to v1.5 and submitted to CRAN.
