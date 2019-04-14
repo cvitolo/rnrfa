@@ -59,23 +59,23 @@ The only geospatial information contained in the list of station in the catalogu
 
 ``` r
 # Where is the first catchment located?
-someStations$gridReference[1]
+someStations$`grid-reference`$ngr[1]
 
 # Convert OS Grid reference to BNG
-osg_parse("SN853872")
+osg_parse(grid_refs = "SN853872")
 ```
 
 The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.
 
 ``` r
 # Convert BNG to WSGS84
-osg_parse("SN853872", CoordSystem = "WGS84")
+osg_parse(grid_refs = "SN853872", coord_system = "WGS84")
 ```
 
 osg\_parse() also works with multiple references:
 
 ``` r
-osg_parse(someStations$gridReference)
+osg_parse(someStations$`grid-reference`$ngr)
 ```
 
 ### Time series data
