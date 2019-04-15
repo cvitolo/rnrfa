@@ -98,7 +98,7 @@ info <- gdf(id = "3001")
 plot(info)
 ```
 
-For more examples and details, please see the [vignette](https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa_vignette.Rmd).
+For more examples and details, please see the [vignette](https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd).
 
 ### Terms and Conditions
 
