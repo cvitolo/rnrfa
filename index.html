@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UK National River Flow Archive Data from R • rnrfa</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="UK National River Flow Archive Data from R">
 <meta property="og:description" content="Utility functions to retrieve data from the UK National River Flow Archive (&lt;http://nrfa.ceh.ac.uk/&gt;). The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rnrfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0</span>
       </span>
     </div>
 
@@ -94,7 +95,7 @@
 <p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"rnrfa"</span>)</a></code></pre></div>
 <p>Or you can install the development version from Github with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"cvitolo/rnrfa"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"cvitolo/rnrfa"</span>)</a></code></pre></div>
 <p>Now, load the rnrfa package:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rnrfa)</a></code></pre></div>
 </div>
@@ -118,15 +119,15 @@
 <a href="#conversions-of-os-grid-references" class="anchor"></a>Conversions of OS grid references</h3>
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column “gridRef”). The RNRFA package allows convenient conversion to more standard coordinate systems. The function “osg_parse()”, for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Where is the first catchment located?</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">someStations<span class="op">$</span>gridReference[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">someStations<span class="op">$</span><span class="st">`</span><span class="dt">grid-reference</span><span class="st">`</span><span class="op">$</span>ngr[<span class="dv">1</span>]</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Convert OS Grid reference to BNG</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">osg_parse</span>(<span class="st">"SN853872"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">osg_parse</span>(<span class="dt">grid_refs =</span> <span class="st">"SN853872"</span>)</a></code></pre></div>
 <p>The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Convert BNG to WSGS84</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">osg_parse</span>(<span class="st">"SN853872"</span>, <span class="dt">CoordSystem =</span> <span class="st">"WGS84"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">osg_parse</span>(<span class="dt">grid_refs =</span> <span class="st">"SN853872"</span>, <span class="dt">coord_system =</span> <span class="st">"WGS84"</span>)</a></code></pre></div>
 <p>osg_parse() also works with multiple references:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">osg_parse</span>(someStations<span class="op">$</span>gridReference)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">osg_parse</span>(someStations<span class="op">$</span><span class="st">`</span><span class="dt">grid-reference</span><span class="st">`</span><span class="op">$</span>ngr)</a></code></pre></div>
 </div>
 <div id="time-series-data" class="section level3">
 <h3 class="hasAnchor">
@@ -139,7 +140,7 @@
 <p>Gauged daily flow:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">info &lt;-<span class="st"> </span><span class="kw">gdf</span>(<span class="dt">id =</span> <span class="st">"3001"</span>)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(info)</a></code></pre></div>
-<p>For more examples and details, please see the <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa_vignette.Rmd">vignette</a>.</p>
+<p>For more examples and details, please see the <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd">vignette</a>.</p>
 </div>
 <div id="terms-and-conditions" class="section level3">
 <h3 class="hasAnchor">
