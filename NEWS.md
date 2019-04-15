@@ -6,6 +6,9 @@ Major changes:
 1. Developed new function to interface new API 
 2. Updated existing functions to work with the new API
 
+Minor changes:
+1. Fixed broken URL in README file
+
 
 Updated to v1.5 and submitted to CRAN.
 --------------------------------------
