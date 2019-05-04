@@ -93,11 +93,11 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"rnrfa"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rnrfa"</span>)</a></code></pre></div>
 <p>Or you can install the development version from Github with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"cvitolo/rnrfa"</span>)</a></code></pre></div>
 <p>Now, load the rnrfa package:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rnrfa)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rnrfa)</a></code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
@@ -109,7 +109,7 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">allStations &lt;-<span class="st"> </span><span class="kw">catalogue</span>()</a></code></pre></div>
 <p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Define a bounding box:</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">bbox &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">lon_min=</span><span class="op">-</span><span class="fl">3.82</span>, <span class="dt">lon_max=</span><span class="op">-</span><span class="fl">3.63</span>, <span class="dt">lat_min=</span><span class="fl">52.43</span>, <span class="dt">lat_max=</span><span class="fl">52.52</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">bbox &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lon_min=</span><span class="op">-</span><span class="fl">3.82</span>, <span class="dt">lon_max=</span><span class="op">-</span><span class="fl">3.63</span>, <span class="dt">lat_min=</span><span class="fl">52.43</span>, <span class="dt">lat_max=</span><span class="fl">52.52</span>)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Filter stations based on bounding box</span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">someStations &lt;-<span class="st"> </span><span class="kw">catalogue</span>(bbox)</a></code></pre></div>
@@ -136,10 +136,10 @@
 <p>The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.</p>
 <p>Catchment mean rainfall:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">info &lt;-<span class="st"> </span><span class="kw">cmr</span>(<span class="dt">id =</span> <span class="st">"3001"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(info)</a></code></pre></div>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(info)</a></code></pre></div>
 <p>Gauged daily flow:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">info &lt;-<span class="st"> </span><span class="kw">gdf</span>(<span class="dt">id =</span> <span class="st">"3001"</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(info)</a></code></pre></div>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(info)</a></code></pre></div>
 <p>For more examples and details, please see the <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd">vignette</a>.</p>
 </div>
 <div id="terms-and-conditions" class="section level3">
@@ -156,7 +156,7 @@
 <li>Please <a href="https://github.com/cvitolo/rnrfa/issues">report any issues or bugs</a>.</li>
 <li>License: <a href="https://opensource.org/licenses/GPL-3.0">GPL-3</a>
 </li>
-<li>Get citation information for <code>rnrfa</code> in R doing <code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation(package = 'rnrfa')</a></code>
+<li>Get citation information for <code>rnrfa</code> in R doing <code><a href="https://rdrr.io/r/utils/citation.html">citation(package = 'rnrfa')</a></code>
 </li>
 </ul>
 </div>
