@@ -8,7 +8,8 @@ Authors@R: c(person("Claudia", "Vitolo",
              person("Matthew", "Fry", role = c("ctb"), comment = "Matthew supervised the unofficial API integration."),
              person("Wouter", "Buytaert", role = c("ctb"), comment = "This package is part of Claudia Vitolo's PhD work and Wouter is the supervisor."),
              person("Michael", "Spencer", role = c("ctb"), comment = "Michael updated the function osg_parse to work with grid references of different lengths."),
-             person("Tobias", "Gauster", role = c("ctb"), comment = "Tobias improved the function osg_parse introducing vectorisation"))
+             person("Tobias", "Gauster", role = c("ctb"), comment = "Tobias improved the function osg_parse introducing vectorisation"),
+             person("Ilaria", "Prosdocimi", role = c("ctb"), comment = "Ilaria contributed to the adaptation of the package to the 2019 API"))
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 URL: http://cvitolo.github.io/rnrfa/
 BugReports: https://github.com/cvitolo/rnrfa/issues
