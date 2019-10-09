@@ -30,7 +30,7 @@
 #' }
 #'
 
-gdf <- function(id, metadata = FALSE, cl = NULL, verbose = FALSE){
+gdf <- function(id, metadata = FALSE, cl = NULL, verbose = FALSE) {
 
   flow <- get_ts(id, type = "gdf", metadata, cl, verbose)
 

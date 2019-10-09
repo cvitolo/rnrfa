@@ -16,7 +16,7 @@
 #' }
 #'
 
-convert_flow <- function(flow_cumecs, catchment_area){
+convert_flow <- function(flow_cumecs, catchment_area) {
 
   # Convert area from Km2 to m2
   catchment_area <- catchment_area * 1000000
@@ -25,7 +25,7 @@ convert_flow <- function(flow_cumecs, catchment_area){
   second2day <- 60 * 60 * 24
 
   # Convert flow from m3/s to mm/d
-  converted_flow <- ( (flow_cumecs * 1000) / catchment_area) * second2day
+  converted_flow <- ((flow_cumecs * 1000) / catchment_area) * second2day
 
   return(converted_flow)
 

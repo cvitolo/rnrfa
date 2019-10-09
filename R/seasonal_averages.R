@@ -25,7 +25,7 @@
 
 seasonal_averages <- function(timeseries, season = "Spring",
                               startseason = NULL, endseason = NULL,
-                              parallel = FALSE){
+                              parallel = FALSE) {
 
   if (length(as.list(timeseries)) == 0) {
 
@@ -34,7 +34,7 @@ seasonal_averages <- function(timeseries, season = "Spring",
 
   }else{
 
-    if (length(as.list(timeseries)) > 1 & parallel == FALSE){
+    if (length(as.list(timeseries)) > 1 & parallel == FALSE) {
 
       # multiple time series
       tslist <- lapply(X = as.list(timeseries),
@@ -56,9 +56,9 @@ seasonal_averages <- function(timeseries, season = "Spring",
 }
 
 seasonal_averages_internal <- function(timeseries, season = "Spring",
-                                       startseason = NULL, endseason = NULL){
+                                       startseason = NULL, endseason = NULL) {
 
-  if (is.null(startseason) & is.null(endseason)){
+  if (is.null(startseason) & is.null(endseason)) {
 
     if (season == "Autumn") {
       startseason <- "09-21"
@@ -80,7 +80,7 @@ seasonal_averages_internal <- function(timeseries, season = "Spring",
   }
 
   meanannualspring <- c()
-  for (myyear in unique(xts::.indexyear(timeseries) + 1900)){
+  for (myyear in unique(xts::.indexyear(timeseries) + 1900)) {
     as.Date(paste0(myyear, "-", startseason)) + ndays
     myinterval <- paste0(as.Date(paste0(myyear, "-", startseason)), "::",
                         as.Date(paste0(myyear, "-", startseason)) + ndays)

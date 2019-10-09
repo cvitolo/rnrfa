@@ -39,7 +39,7 @@
 #' identification numbers. Each object can be accessed using their names or
 #' index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time
 #' series.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -53,7 +53,7 @@
 #' }
 #'
 
-get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE){
+get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
 
   options(warn = -1)                                     # do not print warnings
 
@@ -80,7 +80,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE){
       if (!is.null(cl)) {
 
         # Check the cluster is set correctly
-        if ("SOCKcluster" %in% class(cl) | "cluster" %in% class(cl)){
+        if ("SOCKcluster" %in% class(cl) | "cluster" %in% class(cl)) {
 
           # multiple identification numbers - simultaneous data retrieval
           ts_list <- parallel::parLapply(cl = cl,
@@ -111,7 +111,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE){
 }
 
 
-get_ts_internal <- function(idx, type, metadata, verbose){
+get_ts_internal <- function(idx, type, metadata, verbose) {
 
   if (!curl::has_internet()) stop("no internet")
 
@@ -122,7 +122,7 @@ get_ts_internal <- function(idx, type, metadata, verbose){
 
   # GET DATA
   datastream <- response$content$`data-stream`
-  if (length(datastream) == 0){
+  if (length(datastream) == 0) {
     stop("Empty data-stream")
   }else{
     datatime <- datastream[odd(seq_along(datastream))]

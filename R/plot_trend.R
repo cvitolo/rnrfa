@@ -19,7 +19,7 @@
 #'   plot_trend(df, Region)
 #' }
 
-plot_trend <- function(df, column_name){
+plot_trend <- function(df, column_name) {
 
   df$trend <- NA
   df$trend[df$slope >= 0]  <- "Positive"

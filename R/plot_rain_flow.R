@@ -21,9 +21,9 @@
 #' }
 
 plot_rain_flow <- function(id = NULL,
-                           rain = NULL, flow = NULL, area = NULL, title = ""){
+                           rain = NULL, flow = NULL, area = NULL, title = "") {
 
-  if (!is.null(id)){
+  if (!is.null(id)) {
 
     # Retrieve area (in Km2) from the catalogue
     meta <- catalogue(column_name = "id", column_value = id)
@@ -40,7 +40,7 @@ plot_rain_flow <- function(id = NULL,
 
   converted_flow <- convert_flow(flow, area)
 
-  proportion <- ceiling( (max(converted_flow, na.rm = T) -
+  proportion <- ceiling((max(converted_flow, na.rm = T) -
                            min(converted_flow, na.rm = T)) / 3)
 
   graphics::par(mar = c(4, 4, 4, 4))
