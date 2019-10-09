@@ -3,7 +3,7 @@
 
 # @...: nothing
 # spill-over: output information about RNRFA
-.onAttach <- function(...) {
+.on_attach <- function(...) {
 
   # RNRFA info
   packageStartupMessage("+--------------------------------------------------+
