@@ -27,7 +27,7 @@
 #' }
 #'
 
-osg_parse <- function(grid_refs, coord_system = c("BNG", "WGS84")){
+osg_parse <- function(grid_refs, coord_system = c("BNG", "WGS84")) {
 
     grid_refs <- toupper(as.character(grid_refs))
     coord_system <- match.arg(coord_system)
@@ -59,8 +59,10 @@ osg_parse <- function(grid_refs, coord_system = c("BNG", "WGS84")){
         "Z" = c(0, 4))
     offset2 <- do.call(rbind, offset2)[, c("x", "y")]
 
-    offset <- offset1[letter[, 1], , drop = FALSE] +
-        offset2[letter[, 2], , drop = FALSE]
+    offset <- offset1[letter[, 1],
+                      , drop = FALSE] +
+        offset2[letter[, 2],
+                , drop = FALSE]
 
     padz <- function(x, n=max(nchar(x))) gsub(" ", "0", formatC(x, width = -n))
 
@@ -80,16 +82,16 @@ osg_parse <- function(grid_refs, coord_system = c("BNG", "WGS84")){
 
 
 
-.transform_crs <- function(x, y, from, to){
+.transform_crs <- function(x, y, from, to) {
 
     df <- data.frame(x = as.numeric(x), y = as.numeric(y), from, to)
 
     .transform <- function(x) {
         # transformation can only be vectorized for unique CRS
-        if (length(unique(x$from)) > 1){
+        if (length(unique(x$from)) > 1) {
           stop("Cannot handle multiple source CRS.")
         }
-        if (length(unique(x$to)) > 1){
+        if (length(unique(x$to)) > 1) {
           stop("Cannot handle multiple target CRS.")
         }
 

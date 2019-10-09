@@ -53,7 +53,7 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
   df <- response$content$data
 
   ### FILTER BASED ON BOUNDING BOX ###
-  if (!is.null(bbox)){
+  if (!is.null(bbox)) {
 
     lon_min <- bbox$lon_min
     lon_max <- bbox$lon_max
@@ -77,7 +77,7 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     df <- df[good_recording_years, ]
   }
 
-  ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
+  # FILTER BASED ON METADATA STRINGS/THRESHOLD
   if (is.null(column_name) & !is.null(column_value)) {
     stop("Enter valid column_name")
   }
@@ -88,13 +88,13 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     my_column <- unlist(eval(parse(text = paste0("df$`", column_name, "`"))))
     # The column contains numbers
     condition_1 <- is.numeric(my_column)
-    if (condition_1){
+    if (condition_1) {
       my_column <- as.numeric(as.character(my_column))
       condition_2 <- substr(column_value, 1, 1) == ">"
       condition_3 <- substr(column_value, 1, 1) == "<"
       condition_4 <- substr(column_value, 1, 1) == "="
-      if (condition_2 | condition_3 | condition_4){
-        if (substr(column_value, 2, 2) == "="){
+      if (condition_2 | condition_3 | condition_4) {
+        if (substr(column_value, 2, 2) == "=") {
           threshold <- as.numeric(as.character(substr(column_value, 3,
                                                       nchar(column_value))))
           combined <- paste0("df$`", column_name, "`",

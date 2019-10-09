@@ -16,7 +16,7 @@
 #' }
 #'
 
-convert_flow <- function(flow_cumecs, catchment_area){
+convert_flow <- function(flow_cumecs, catchment_area) {
 
   # Convert area from Km2 to m2
   catchment_area <- catchment_area * 1000000

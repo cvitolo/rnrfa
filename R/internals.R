@@ -5,7 +5,7 @@ nrfa_api <- function(webservice, parameters, path = "") {
   # Set a user agent
   ua <- httr::user_agent("https://github.com/cvitolo/rnrfa")
 
-  if (!(webservice %in% c("station-ids", "station-info", "time-series"))){
+  if (!(webservice %in% c("station-ids", "station-info", "time-series"))) {
     stop(paste("Invalid web service, try one of the following:",
                "station-ids, station-info, time-series"))
   }
@@ -31,13 +31,13 @@ nrfa_api <- function(webservice, parameters, path = "") {
 
   # Parse content
   page_content <- httr::content(resp, "text", encoding = "UTF-8")
-  if (webservice == "station-ids"){
+  if (webservice == "station-ids") {
     parsed <- jsonlite::fromJSON(page_content, simplifyVector = TRUE)
   }
-  if (webservice == "station-info"){
+  if (webservice == "station-info") {
     parsed <- jsonlite::fromJSON(page_content, simplifyDataFrame = TRUE)
   }
-  if (webservice == "time-series"){
+  if (webservice == "time-series") {
     parsed <- jsonlite::fromJSON(page_content, simplifyDataFrame = TRUE)
   }
 
