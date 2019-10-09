@@ -30,7 +30,7 @@
 #'   cmr(c(54022,54090,54091))
 #' }
 
-cmr <- function(id, metadata = FALSE, cl = NULL, verbose = FALSE){
+cmr <- function(id, metadata = FALSE, cl = NULL, verbose = FALSE) {
 
   rain <- get_ts(id, type = "cmr", metadata, cl, verbose)
 
