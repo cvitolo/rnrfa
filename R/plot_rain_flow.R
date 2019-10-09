@@ -28,7 +28,7 @@ plot_rain_flow <- function(id = NULL,
     # Retrieve area (in Km2) from the catalogue
     meta <- catalogue(column_name = "id", column_value = id)
     title <- meta$name
-    area <- as.numeric(as.character(meta$catchmentArea))
+    area <- as.numeric(eval(parse(text = "as.character(meta$catchmentArea)")))
 
     # Retrieve rainfall data for station 54022
     rain <- get_ts(id, type = "cmr")
