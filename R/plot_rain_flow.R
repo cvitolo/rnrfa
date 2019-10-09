@@ -40,7 +40,7 @@ plot_rain_flow <- function(id = NULL,
 
   converted_flow <- convert_flow(flow, area)
 
-  proportion <- ceiling((max(converted_flow, na.rm = T) -
+  proportion <- ceiling( (max(converted_flow, na.rm = T) -
                            min(converted_flow, na.rm = T)) / 3)
 
   graphics::par(mar = c(4, 4, 4, 4))

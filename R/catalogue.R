@@ -79,7 +79,7 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     df <- df[good_recording_years, ]
   }
 
-  ### FILTER BASED ON METADATA STRINGS/THRESHOLD ###
+  # FILTER BASED ON METADATA STRINGS/THRESHOLD
   if (is.null(column_name) & !is.null(column_value)) {
     stop("Enter valid column_name")
   }

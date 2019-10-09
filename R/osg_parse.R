@@ -59,8 +59,10 @@ osg_parse <- function(grid_refs, coord_system = c("BNG", "WGS84")){
         "Z" = c(0, 4))
     offset2 <- do.call(rbind, offset2)[, c("x", "y")]
 
-    offset <- offset1[letter[, 1], , drop = FALSE] +
-        offset2[letter[, 2], , drop = FALSE]
+    offset <- offset1[letter[, 1],
+                      , drop = FALSE] +
+        offset2[letter[, 2],
+                , drop = FALSE]
 
     padz <- function(x, n=max(nchar(x))) gsub(" ", "0", formatC(x, width = -n))
 

@@ -114,12 +114,12 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE){
 get_ts_internal <- function(idx, type, metadata, verbose){
 
   if (!curl::has_internet()) stop("no internet")
-  
+
   parameters <- list(format = "json-object",
                      station = idx,
                      `data-type` = type)
   response <- nrfa_api(webservice = "time-series", parameters)
-  
+
   # GET DATA
   datastream <- response$content$`data-stream`
   if (length(datastream) == 0){
@@ -139,7 +139,7 @@ get_ts_internal <- function(idx, type, metadata, verbose){
     # GET METADATA
     meta <- response$content[-which(names(response$content) == "data-stream")]
     meta <- as.data.frame(meta, stringsAsFactors = FALSE)
-    
+
     return(list("data" = data, "meta" = meta))
   }else{
     return(data)

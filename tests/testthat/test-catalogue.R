@@ -26,24 +26,24 @@ test_that("Check output of catalogue for minimum records of 100 years", {
 })
 
 test_that("Check the catalogue function fails when it should", {
-  
+
   x <- try(catalogue(column_name = "river"), silent = TRUE)
   expect_equal(class(x), "try-error")
-  
+
   x <- try(catalogue(column_value = "Wye"), silent = TRUE)
   expect_equal(class(x), "try-error")
-  
+
 })
 
 test_that("Check the catalogue function filters based on column values", {
-  
+
   x <- catalogue(column_name = "river", column_value = "Wye")
   expect_equal(dim(x)[1] >= 12, TRUE)
-  
+
   x <- catalogue(column_name = "catchment-area", column_value = "<1000")
   expect_equal(dim(x)[1] >= 114, TRUE)
-  
+
   x <- catalogue(column_name = "catchment-area", column_value = ">=1000")
   expect_equal(dim(x)[1] >= 114, TRUE)
-  
+
 })
