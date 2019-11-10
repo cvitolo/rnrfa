@@ -106,8 +106,6 @@ Please refer to the following Terms and Conditions for use of NRFA Data and disc
 
 This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
-
 ### Meta
 
 -   Please [report any issues or bugs](https://github.com/cvitolo/rnrfa/issues).
