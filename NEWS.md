@@ -1,3 +1,11 @@
+v2.0.1 and submitted to CRAN.
+--------------------------------------
+
+Major changes:
+
+1. Removed obsolete tests that were checking against proj4-based pre-calculated values. This is to overcome issue with use of proj6.
+
+
 Updated to v2.0 and submitted to CRAN.
 --------------------------------------
 

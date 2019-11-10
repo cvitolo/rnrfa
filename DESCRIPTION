@@ -1,6 +1,6 @@
 Package: rnrfa
 Title: UK National River Flow Archive Data from R
-Version: 2.0
+Version: 2.0.1
 Authors@R: c(person("Claudia", "Vitolo",
                     email = "cvitolodev@gmail.com",
                     role = c("aut", "cre"),
