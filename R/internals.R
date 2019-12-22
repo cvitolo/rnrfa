@@ -102,7 +102,7 @@ get_ts_internal <- function(id, type, metadata, verbose, full_info) {
                             seq.Date(from = x[1], to = x[2], by = "day")
                           })
         periods <- do.call("c", periods)
-        df$rejected <- ifelse(test = datatime %in% periods,
+        df$rejected <- ifelse(test = as.Date(datatime) %in% periods,
                               yes = TRUE, no = FALSE)
       }
       if (type %in% c("amax-stage", "amax-flow")){
