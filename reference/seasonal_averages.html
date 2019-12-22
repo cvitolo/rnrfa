@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rnrfa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
       </span>
     </div>
 
@@ -126,34 +126,19 @@
     <p>This calculates the seasonal averages from a time series.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>seasonal_averages</span>(<span class='no'>timeseries</span>, <span class='kw'>season</span> <span class='kw'>=</span> <span class='st'>"Spring"</span>, <span class='kw'>startseason</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>endseason</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>seasonal_averages</span>(<span class='no'>timeseries</span>, <span class='kw'>season</span> <span class='kw'>=</span> <span class='st'>"Spring"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>timeseries</th>
-      <td><p>Time series (xts class).</p></td>
+      <td><p>Time series (zoo class).</p></td>
     </tr>
     <tr>
       <th>season</th>
-      <td><p>Name of the season (Autumn, Winter, Spring, Summer)</p></td>
-    </tr>
-    <tr>
-      <th>startseason</th>
-      <td><p>String encoding the start of the season (e.g. for spring
-in the northen hemisphere this is "03-21")</p></td>
-    </tr>
-    <tr>
-      <th>endseason</th>
-      <td><p>String encoding the end of the season (e.g. for spring in
-the northen emisphere this is "06-20")</p></td>
-    </tr>
-    <tr>
-      <th>parallel</th>
-      <td><p>Logical, FALSE by default. If parallel = TRUE means that the
-function can be used in parallel computations.</p></td>
+      <td><p>Name of the season, which corresponds to a quarter:
+Winter (Q1), Spring (Q2), Summer (Q3), Autumn (Q4)</p></td>
     </tr>
     </table>
 
@@ -168,7 +153,7 @@ function can be used in parallel computations.</p></td>
   <span class='fu'>seasonal_averages</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'>cmr</span>(<span class='fl'>18019</span>), <span class='fu'>cmr</span>(<span class='fl'>18019</span>)), <span class='kw'>season</span> <span class='kw'>=</span> <span class='st'>"Spring"</span>)
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
