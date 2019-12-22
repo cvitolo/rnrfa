@@ -3,15 +3,11 @@ context("Test cmr function")
 test_that("Output of cmr function for single station", {
 
   x <- cmr(id = 18019, metadata = FALSE, cl = NULL)
-
-  expect_that(length(x) >= 660, equals(TRUE))
+  expect_true(length(x) >= 660)
 
   x <- cmr(id = 18019, metadata = TRUE, cl = NULL)
-
   expect_that(length(x) == 2, equals(TRUE))
   expect_that(x$meta$station.name == "Comer Burn at Comer", equals(TRUE))
-
-  closeAllConnections()
 
 })
 
@@ -31,7 +27,5 @@ test_that("Output of cmr function for multiple stations", {
   y <- x[[1]]
 
   expect_that(all(names(y) == c("data", "meta")), equals(TRUE))
-
-  closeAllConnections()
 
 })

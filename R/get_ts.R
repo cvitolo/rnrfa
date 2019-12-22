@@ -34,11 +34,14 @@
 #' server.
 #' @param verbose (FALSE by default). If set to TRUE prints GET request on the
 #' console.
+#' @param full_info Logical, FALSE by default. If full_info = TRUE, the function
+#' will retrieve info on rejected periods and return a data frame rather than a
+#' time series.
 #'
 #' @return list composed of as many objects as in the list of station
 #' identification numbers. Each object can be accessed using their names or
-#' index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time
-#' series.
+#' indexes (e.g. x[[1]], x[[2]], and so forth). Each object contains a time
+#' series of class \code{zoo/xts}.
 #'
 #' @export
 #'
@@ -53,7 +56,8 @@
 #' }
 #'
 
-get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
+get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE,
+                   full_info = FALSE) {
 
   options(warn = -1)                                     # do not print warnings
 
@@ -70,9 +74,16 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
 
       # In the case of a single identification number
       if (metadata == TRUE) {
-        ts_list <- get_ts_internal(id, type, metadata, verbose)
+        ts_list <- get_ts_internal(id, type, metadata, verbose, full_info)
       }else{
-        ts_list <- unlist(get_ts_internal(id, type, metadata, verbose))
+        if (type %in% c("pot-stage", "pot-flow", "amax-stage", "amax-flow") &
+            full_info) {
+          ts_list <- get_ts_internal(id, type, metadata, verbose,
+                                            full_info)
+        }else{
+          ts_list <- unlist(get_ts_internal(id, type, metadata, verbose,
+                                            full_info))
+        }
       }
 
     }else{
@@ -86,7 +97,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
           ts_list <- parallel::parLapply(cl = cl,
                                         X = as.list(id),
                                         fun = get_ts_internal,
-                                        type, metadata, verbose)
+                                        type, metadata, verbose, full_info)
           names(ts_list) <- id
 
         }else{
@@ -97,7 +108,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
 
         # multiple identification numbers - sequential data retrieval
         ts_list <- lapply(X = as.list(id), FUN = get_ts_internal,
-                         type, metadata, verbose)
+                         type, metadata, verbose, full_info)
         names(ts_list) <- id
 
       }
@@ -107,43 +118,5 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE) {
   }
 
   return(ts_list)
-
-}
-
-
-get_ts_internal <- function(idx, type, metadata, verbose) {
-
-  if (!curl::has_internet()) stop("no internet")
-
-  parameters <- list(format = "json-object",
-                     station = idx,
-                     `data-type` = type)
-  response <- nrfa_api(webservice = "time-series", parameters)
-
-  # GET DATA
-  datastream <- response$content$`data-stream`
-  if (length(datastream) == 0) {
-    stop("Empty data-stream")
-  }else{
-    datatime <- datastream[odd(seq_along(datastream))]
-    datavalue <- datastream[even(seq_along(datastream))]
-    # If datatime contains only year-month, the following adds a dummy day
-    if (nchar(datatime[1]) == 7) {
-      datatime <- paste(datatime, "-01", sep = "")
-    }
-    data <- xts::xts(x = as.numeric(datavalue),
-                         order.by = as.Date(datatime))
-  }
-
-  if (metadata) {
-    # GET METADATA
-    meta <- response$content[-which(names(response$content) == "data-stream")]
-    meta <- as.data.frame(meta, stringsAsFactors = FALSE)
-
-    return(list("data" = data, "meta" = meta))
-  }else{
-    return(data)
-    # For consistency, it should be return(list("data" = data))
-  }
 
 }

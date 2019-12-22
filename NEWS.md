@@ -1,3 +1,17 @@
+v2.0.2 and submitted to CRAN.
+--------------------------------------
+
+Major changes:
+
+1. Fixed issue #19 whereby rejected/missing data in peak flows are flagged as such in output. Added full_info to input parameters to retrieve data quality flags.
+2. timeseries are now classed as zoo object, not xts.
+3. startseason and endseason in seasonal_averages() are now deprecated, seasons are labelled by the calendar quarter in which the season ends.
+
+Minor changes:
+
+- Added more tests
+
+
 v2.0.1 and submitted to CRAN.
 --------------------------------------
 

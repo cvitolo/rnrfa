@@ -49,8 +49,13 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
   latitude <- longitude <- NULL
 
   parameters <- list(format = "json-object", station = "*", fields = "all")
-  response <- nrfa_api(webservice = "station-info", parameters)
-  df <- response$content$data
+  station_info <- nrfa_api(webservice = "station-info", parameters)
+  # the station_info object is made of 3 elements:
+  # 1. content (data), this is a list of one object called 'data'
+  station_info_content <- station_info$content
+  df <- station_info_content$data
+  # 2. path (usually empty) - not needed here
+  # 3. response (metadata, 10 fields) - currently not needed here
 
   ### FILTER BASED ON BOUNDING BOX ###
   if (!is.null(bbox)) {

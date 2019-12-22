@@ -26,9 +26,9 @@ plot_rain_flow <- function(id = NULL,
   if (!is.null(id)) {
 
     # Retrieve area (in Km2) from the catalogue
-    meta <- catalogue(column_name = "id", column_value = id)
+    meta <- catalogue(column_name = "id", column_value = paste0("==", id))
     title <- meta$name
-    area <- as.numeric(eval(parse(text = "as.character(meta$catchmentArea)")))
+    area <- as.numeric(eval(parse(text = "as.character(meta$`catchment-area`)")))
 
     # Retrieve rainfall data for station 54022
     rain <- get_ts(id, type = "cmr")
@@ -45,11 +45,9 @@ plot_rain_flow <- function(id = NULL,
 
   graphics::par(mar = c(4, 4, 4, 4))
 
-  xts::plot.xts(converted_flow,
+  zoo::plot.zoo(converted_flow,
                 ylim = c(-proportion / 2, max(converted_flow) + proportion),
-                main = title, xlab = "", ylab = "Flow [mm/d]",
-                auto.grid = FALSE, minor.ticks = FALSE, major.ticks = "years",
-                major.format = "%Y")
+                main = title, xlab = "", ylab = "Flow [mm/d]")
 
   # Add precipitation to the top
   graphics::par(bty = "n", new = T)

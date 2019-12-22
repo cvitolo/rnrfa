@@ -49,14 +49,12 @@ test_that("get_ts gdf multi works", {
 
 })
 
-test_that("get_ts gdf works in parallel", {
+test_that("Check get_ts works with other types", {
 
-  s <- try(gdf(id = c(54022, 54090, 54091), cl = 3), silent = TRUE)
-  expect_equal(class(s), "try-error")
-
-  cl <- parallel::makeCluster(getOption("cl.cores", 1))
-  s <- gdf(id = c(54022, 54090, 54091), cl = cl)
-  parallel::stopCluster(cl)
-  expect_equal(length(s), 3)
+  x1 <- get_ts(id = 43010, type = "amax-flow")
+  expect_true("zoo" %in% class(x1))
+  x1 <- get_ts(id = 43010, type = "amax-flow", full_info = TRUE)
+  expect_true("zoo" %in% class(x1))
+  expect_true(all(dim(x1) >= c(37, 2)))
 
 })

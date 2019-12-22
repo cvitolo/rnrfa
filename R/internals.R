@@ -61,3 +61,100 @@ print.nrfa_api <- function(x, ...) {
 odd <- function(x) x %% 2 != 0
 
 even <- function(x) x %% 2 == 0
+
+get_ts_internal <- function(id, type, metadata, verbose, full_info) {
+
+  if (!curl::has_internet()) stop("no internet")
+
+  parameters <- list(format = "json-object",
+                     station = id,
+                     `data-type` = type)
+  time_series <- nrfa_api(webservice = "time-series", parameters)
+  # the time_series object is made of 3 elements:
+  # 1. content
+  # 2. path - currently not needed here
+  # 3. response (metadata) - currently not needed here
+
+  # GET DATA
+  datastream <- time_series$content$`data-stream`
+  if (length(datastream) == 0) {
+    stop("Empty data-stream")
+  }else{
+    datatime <- datastream[odd(seq_along(datastream))]
+    datavalue <- datastream[even(seq_along(datastream))]
+    # If datatime contains only year-month, the following adds a dummy day
+    if (nchar(datatime[1]) == 7) {
+      datatime <- paste(datatime, "-01", sep = "")
+    }
+    # Create the basic time series
+    df <- data.frame(as.numeric(datavalue))
+    names(df) <- type
+    if (type %in% c("pot-stage", "pot-flow", "amax-stage", "amax-flow") &
+        full_info) {
+      station_info <- rnrfa::catalogue(column_name = "id",
+                                       column_value = paste0("==", id))
+      if (type %in% c("pot-stage", "pot-flow")){
+        rejected_periods <- unlist(station_info$`peak-flow-rejected-periods`,
+                                   use.names = FALSE)
+        periods <- lapply(X = strsplit(rejected_periods, "[/]"), FUN = as.Date)
+        periods <- lapply(X = periods,
+                          FUN = function(x) {
+                            seq.Date(from = x[1], to = x[2], by = "day")
+                          })
+        periods <- do.call("c", periods)
+        df$rejected <- ifelse(test = datatime %in% periods,
+                              yes = TRUE, no = FALSE)
+      }
+      if (type %in% c("amax-stage", "amax-flow")){
+        years <- unlist(station_info$`peak-flow-rejected-amax-years`,
+                        use.names = FALSE)
+        water_year <- lubridate::year(datatime) +
+          ifelse(test = lubridate::month(datatime) <= 9, yes = -1, no = 0)
+        df$rejected <- ifelse(test = water_year %in% years,
+                              yes = TRUE, no = FALSE)
+      }
+    }
+    df <- zoo::zoo(x = df, order.by = as.Date(datatime), )
+  }
+
+  if (metadata) {
+
+    # GET METADATA
+    meta <- time_series$content[-which(names(time_series$content) ==
+                                         "data-stream")]
+    meta <- as.data.frame(meta, stringsAsFactors = FALSE)
+    return(list("data" = df, "meta" = meta))
+
+  }else{
+
+    return(df)
+
+  }
+
+}
+
+seasonal_averages_internal <- function(timeseries, season) {
+  
+  # seasonal aggregation:
+  # seasons are labelled by the calendar quarter in which the season ends
+  seasonal_mean <- aggregate(timeseries, zoo::as.yearqtr, mean) + 1/12
+  
+  if (season == "Winter") {quarter_number <- 1}
+  if (season == "Spring") {quarter_number <- 2}
+  if (season == "Summer") {quarter_number <- 3}
+  if (season == "Autumn") {quarter_number <- 4}
+  
+  # Get indices of the relevant season
+  idx <- seq(quarter_number, length(seasonal_mean), 4)
+  seasonal_mean <- seasonal_mean[idx]
+  
+  # fit basic straight line
+  fit <- stats::glm(seasonal_mean ~ seq(1, length(seasonal_mean)))
+  # F-statistics of the significance test with the summary function
+  # extract slope and p-value (for significance to be true, p should be < 0.05)
+  co <- summary(fit)$coefficients[2, c(1, 4)] # only slope: coef(fit)[[2]]
+  
+  return(co)
+  
+}
+

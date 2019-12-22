@@ -4,7 +4,8 @@
 \alias{get_ts}
 \title{This function retrieves time series data.}
 \usage{
-get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE)
+get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE,
+  full_info = FALSE)
 }
 \arguments{
 \item{id}{station identification number(s), each number should be in the
@@ -37,12 +38,16 @@ server.}
 
 \item{verbose}{(FALSE by default). If set to TRUE prints GET request on the
 console.}
+
+\item{full_info}{Logical, FALSE by default. If full_info = TRUE, the function
+will retrieve info on rejected periods and return a data frame rather than a
+time series.}
 }
 \value{
 list composed of as many objects as in the list of station
 identification numbers. Each object can be accessed using their names or
-index (e.g. x[[1]], x[[2]], and so forth). Each object contains a zoo time
-series.
+indexes (e.g. x[[1]], x[[2]], and so forth). Each object contains a time
+series of class \code{zoo/xts}.
 }
 \description{
 Given the station identification number(s), this function

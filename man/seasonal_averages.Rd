@@ -4,22 +4,13 @@
 \alias{seasonal_averages}
 \title{Calculate seasonal averages}
 \usage{
-seasonal_averages(timeseries, season = "Spring", startseason = NULL,
-  endseason = NULL, parallel = FALSE)
+seasonal_averages(timeseries, season = "Spring")
 }
 \arguments{
-\item{timeseries}{Time series (xts class).}
+\item{timeseries}{Time series (zoo class).}
 
-\item{season}{Name of the season (Autumn, Winter, Spring, Summer)}
-
-\item{startseason}{String encoding the start of the season (e.g. for spring
-in the northen hemisphere this is "03-21")}
-
-\item{endseason}{String encoding the end of the season (e.g. for spring in
-the northen emisphere this is "06-20")}
-
-\item{parallel}{Logical, FALSE by default. If parallel = TRUE means that the
-function can be used in parallel computations.}
+\item{season}{Name of the season, which corresponds to a quarter:
+Winter (Q1), Spring (Q2), Summer (Q3), Autumn (Q4)}
 }
 \value{
 A vector containing the seasonal average and significance level
