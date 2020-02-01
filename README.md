@@ -21,10 +21,11 @@ The stable version of the **rnrfa** package is available from CRAN:
 install.packages("rnrfa")
 ```
 
-Or you can install the development version from Github with [devtools](https://github.com/hadley/devtools):
+Or you can install the development version from Github using `remotes`:
 
 ``` r
-devtools::install_github("cvitolo/rnrfa")
+install.packages("remotes")
+remotes::install_github("cvitolo/rnrfa")
 ```
 
 Now, load the rnrfa package:
