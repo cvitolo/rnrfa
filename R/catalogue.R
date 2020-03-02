@@ -117,6 +117,10 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
           my_expression <- eval(parse(text = combined_string))
           newstation_list <- subset(df, my_expression)
         }
+      }else{
+        # Single value to match
+        my_expression <- my_column == column_value
+        newstation_list <- subset(df, my_expression)
       }
     }else{
       # The column contains characters
