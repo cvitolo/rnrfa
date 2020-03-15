@@ -96,12 +96,18 @@ get_ts_internal <- function(id, type, metadata, verbose, full_info) {
       if (type %in% c("pot-stage", "pot-flow")){
         rejected_periods <- unlist(station_info$`peak-flow-rejected-periods`,
                                    use.names = FALSE)
-        periods <- lapply(X = strsplit(rejected_periods, "[/]"), FUN = as.Date)
-        periods <- lapply(X = periods,
-                          FUN = function(x) {
-                            seq.Date(from = x[1], to = x[2], by = "day")
-                          })
-        periods <- do.call("c", periods)
+        
+        periods <- vector(mode="numeric",length=0)
+        periods <- as.Date(periods,  origin="1970-01-01")
+        ### only do this when there are missing periods 
+        if(!is.null(rejected_periods)){
+          periods <- lapply(X = strsplit(rejected_periods, "[/]"), FUN = as.Date)
+          periods <- lapply(X = periods,
+                            FUN = function(x) {
+                              seq.Date(from = x[1], to = x[2], by = "day")
+                            })
+          periods <- do.call("c", periods)
+        }
         df$rejected <- ifelse(test = as.Date(datatime) %in% periods,
                               yes = TRUE, no = FALSE)
       }
@@ -114,7 +120,7 @@ get_ts_internal <- function(id, type, metadata, verbose, full_info) {
                               yes = TRUE, no = FALSE)
       }
     }
-    df <- zoo::zoo(x = df, order.by = as.Date(datatime), )
+    df <- zoo::zoo(x = df, order.by = as.Date(datatime))
   }
 
   if (metadata) {
