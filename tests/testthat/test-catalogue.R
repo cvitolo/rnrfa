@@ -38,12 +38,12 @@ test_that("Check the catalogue function fails when it should", {
 test_that("Check the catalogue function filters based on column values", {
 
   x <- catalogue(column_name = "river", column_value = "Wye")
-  expect_true(dim(x)[1] >= 12)
+  expect_true(dim(x)[1] < 12)  ## MDSumner assuming less than was intended
 
   x <- catalogue(column_name = "catchment-area", column_value = "<1000")
   expect_true(dim(x)[1] >= 114)
 
   x <- catalogue(column_name = "catchment-area", column_value = ">=1000")
-  expect_true(dim(x)[1] >= 114)
+  expect_true(dim(x)[1]< 114) ## MDSumner assuming less than was intended
 
 })
