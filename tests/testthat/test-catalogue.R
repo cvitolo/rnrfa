@@ -38,12 +38,12 @@ test_that("Check the catalogue function fails when it should", {
 test_that("Check the catalogue function filters based on column values", {
 
   x <- catalogue(column_name = "river", column_value = "Wye")
-  expect_equal(dim(x)[1] >= 12, TRUE)
+  expect_true(dim(x)[1] >= 12)
 
   x <- catalogue(column_name = "catchment-area", column_value = "<1000")
-  expect_equal(dim(x)[1] >= 114, TRUE)
+  expect_true(dim(x)[1] >= 114)
 
   x <- catalogue(column_name = "catchment-area", column_value = ">=1000")
-  expect_equal(dim(x)[1] >= 114, TRUE)
+  expect_true(dim(x)[1] >= 114)
 
 })
