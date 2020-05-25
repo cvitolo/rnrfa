@@ -82,7 +82,7 @@
       <h1 data-toc-skip>An introduction to the rnrfa package</h1>
                         <h4 class="author">Claudia Vitolo</h4>
             
-            <h4 class="date">2020-04-05</h4>
+            <h4 class="date">2020-05-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd"><code>vignettes/rnrfa-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>rnrfa-vignette.Rmd</code></div>
@@ -257,21 +257,21 @@
 <p>Here is how to retrieve mean rainfall (monthly) data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># Fetch only time series data from the waterml2 service</span>
 <span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)
 
 <span class="co"># Fetch time series data and metadata from the waterml2 service</span>
 <span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>, <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Monthly rainfall data for the"</span>,
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Monthly rainfall data for the"</span>,
                            <span class="no">info</span>$<span class="no">meta</span>$<span class="no">stationName</span>,<span class="st">"catchment"</span>),
      <span class="kw">xlab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">ylab</span><span class="kw">=</span><span class="no">info</span>$<span class="no">meta</span>$<span class="no">units</span>)</pre></body></html></div>
 <p>Here is how to retrieve (daily) flow data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Fetch only time series data</span>
 <span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)
 
 <span class="co"># Fetch time series data and metadata from the waterml2 service</span>
 <span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>, <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Daily flow data for the "</span>,
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Daily flow data for the "</span>,
                             <span class="no">info</span>$<span class="no">meta</span>$<span class="no">station.name</span>,
                             <span class="st">" catchment ("</span>,
                             <span class="no">info</span>$<span class="no">meta</span>$<span class="no">data.type.units</span>, <span class="st">")"</span>))</pre></body></html></div>
@@ -284,7 +284,7 @@
 <span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3002</span>,<span class="fl">3003</span>), <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="co"># s is a list of 2 objects (one object for each site)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">1</span>]]$<span class="no">data</span>,
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">1</span>]]$<span class="no">data</span>,
      <span class="kw">main</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">1</span>]]$<span class="no">meta</span>$<span class="no">station.name</span>, <span class="st">"and"</span>, <span class="no">s</span><span class="kw">[[</span><span class="fl">2</span>]]$<span class="no">meta</span>$<span class="no">station.name</span>))
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">2</span>]]$<span class="no">data</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">"green"</span>)</pre></body></html></div>
 </div>
@@ -347,7 +347,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

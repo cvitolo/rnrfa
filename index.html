@@ -95,7 +95,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rnrfa"</span>)</pre></div>
-<p>Or you can install the development version from Github using <code>remotes</code>:</p>
+<p>Or the development version from GitHub using the package <code>remotes</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
 <span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"cvitolo/rnrfa"</span>)</pre></div>
 <p>Now, load the rnrfa package:</p>
@@ -119,7 +119,7 @@
 <div id="conversions-of-os-grid-references" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conversions-of-os-grid-references" class="anchor"></a>Conversions of OS grid references</h3>
-<p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column âgridRefâ). The RNRFA package allows convenient conversion to more standard coordinate systems. The function âosg_parse()â, for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
+<p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column “gridRef”). The RNRFA package allows convenient conversion to more standard coordinate systems. The function “osg_parse()”, for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="co"># Where is the first catchment located?</span>
 <span class="no">someStations</span>$<span class="no">`grid-reference`</span>$<span class="no">ngr</span>[<span class="fl">1</span>]
 
@@ -134,14 +134,14 @@
 <div id="time-series-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#time-series-data" class="anchor"></a>Time series data</h3>
-<p>The first column of the table âsomeStationsâ contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo).</p>
+<p>The first column of the table “someStations” contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo).</p>
 <p>The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.</p>
 <p>Catchment mean rainfall:</p>
 <div class="sourceCode" id="cb9"><pre class="r"><span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
 <p>Gauged daily flow:</p>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
 <p>For more examples and details, please see the <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd">vignette</a>.</p>
 </div>
 <div id="terms-and-conditions" class="section level3">
@@ -206,7 +206,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
