@@ -4,8 +4,14 @@
 \alias{get_ts}
 \title{This function retrieves time series data.}
 \usage{
-get_ts(id, type, metadata = FALSE, cl = NULL, verbose = FALSE,
-  full_info = FALSE)
+get_ts(
+  id,
+  type,
+  metadata = FALSE,
+  cl = NULL,
+  verbose = FALSE,
+  full_info = FALSE
+)
 }
 \arguments{
 \item{id}{station identification number(s), each number should be in the

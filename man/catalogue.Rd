@@ -4,8 +4,13 @@
 \alias{catalogue}
 \title{List of stations from UK NRFA}
 \usage{
-catalogue(bbox = NULL, column_name = NULL, column_value = NULL,
-  min_rec = NULL, all = TRUE)
+catalogue(
+  bbox = NULL,
+  column_name = NULL,
+  column_value = NULL,
+  min_rec = NULL,
+  all = TRUE
+)
 }
 \arguments{
 \item{bbox}{this is a geographical bounding box (e.g. list(lon_min = -3.82,
