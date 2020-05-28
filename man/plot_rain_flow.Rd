@@ -4,8 +4,7 @@
 \alias{plot_rain_flow}
 \title{Plot rainfall and flow for a given station}
 \usage{
-plot_rain_flow(id = NULL, rain = NULL, flow = NULL, area = NULL,
-  title = "")
+plot_rain_flow(id = NULL, rain = NULL, flow = NULL, area = NULL, title = "")
 }
 \arguments{
 \item{id}{Station identification number}

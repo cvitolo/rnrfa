@@ -21,7 +21,7 @@ The stable version of the **rnrfa** package is available from CRAN:
 install.packages("rnrfa")
 ```
 
-Or you can install the development version from Github using `remotes`:
+Or the development version from GitHub using the package `remotes`:
 
 ``` r
 install.packages("remotes")
