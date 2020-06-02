@@ -11,8 +11,11 @@
 # Others
 *.Rproj
 *.pdf
+*.svx
 rnrfa.Rcheck
 README.html
 README_cache/*
 docs/*
 inst/doc
+Meta/*
+doc/*
