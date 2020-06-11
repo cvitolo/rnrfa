@@ -7,3 +7,5 @@ README.Rmd
 README_cache
 ^_pkgdown\.yml$
 ^docs$
+^doc$
+^Meta$
