@@ -1,3 +1,10 @@
+v2.0.4 and submitted to CRAN.
+--------------------------------------
+Minor change:
+
+- Ensure that the package fails gracefully with an informative message if the resource is not available or has changed (and not give a check warning nor error). This is a CRAN policy. 
+
+
 v2.0.2 and submitted to CRAN.
 --------------------------------------
 

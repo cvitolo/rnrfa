@@ -18,19 +18,26 @@ nrfa_api <- function(webservice, parameters, path = "") {
 
   # Check response
   if (httr::http_error(resp)) {
-    stop(
+    message(
       sprintf("NRFA API request failed [%s]", httr::status_code(resp)),
       call. = FALSE
     )
+    return(NULL)
   }
 
   # Check output format
   if (httr::http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
+    message("API did not return json", call. = FALSE)
+    return(NULL)
   }
 
   # Parse content
-  page_content <- httr::content(resp, "text", encoding = "UTF-8")
+  page_content <- try(httr::content(resp, "text", encoding = "UTF-8"))
+  if(class(page_content) == "try-error") {
+    errs <- geterrmessage()
+    message(paste("An unknwon error occurred when accessing the data - with error message:",errs))
+    return(NULL)
+  }
   if (webservice == "station-ids") {
     parsed <- jsonlite::fromJSON(page_content, simplifyVector = TRUE)
   }

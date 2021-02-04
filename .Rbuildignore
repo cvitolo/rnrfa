@@ -6,4 +6,8 @@ CONDUCT.md
 README.Rmd
 README_cache
 ^_pkgdown\.yml$
+^doc$
 ^docs$
+^.*\.svx
+^.*\.Rhistory
+^Meta$
