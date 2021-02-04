@@ -46,6 +46,8 @@ mm/d by dividing the flow by the catchment area and converting it to mm/day." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -104,7 +106,7 @@ mm/d by dividing the flow by the catchment area and converting it to mm/day." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/cvitolo/rnrfa/">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,7 +133,7 @@ mm/d by dividing the flow by the catchment area and converting it to mm/day." />
 mm/d by dividing the flow by the catchment area and converting it to mm/day.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_flow</span>(<span class='no'>flow_cumecs</span>, <span class='no'>catchment_area</span>)</pre>
+    <pre class="usage"><span class='fu'>convert_flow</span><span class='op'>(</span><span class='va'>flow_cumecs</span>, <span class='va'>catchment_area</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,9 +153,11 @@ mm/d by dividing the flow by the catchment area and converting it to mm/day.</p>
     <p>Flow time series in mm/d</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='fu'>convert_flow</span>(<span class='fl'>30</span>, <span class='fl'>2</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>convert_flow</span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -169,7 +173,7 @@ mm/d by dividing the flow by the catchment area and converting it to mm/day.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

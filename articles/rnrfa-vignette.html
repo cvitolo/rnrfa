@@ -62,7 +62,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/cvitolo/rnrfa/">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,7 +82,7 @@
       <h1 data-toc-skip>An introduction to the rnrfa package</h1>
                         <h4 class="author">Claudia Vitolo</h4>
             
-            <h4 class="date">2020-06-11</h4>
+            <h4 class="date">2021-02-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd"><code>vignettes/rnrfa-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>rnrfa-vignette.Rmd</code></div>
@@ -103,21 +103,26 @@
 <a href="#dependencies" class="anchor"></a>Dependencies</h3>
 <p>The rnrfa package depends on the <strong>gdal</strong> library, make sure you have it installed on your system before attempting to install this package.</p>
 <p><strong>R package dependencies</strong> can be installed running the following code:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"cowplot"</span>, <span class="st">"httr"</span>, <span class="st">"xts"</span>, <span class="st">"ggmap"</span>, <span class="st">"ggplot2"</span>, <span class="st">"sp"</span>, <span class="st">"rgdal"</span>, <span class="st">"parallel"</span>, <span class="st">"tibble"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cowplot"</span>, <span class="st">"httr"</span>, <span class="st">"xts"</span>, <span class="st">"ggmap"</span>, <span class="st">"ggplot2"</span>, <span class="st">"sp"</span>, <span class="st">"rgdal"</span>, <span class="st">"parallel"</span>, <span class="st">"tibble"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>This demo makes also use of external libraries. To install and load them run the following commands:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">packs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"devtools"</span>, <span class="st">"DT"</span>, <span class="st">"leaflet"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="no">packs</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">packs</span>, <span class="no">require</span>, <span class="kw">character.only</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">packs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"devtools"</span>, <span class="st">"DT"</span>, <span class="st">"leaflet"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">packs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">packs</span>, <span class="va">require</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rnrfa"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rnrfa"</span><span class="op">)</span></code></pre></div>
 <p>Or you can install the development version from Github with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"cvitolo/rnrfa"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"cvitolo/rnrfa"</span><span class="op">)</span></code></pre></div>
 <p>Now, load the rnrfa package:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rnrfa</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://cvitolo.github.io/rnrfa/">rnrfa</a></span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="functions" class="section level2">
@@ -127,17 +132,19 @@
 <h3 class="hasAnchor">
 <a href="#list-of-station-identification-numbers" class="anchor"></a>List of station identification numbers</h3>
 <p>The function stations_info() returns a vector of all NRFA station identifiers.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Retrieve station identifiers:</span>
-<span class="no">allIDs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/station_ids.html">station_ids</a></span>()
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">allIDs</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve station identifiers:</span>
+<span class="va">allIDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/station_ids.html">station_ids</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">allIDs</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="list-of-monitoring-stations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#list-of-monitoring-stations" class="anchor"></a>List of monitoring stations</h3>
 <p>The function catalogue() retrieves information for monitoring stations. The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a tibble containing one record for each station and as many columns as the number of metadata entries available.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Retrieve information for all the stations in the catalogue:</span>
-<span class="no">allStations</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>()
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">allStations</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve information for all the stations in the catalogue:</span>
+<span class="va">allStations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">allStations</span><span class="op">)</span></code></pre></div>
 <p>The columns are briefly described below (see also <a href="https://nrfaapps.ceh.ac.uk/nrfa/nrfa-api.html#ws-station-info">API documentation</a>):</p>
 <ul>
 <li>
@@ -199,49 +206,55 @@
 <h3 class="hasAnchor">
 <a href="#station-filtering" class="anchor"></a>Station filtering</h3>
 <p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Define a bounding box:</span>
-<span class="no">bbox</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lon_min</span> <span class="kw">=</span> -<span class="fl">3.82</span>, <span class="kw">lon_max</span> <span class="kw">=</span> -<span class="fl">3.63</span>, <span class="kw">lat_min</span> <span class="kw">=</span> <span class="fl">52.43</span>, <span class="kw">lat_max</span> <span class="kw">=</span> <span class="fl">52.52</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Define a bounding box:</span>
+<span class="va">bbox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lon_min <span class="op">=</span> <span class="op">-</span><span class="fl">3.82</span>, lon_max <span class="op">=</span> <span class="op">-</span><span class="fl">3.63</span>, lat_min <span class="op">=</span> <span class="fl">52.43</span>, lat_max <span class="op">=</span> <span class="fl">52.52</span><span class="op">)</span>
 <span class="co"># Filter stations based on bounding box</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Filter based on minimum recording years</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="kw">min_rec</span> <span class="kw">=</span> <span class="fl">100</span>)
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Filter based on minimum recording years</span>
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span>min_rec <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 
 <span class="co"># Filter stations belonging to a certain hydrometric area</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="kw">column_name</span><span class="kw">=</span><span class="st">"river"</span>, <span class="kw">column_value</span><span class="kw">=</span><span class="st">"Wye"</span>)
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span>column_name<span class="op">=</span><span class="st">"river"</span>, column_value<span class="op">=</span><span class="st">"Wye"</span><span class="op">)</span>
 
 <span class="co"># Filter based on bounding box &amp; metadata strings</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>, <span class="kw">column_name</span><span class="kw">=</span><span class="st">"river"</span>, <span class="kw">column_value</span><span class="kw">=</span><span class="st">"Wye"</span>)
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span>, column_name<span class="op">=</span><span class="st">"river"</span>, column_value<span class="op">=</span><span class="st">"Wye"</span><span class="op">)</span>
 
 <span class="co"># Filter stations based on threshold</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>, <span class="kw">column_name</span><span class="kw">=</span><span class="st">"catchment-area"</span>, <span class="kw">column_value</span><span class="kw">=</span><span class="st">"&gt;1"</span>)
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span>, column_name<span class="op">=</span><span class="st">"catchment-area"</span>, column_value<span class="op">=</span><span class="st">"&gt;1"</span><span class="op">)</span>
 
 <span class="co"># Filter based on minimum recording years</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>, <span class="kw">column_name</span> <span class="kw">=</span> <span class="st">"catchment-area"</span>,
-          <span class="kw">column_value</span> <span class="kw">=</span> <span class="st">"&gt;1"</span>,
-          <span class="kw">min_rec</span> <span class="kw">=</span> <span class="fl">30</span>)
-
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span>, column_name <span class="op">=</span> <span class="st">"catchment-area"</span>,
+          column_value <span class="op">=</span> <span class="st">"&gt;1"</span>,
+          min_rec <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
+                                  
 <span class="co"># Filter stations based on identification number</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="kw">column_name</span><span class="kw">=</span><span class="st">"id"</span>, <span class="kw">column_value</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3001</span>,<span class="fl">3002</span>,<span class="fl">3003</span>))</pre></body></html></div>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Other combined filtering</span>
-<span class="no">someStations</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>,
-                          <span class="kw">column_name</span> <span class="kw">=</span> <span class="st">"id"</span>,
-                          <span class="kw">column_value</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">54022</span>,<span class="fl">54090</span>,<span class="fl">54091</span>,<span class="fl">54092</span>,<span class="fl">54097</span>),
-                          <span class="kw">min_rec</span> <span class="kw">=</span> <span class="fl">35</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span>column_name<span class="op">=</span><span class="st">"id"</span>, column_value<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3001</span>,<span class="fl">3002</span>,<span class="fl">3003</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Other combined filtering</span>
+<span class="va">someStations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span>,
+                          column_name <span class="op">=</span> <span class="st">"id"</span>,
+                          column_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">54022</span>,<span class="fl">54090</span>,<span class="fl">54091</span>,<span class="fl">54092</span>,<span class="fl">54097</span><span class="op">)</span>,
+                          min_rec <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="conversions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conversions" class="anchor"></a>Conversions</h3>
 <p>The RNRFA package allows convenient conversion between UK grid reference and more standard coordinate systems. The function “osg_parse()”, for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Where is the first catchment located?</span>
-<span class="no">someStations</span>$<span class="no">`grid-reference`</span>$<span class="no">ngr</span>[<span class="fl">1</span>]
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Where is the first catchment located?</span>
+<span class="va">someStations</span><span class="op">$</span><span class="va">`grid-reference`</span><span class="op">$</span><span class="va">ngr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 
 <span class="co"># Convert OS Grid reference to BNG</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="st">"SN853872"</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/osg_parse.html">osg_parse</a></span><span class="op">(</span><span class="st">"SN853872"</span><span class="op">)</span></code></pre></div>
 <p>The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># Convert BNG to WSGS84</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="kw">grid_refs</span> <span class="kw">=</span> <span class="st">"SN853872"</span>, <span class="kw">coord_system</span> <span class="kw">=</span> <span class="st">"WGS84"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert BNG to WSGS84</span>
+<span class="fu"><a href="../reference/osg_parse.html">osg_parse</a></span><span class="op">(</span>grid_refs <span class="op">=</span> <span class="st">"SN853872"</span>, coord_system <span class="op">=</span> <span class="st">"WGS84"</span><span class="op">)</span></code></pre></div>
 <p>osg_parse() also works with multiple references:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="kw">grid_refs</span> <span class="kw">=</span> <span class="no">someStations</span>$<span class="no">`grid-reference`</span>$<span class="no">ngr</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/osg_parse.html">osg_parse</a></span><span class="op">(</span>grid_refs <span class="op">=</span> <span class="va">someStations</span><span class="op">$</span><span class="va">`grid-reference`</span><span class="op">$</span><span class="va">ngr</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-time-series-data" class="section level3">
 <h3 class="hasAnchor">
@@ -255,80 +268,88 @@
 <li><p><code>cl</code>, This is a cluster object, created by the parallel package. This is set to NULL by default, which sends sequential calls to the server.</p></li>
 </ul>
 <p>Here is how to retrieve mean rainfall (monthly) data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># Fetch only time series data from the waterml2 service</span>
-<span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Fetch only time series data from the waterml2 service</span>
+<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cmr.html">cmr</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">)</span>
 
 <span class="co"># Fetch time series data and metadata from the waterml2 service</span>
-<span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>, <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Monthly rainfall data for the"</span>,
-                           <span class="no">info</span>$<span class="no">meta</span>$<span class="no">stationName</span>,<span class="st">"catchment"</span>),
-     <span class="kw">xlab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">ylab</span><span class="kw">=</span><span class="no">info</span>$<span class="no">meta</span>$<span class="no">units</span>)</pre></body></html></div>
+<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cmr.html">cmr</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span>, metadata <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">$</span><span class="va">data</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Monthly rainfall data for the"</span>,
+                           <span class="va">info</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">stationName</span>,<span class="st">"catchment"</span><span class="op">)</span>, 
+     xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="va">info</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">units</span><span class="op">)</span></code></pre></div>
 <p>Here is how to retrieve (daily) flow data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Fetch only time series data</span>
-<span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Fetch only time series data</span>
+<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gdf.html">gdf</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">)</span>
 
 <span class="co"># Fetch time series data and metadata from the waterml2 service</span>
-<span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>, <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>$<span class="no">data</span>, <span class="kw">main</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"Daily flow data for the "</span>,
-                            <span class="no">info</span>$<span class="no">meta</span>$<span class="no">station.name</span>,
+<span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gdf.html">gdf</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span>, metadata <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">$</span><span class="va">data</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Daily flow data for the "</span>,
+                            <span class="va">info</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">station.name</span>,
                             <span class="st">" catchment ("</span>,
-                            <span class="no">info</span>$<span class="no">meta</span>$<span class="no">data.type.units</span>, <span class="st">")"</span>))</pre></body></html></div>
+                            <span class="va">info</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">data.type.units</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="multiple-sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-sites" class="anchor"></a>Multiple sites</h3>
 <p>By default, the functions <code>getTS()</code> can be used to fetch time series data from multiple site in a sequential mode (using 1 core):</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># Search data/metadata</span>
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3002</span>,<span class="fl">3003</span>), <span class="kw">metadata</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Search data/metadata</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cmr.html">cmr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3002</span>,<span class="fl">3003</span><span class="op">)</span>, metadata <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># s is a list of 2 objects (one object for each site)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">1</span>]]$<span class="no">data</span>,
-     <span class="kw">main</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">1</span>]]$<span class="no">meta</span>$<span class="no">station.name</span>, <span class="st">"and"</span>, <span class="no">s</span><span class="kw">[[</span><span class="fl">2</span>]]$<span class="no">meta</span>$<span class="no">station.name</span>))
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">s</span><span class="kw">[[</span><span class="fl">2</span>]]$<span class="no">data</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">"green"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">data</span>, 
+     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">s</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">station.name</span>, <span class="st">"and"</span>, <span class="va">s</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">station.name</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">s</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">data</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="interoperability" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interoperability" class="anchor"></a>Interoperability</h2>
 <p>Upgrade your data.frame to a data.table:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">DT</span>)
-<span class="fu">datatable</span>(<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DT</span><span class="op">)</span>
+<span class="fu">datatable</span><span class="op">(</span><span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Create interactive maps using leaflet:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">leaflet</span>)
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">leaflet</span><span class="op">)</span>
 
-<span class="fu">leaflet</span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">someStations</span>) <span class="kw">%&gt;%</span> <span class="fu">addTiles</span>() <span class="kw">%&gt;%</span>
-  <span class="fu">addMarkers</span>(~<span class="no">longitude</span>, ~<span class="no">latitude</span>, <span class="kw">popup</span> <span class="kw">=</span> ~<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">id</span>,<span class="no">name</span>)))</pre></body></html></div>
+<span class="fu">leaflet</span><span class="op">(</span>data <span class="op">=</span> <span class="va">someStations</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">addTiles</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">addMarkers</span><span class="op">(</span><span class="op">~</span><span class="va">longitude</span>, <span class="op">~</span><span class="va">latitude</span>, popup <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">id</span>,<span class="va">name</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Interactive plots using dygraphs:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dygraphs</span>)
-<span class="fu">dygraph</span>(<span class="no">info</span>$<span class="no">data</span>) <span class="kw">%&gt;%</span> <span class="fu">dyRangeSelector</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dygraphs</span><span class="op">)</span>
+<span class="fu">dygraph</span><span class="op">(</span><span class="va">info</span><span class="op">$</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">dyRangeSelector</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Sequential vs Concurrent requests: a simple benchmark test</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
 <span class="co"># Use detectCores() to find out many cores are available on your machine</span>
-<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span>(<span class="st">"cl.cores"</span>, <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>()))
+<span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"cl.cores"</span>, <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Filter all the stations within the above bounding box</span>
-<span class="no">someStations</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>)
+<span class="va">someStations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span><span class="op">)</span>
 
 <span class="co"># Get flow data with a sequential approach</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="no">someStations</span>$<span class="no">id</span>, <span class="kw">cl</span> <span class="kw">=</span> <span class="kw">NULL</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gdf.html">gdf</a></span><span class="op">(</span><span class="va">someStations</span><span class="op">$</span><span class="va">id</span>, cl <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Get flow data with a concurrent approach (using `parLapply()`)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="no">someStations</span>$<span class="no">id</span>, <span class="kw">cl</span> <span class="kw">=</span> <span class="no">cl</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gdf.html">gdf</a></span><span class="op">(</span>id <span class="op">=</span> <span class="va">someStations</span><span class="op">$</span><span class="va">id</span>, cl <span class="op">=</span> <span class="va">cl</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></code></pre></div>
 <p>The measured flows are expected to increase with the catchment area. Let’s show this simple regression on a plot:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># Calculate the mean flow for each catchment</span>
-<span class="no">someStations</span>$<span class="no">meangdf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">s2</span>, <span class="no">mean</span>))
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Calculate the mean flow for each catchment</span>
+<span class="va">someStations</span><span class="op">$</span><span class="va">meangdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Linear model</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">someStations</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">`catchment-area`</span>), <span class="kw">y</span> <span class="kw">=</span> <span class="no">meangdf</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="st">"lm"</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"red"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Catchment area [Km^2]"</span>,<span class="kw">sep</span><span class="kw">=</span><span class="st">""</span>))) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Mean flow [m^3/s]"</span>,<span class="kw">sep</span><span class="kw">=</span><span class="st">""</span>)))</pre></body></html></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">someStations</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">`catchment-area`</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">meangdf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Catchment area [Km^2]"</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Mean flow [m^3/s]"</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -347,7 +368,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

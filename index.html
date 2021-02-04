@@ -62,7 +62,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/cvitolo/rnrfa/">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,12 +94,15 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rnrfa"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rnrfa"</span><span class="op">)</span></code></pre></div>
 <p>Or the development version from GitHub using the package <code>remotes</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"cvitolo/rnrfa"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"cvitolo/rnrfa"</span><span class="op">)</span></code></pre></div>
 <p>Now, load the rnrfa package:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rnrfa</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://cvitolo.github.io/rnrfa/">rnrfa</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
@@ -108,28 +111,33 @@
 <h3 class="hasAnchor">
 <a href="#retrieve-information-for-all-the-stations-in-the-catalogue" class="anchor"></a>Retrieve information for all the stations in the catalogue</h3>
 <p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">allStations</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>()</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">allStations</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># Define a bounding box:</span>
-<span class="no">bbox</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lon_min</span><span class="kw">=</span>-<span class="fl">3.82</span>, <span class="kw">lon_max</span><span class="kw">=</span>-<span class="fl">3.63</span>, <span class="kw">lat_min</span><span class="kw">=</span><span class="fl">52.43</span>, <span class="kw">lat_max</span><span class="kw">=</span><span class="fl">52.52</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Define a bounding box:</span>
+<span class="va">bbox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lon_min<span class="op">=</span><span class="op">-</span><span class="fl">3.82</span>, lon_max<span class="op">=</span><span class="op">-</span><span class="fl">3.63</span>, lat_min<span class="op">=</span><span class="fl">52.43</span>, lat_max<span class="op">=</span><span class="fl">52.52</span><span class="op">)</span>
 
 <span class="co"># Filter stations based on bounding box</span>
-<span class="no">someStations</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/catalogue.html">catalogue</a></span>(<span class="no">bbox</span>)</pre></div>
+<span class="va">someStations</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/catalogue.html">catalogue</a></span><span class="op">(</span><span class="va">bbox</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="conversions-of-os-grid-references" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conversions-of-os-grid-references" class="anchor"></a>Conversions of OS grid references</h3>
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column “gridRef”). The RNRFA package allows convenient conversion to more standard coordinate systems. The function “osg_parse()”, for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="co"># Where is the first catchment located?</span>
-<span class="no">someStations</span>$<span class="no">`grid-reference`</span>$<span class="no">ngr</span>[<span class="fl">1</span>]
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Where is the first catchment located?</span>
+<span class="va">someStations</span><span class="op">$</span><span class="va">`grid-reference`</span><span class="op">$</span><span class="va">ngr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 
 <span class="co"># Convert OS Grid reference to BNG</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="kw">grid_refs</span> <span class="kw">=</span> <span class="st">"SN853872"</span>)</pre></div>
+<span class="fu"><a href="reference/osg_parse.html">osg_parse</a></span><span class="op">(</span>grid_refs <span class="op">=</span> <span class="st">"SN853872"</span><span class="op">)</span></code></pre></div>
 <p>The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="co"># Convert BNG to WSGS84</span>
-<span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="kw">grid_refs</span> <span class="kw">=</span> <span class="st">"SN853872"</span>, <span class="kw">coord_system</span> <span class="kw">=</span> <span class="st">"WGS84"</span>)</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert BNG to WSGS84</span>
+<span class="fu"><a href="reference/osg_parse.html">osg_parse</a></span><span class="op">(</span>grid_refs <span class="op">=</span> <span class="st">"SN853872"</span>, coord_system <span class="op">=</span> <span class="st">"WGS84"</span><span class="op">)</span></code></pre></div>
 <p>osg_parse() also works with multiple references:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/osg_parse.html">osg_parse</a></span>(<span class="no">someStations</span>$<span class="no">`grid-reference`</span>$<span class="no">ngr</span>)</pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/osg_parse.html">osg_parse</a></span><span class="op">(</span><span class="va">someStations</span><span class="op">$</span><span class="va">`grid-reference`</span><span class="op">$</span><span class="va">ngr</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="time-series-data" class="section level3">
 <h3 class="hasAnchor">
@@ -137,11 +145,13 @@
 <p>The first column of the table “someStations” contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo).</p>
 <p>The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.</p>
 <p>Catchment mean rainfall:</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/cmr.html">cmr</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cmr.html">cmr</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">)</span></code></pre></div>
 <p>Gauged daily flow:</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="no">info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rnrfa/man/gdf.html">gdf</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"3001"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">info</span>)</pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gdf.html">gdf</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"3001"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">info</span><span class="op">)</span></code></pre></div>
 <p>For more examples and details, please see the <a href="https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd">vignette</a>.</p>
 </div>
 <div id="terms-and-conditions" class="section level3">
@@ -206,7 +216,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

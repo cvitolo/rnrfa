@@ -48,6 +48,8 @@ generates a plots combining rainfall and flow information." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -106,7 +108,7 @@ generates a plots combining rainfall and flow information." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/cvitolo/rnrfa/">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +137,7 @@ mm/day to that it can be comparable with the rainfall (mm/month). Finally it
 generates a plots combining rainfall and flow information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_rain_flow</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rain</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>flow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_rain_flow</span><span class='op'>(</span>id <span class='op'>=</span> <span class='cn'>NULL</span>, rain <span class='op'>=</span> <span class='cn'>NULL</span>, flow <span class='op'>=</span> <span class='cn'>NULL</span>, area <span class='op'>=</span> <span class='cn'>NULL</span>, title <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,9 +169,10 @@ generates a plots combining rainfall and flow information.</p>
     <p>Plot rainfall and flow for a given station</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='fu'>plot_rain_flow</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>54090</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>plot_rain_flow</span><span class='op'>(</span>id <span class='op'>=</span> <span class='fl'>54090</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -185,7 +188,7 @@ generates a plots combining rainfall and flow information.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
