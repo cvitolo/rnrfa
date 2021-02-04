@@ -8,6 +8,8 @@ addons:
     packages:
     - libproj-dev
     - libgdal-dev
+    - libharfbuzz-dev
+    - libfribidi-dev
 
 r_packages:
   - covr
