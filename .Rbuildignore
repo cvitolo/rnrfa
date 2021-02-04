@@ -8,6 +8,5 @@ README_cache
 ^_pkgdown\.yml$
 ^doc$
 ^docs$
-^.*\.svx
-^.*\.Rhistory
+^doc$
 ^Meta$

@@ -17,7 +17,6 @@ Description: Utility functions to retrieve data from the UK National River Flow 
 Depends: R (>= 3.0.2)
 Imports:
     rgdal,
-    dplyr,
     curl,
     jsonlite,
     lubridate,

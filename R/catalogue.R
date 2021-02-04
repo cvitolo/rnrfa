@@ -65,10 +65,8 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     lat_min <- bbox$lat_min
     lat_max <- bbox$lat_max
 
-    df <- df %>%
-      filter(between(latitude, lat_min, lat_max),
-             between(longitude, lon_min, lon_max))
-
+    df <- df[(df$latitude > lat_min & df$latitude < lat_max) &
+      (df$longitude > lon_min & df$longitude < lon_max),]
   }
 
   ### FILTER BASED ON MINIMUM RECONDING YEARS ###
