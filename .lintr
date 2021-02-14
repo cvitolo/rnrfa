@@ -1,0 +1,3 @@
+exclusions: list(
+  "R/catalogue.R" = 49
+ )

@@ -29,8 +29,10 @@ seasonal_averages <- function(timeseries, season = "Spring") {
 
     tslist <- lapply(X = as.list(timeseries), FUN = seasonal_averages_internal,
                      season)
-    
-    if (length(tslist) == 1) {tslist <- unlist(tslist)}
+
+    if (length(tslist) == 1) {
+      tslist <- unlist(tslist)
+    }
 
   }
 

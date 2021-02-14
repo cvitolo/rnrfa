@@ -66,7 +66,7 @@ test_that("Check get_ts works with other types", {
                structure(c(25L, 12L), .Dim = 2L,
                          .Dimnames = structure(list(c("0", "1")), .Names = ""),
                          class = "table"))
-  
+
   x2 <- get_ts(id = 43010, type = "pot-flow", full_info = TRUE)
   expect_true(class(x2) == "zoo")
   expect_equal(table(x2$rejected[1:11]),
@@ -75,7 +75,7 @@ test_that("Check get_ts works with other types", {
                          class = "table"))
   x3 <- get_ts(id = 72014, type = "pot-flow", full_info = TRUE)
   expect_equal(table(x3$rejected[1:176]),
-               structure(c(`0` = 176L), .Dim = 1L, 
-                         .Dimnames = structure(list("0"), .Names = ""), 
+               structure(c(`0` = 176L), .Dim = 1L,
+                         .Dimnames = structure(list("0"), .Names = ""),
                          class = "table"))
 })

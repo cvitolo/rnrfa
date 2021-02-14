@@ -66,7 +66,7 @@ catalogue <- function(bbox = NULL, column_name = NULL, column_value = NULL,
     lat_max <- bbox$lat_max
 
     df <- df[(df$latitude > lat_min & df$latitude < lat_max) &
-      (df$longitude > lon_min & df$longitude < lon_max),]
+      (df$longitude > lon_min & df$longitude < lon_max), ]
   }
 
   ### FILTER BASED ON MINIMUM RECONDING YEARS ###
