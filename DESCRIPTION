@@ -13,7 +13,7 @@ Authors@R: c(person("Claudia", "Vitolo",
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
 URL: http://cvitolo.github.io/rnrfa/
 BugReports: https://github.com/cvitolo/rnrfa/issues
-Description: Utility functions to retrieve data from the UK National River Flow Archive (<http://nrfa.ceh.ac.uk/>, terms and conditions: <http://nrfa.ceh.ac.uk/costs-terms-and-conditions>). The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information.
+Description: Utility functions to retrieve data from the UK National River Flow Archive (<http://nrfa.ceh.ac.uk/>, terms and conditions: <http://nrfa.ceh.ac.uk/costs-terms-and-conditions>).The package contains R wrappers to the UK NRFA data temporary-API. There are functions to retrieve stations falling in a bounding box, to generate a map and extracting time series and general information. The package is fully described in Vitolo et al (2016) <[https://journal.r-project.org/archive/2016/RJ-2016-036/RJ-2016-036.pdf]https://journal.r-project.org/archive/2016/RJ-2016-036/RJ-2016-036.pdf>.
 Depends: R (>= 3.5)
 Imports:
     rgdal,

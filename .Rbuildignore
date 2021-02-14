@@ -1,12 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.travis.yml
-appveyor.yml
-CONDUCT.md
-README.Rmd
-README_cache
+.lintr
 ^_pkgdown\.yml$
-^docs$
-^doc$
 ^Meta$
 ^\.github$
+README.Rmd
