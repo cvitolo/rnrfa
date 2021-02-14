@@ -1,11 +1,14 @@
 # rnrfa
 > An R package to Retrieve, Filter and Visualize Data from the UK National River Flow Archive
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.593201.svg)](https://doi.org/10.5281/zenodo.593201) [![Travis-CI Build Status](https://travis-ci.org/cvitolo/rnrfa.svg?branch=master)](https://travis-ci.org/cvitolo/rnrfa) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/cvitolo/rnrfa?branch=master&svg=true)](https://ci.appveyor.com/project/cvitolo/rnrfa) [![Coverage Status](https://codecov.io/gh/cvitolo/rnrfa/master.svg)](https://codecov.io/github/cvitolo/rnrfa?branch=master)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.593201.svg)](https://doi.org/10.5281/zenodo.593201)
 
-[![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](https://cran.r-project.org/package=rnrfa) [![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/rnrfa)](https://cran.r-project.org/package=rnrfa) [![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](https://cran.r-project.org/package=rnrfa)
+[![CRAN Status Badge](http://www.r-pkg.org/badges/version/rnrfa)](https://cran.r-project.org/package=rnrfa)
+[![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/rnrfa)](https://cran.r-project.org/package=rnrfa)
+[![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](https://cran.r-project.org/package=rnrfa)
 
 [![R-CMD-check](https://github.com/cvitolo/rnrfa/workflows/R-CMD-check/badge.svg)](https://github.com/cvitolo/rnrfa/actions)
+[![Coverage Status](https://codecov.io/gh/cvitolo/rnrfa/master.svg)](https://codecov.io/github/cvitolo/rnrfa?branch=master)
 
 The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.
 
