@@ -108,7 +108,7 @@ For more examples and details, please see the [vignette](https://github.com/cvit
 
 ### Terms and Conditions
 
-Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <http://nrfa.ceh.ac.uk/costs-terms-and-conditions>
+Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <https://nrfa.ceh.ac.uk/costs-terms-and-conditions>
 
 This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.
 
