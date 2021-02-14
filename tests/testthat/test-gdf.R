@@ -14,6 +14,8 @@ test_that("Output of gdf function for id 18019", {
 })
 
 test_that("get_ts gdf works in parallel", {
+  
+  skip_on_os("windows")
 
   s <- try(gdf(id = c(54022, 54090, 54091), cl = 3), silent = TRUE)
   expect_equal(class(s), "try-error")
