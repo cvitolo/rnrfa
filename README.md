@@ -10,6 +10,8 @@
 [![R-CMD-check](https://github.com/cvitolo/rnrfa/workflows/R-CMD-check/badge.svg)](https://github.com/cvitolo/rnrfa/actions)
 [![Coverage Status](https://codecov.io/gh/cvitolo/rnrfa/master.svg)](https://codecov.io/github/cvitolo/rnrfa?branch=master)
 
+**Update on 01-03-2021: the maintainer of this package has changed. The latest version of rnrfa is now available at https://github.com/ilapros/rnrfa**
+
 The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.
 
 There is currently an API under development that in future should provide access to the following services: metadata catalogue, catalogue filters based on a geographical bounding-box, catalogue filters based on metadata entries, gauged daily data for about 400 stations available in WaterML2 format, the OGC standard used to describe hydrological time series.
