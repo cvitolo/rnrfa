@@ -1,3 +1,10 @@
+v2.0.5.
+--------------------------------------
+Minor change:
+
+- To further ensure that the package fails gracefully when the NRFA api is interrogated about stations which do not exist an informative message is printed and the function(s) return a NULL object.  
+
+
 v2.0.4 and submitted to CRAN.
 --------------------------------------
 Minor change:

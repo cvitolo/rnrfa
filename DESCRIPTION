@@ -1,10 +1,14 @@
 Package: rnrfa
 Title: UK National River Flow Archive Data from R
-Version: 2.0.4
-Authors@R: c(person("Claudia", "Vitolo",
-                    email = "cvitolodev@gmail.com",
-                    role = c("aut", "cre"),
-                    comment = c(ORCID = "0000-0002-4252-1176")),
+Version: 2.0.5
+Authors@R: c(person("Ilaria", "Prosdocimi", 
+                    email = "prosdocimi.ilaria@gmail.com",
+                    role = c("ctb", "cre"),
+                    comment = c(ORCID = "0000-0001-8565-094X")),
+             person("Claudia", "Vitolo",
+                    comment = c(ORCID = "0000-0002-4252-1176",
+                    "Claudia is the original creator of the package"), 
+                    role = c("aut")),
              person("Matthew", "Fry", role = c("ctb"),
                     comment = "Matthew supervised the unofficial API 
                     integration."),
@@ -16,13 +20,11 @@ Authors@R: c(person("Claudia", "Vitolo",
                     with grid references of different lengths."),
              person("Tobias", "Gauster", role = c("ctb"),
                     comment = "Tobias improved the function osg_parse 
-                    introducing vectorisation"),
-             person("Ilaria", "Prosdocimi", role = c("ctb"),
-                    comment = "Ilaria contributed to the adaptation of the
-                    package to the 2019 API"))
-Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
-URL: http://cvitolo.github.io/rnrfa/
-BugReports: https://github.com/cvitolo/rnrfa/issues
+                    introducing vectorisation")
+                    )
+Maintainer: Ilaria Prosdocimi <prosdocimi.ilaria@gmail.com>
+URL: http://ilapros.github.io/rnrfa/
+BugReports: https://github.com/ilapros/rnrfa/issues
 Description: Utility functions to retrieve data from the UK National River Flow
   Archive (<https://nrfa.ceh.ac.uk/>, terms and conditions:
   <https://nrfa.ceh.ac.uk/costs-terms-and-conditions>).

@@ -1,15 +1,15 @@
 context("get_ts")
 
-test_that("Check get_ts fails when it should", {
+test_that("Check get_ts fails (gracefully) when it should", {
 
-  rain <- try(get_ts(id = NULL, type = "cmr"), silent = TRUE)
-  expect_true(class(rain) == "try-error")
+  rain <- get_ts(id = NULL, type = "cmr")
+  expect_true(is.null(rain))
 
-  rain <- try(get_ts(id = 0, type = "cmr"), silent = TRUE)
-  expect_true(class(rain) == "try-error")
+  rain <- get_ts(id = 0, type = "cmr")
+  expect_true(is.null(rain))
 
-  rain <- try(get_ts(id = 18019, type = "ndf"), silent = TRUE)
-  expect_true(class(rain) == "try-error")
+  rain <- get_ts(id = 18019, type = "ndf")
+  expect_true(is.null(rain))
 
 })
 

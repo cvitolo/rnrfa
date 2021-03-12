@@ -1,7 +1,11 @@
 ^.*\.Rproj$
+^.*\.svx
 ^\.Rproj\.user$
 .lintr
 ^_pkgdown\.yml$
 ^Meta$
 ^\.github$
 README.Rmd
+^docs$
+^doc$
+^pkgdown$

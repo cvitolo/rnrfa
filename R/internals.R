@@ -3,7 +3,7 @@ nrfa_api <- function(webservice, parameters, path = "") {
   if (!curl::has_internet()) stop("no internet")
 
   # Set a user agent
-  ua <- httr::user_agent("https://github.com/cvitolo/rnrfa")
+  ua <- httr::user_agent("https://github.com/ilapros/rnrfa")
 
   if (!(webservice %in% c("station-ids", "station-info", "time-series"))) {
     stop(paste("Invalid web service, try one of the following:",
@@ -19,8 +19,7 @@ nrfa_api <- function(webservice, parameters, path = "") {
   # Check response
   if (httr::http_error(resp)) {
     message(
-      sprintf("NRFA API request failed [%s]", httr::status_code(resp)),
-      call. = FALSE
+      sprintf("NRFA API request failed [%s]", httr::status_code(resp))
     )
     return(NULL)
   }
@@ -57,7 +56,6 @@ nrfa_api <- function(webservice, parameters, path = "") {
       response = resp
     ),
     class = "nrfa_api")
-
 }
 
 print.nrfa_api <- function(x, ...) {
@@ -73,7 +71,10 @@ even <- function(x) x %% 2 == 0
 get_ts_internal <- function(id, type, metadata, verbose, full_info) {
 
   if (!curl::has_internet()) stop("no internet")
-
+  if(length(id) == 0) {
+    message("id needs to be specified")
+    return(NULL)
+  }
   parameters <- list(format = "json-object",
                      station = id,
                      `data-type` = type)
@@ -86,8 +87,9 @@ get_ts_internal <- function(id, type, metadata, verbose, full_info) {
   # GET DATA
   datastream <- time_series$content$`data-stream`
   if (length(datastream) == 0) {
-    stop("Empty data-stream")
-  }else{
+    message("Empty data-stream")
+    return(NULL)
+  } else{
     datatime <- datastream[odd(seq_along(datastream))]
     datavalue <- datastream[even(seq_along(datastream))]
     # If datatime contains only year-month, the following adds a dummy day

@@ -7,10 +7,10 @@
 [![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/rnrfa)](https://cran.r-project.org/package=rnrfa)
 [![CRAN Monthly Downloads](http://cranlogs.r-pkg.org/badges/rnrfa)](https://cran.r-project.org/package=rnrfa)
 
-[![R-CMD-check](https://github.com/cvitolo/rnrfa/workflows/R-CMD-check/badge.svg)](https://github.com/cvitolo/rnrfa/actions)
-[![Coverage Status](https://codecov.io/gh/cvitolo/rnrfa/master.svg)](https://codecov.io/github/cvitolo/rnrfa?branch=master)
+[![R-CMD-check](https://github.com/ilapros/rnrfa/workflows/R-CMD-check/badge.svg)](https://github.com/ilapros/rnrfa/actions)
+[![Coverage Status](https://codecov.io/gh/ilapros/rnrfa/master.svg)](https://codecov.io/github/ilapros/rnrfa?branch=master)
 
-**Update on 01-03-2021: the maintainer of this package has changed. The latest version of rnrfa is now available at https://github.com/ilapros/rnrfa**
+**This is the new page of rnrfa - past versions (and the first version) can be seen at https://github.com/cvitolo/rnrfa**
 
 The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.
 
@@ -32,7 +32,7 @@ Or the development version from GitHub using the package `remotes`:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("cvitolo/rnrfa")
+remotes::install_github("ilapros/rnrfa")
 ```
 
 Now, load the rnrfa package:
@@ -106,7 +106,7 @@ info <- gdf(id = "3001")
 plot(info)
 ```
 
-For more examples and details, please see the [vignette](https://github.com/cvitolo/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd).
+For more examples and details, please see the [vignette](https://github.com/ilapros/rnrfa/blob/master/vignettes/rnrfa-vignette.Rmd).
 
 ### Terms and Conditions
 
@@ -116,6 +116,6 @@ This package uses a non-public API which is likely to change. Package and functi
 
 ### Meta
 
--   Please [report any issues or bugs](https://github.com/cvitolo/rnrfa/issues).
+-   Please [report any issues or bugs](https://github.com/ilapros/rnrfa/issues).
 -   License: [GPL-3](https://opensource.org/licenses/GPL-3.0)
 -   Get citation information for `rnrfa` in R doing `citation(package = 'rnrfa')`

@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: references.bib
 vignette: >
-  %\VignetteIndexEntry{rnrfa}
+  %\VignetteIndexEntry{An introduction to the rnrfa package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -51,7 +51,7 @@ install.packages("rnrfa")
 Or you can install the development version from Github with [devtools](https://github.com/r-lib/devtools):
 
 ```{r}
-devtools::install_github("cvitolo/rnrfa")
+devtools::install_github("ilapros/rnrfa")
 ```
 
 Now, load the rnrfa package:

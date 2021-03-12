@@ -66,7 +66,7 @@ get_ts <- function(id, type, metadata = FALSE, cl = NULL, verbose = FALSE,
   if (length(as.list(id)) == 0) {
 
     message("Please, enter valid id.")
-    stop
+    return(NULL)
 
   }else{
 
