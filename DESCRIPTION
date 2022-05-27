@@ -21,7 +21,7 @@ Authors@R: c(person("Claudia", "Vitolo",
                     comment = "Ilaria contributed to the adaptation of the
                     package to the 2019 API"))
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>
-URL: http://cvitolo.github.io/rnrfa/
+URL: https://cvitolo.github.io/rnrfa/
 BugReports: https://github.com/cvitolo/rnrfa/issues
 Description: Utility functions to retrieve data from the UK National River Flow
   Archive (<https://nrfa.ceh.ac.uk/>, terms and conditions:
